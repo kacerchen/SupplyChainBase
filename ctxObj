@@ -1,0 +1,95 @@
+ctx(ProductContext):
+
+ProductContext {
+  productList:
+   ProductList {
+     ctx: [Circular],
+     name: 'org.processnet.productlist',
+     id: 0,
+     supportedClasses: { 'org.processnet.product': [Function: Product] } },
+  stub:
+   ChaincodeStub {
+     channel_id: 'mychannel',
+     txId: '0e477793b37d6897c214d2f95b50568dff5b1a5f52cc120adf201538ccf285fb',
+     args:
+      [ 'org.processnet.product:initProduct',
+        'componentA',
+        '2',
+        '1',
+        'org.processnet.productlist"supplierA":"componentA":1',
+        'N/A',
+        '1552521600',
+        '450',
+        'supplierA',
+        'DigiBank' ],
+     bufferArgs:
+      [ <Buffer 6f 72 67 2e 70 72 6f 63 65 73 73 6e 65 74 2e 70 72 6f 64 75 63 74 3a 69 6e 69 74 50 72 6f 64 75 63 74>,
+        <Buffer 63 6f 6d 70 6f 6e 65 6e 74 41>,
+        <Buffer 32>,
+        <Buffer 31>,
+        <Buffer 6f 72 67 2e 70 72 6f 63 65 73 73 6e 65 74 2e 70 72 6f 64 75 63 74 6c 69 73 74 22 73 75 70 70 6c 69 65 72 41 22 3a 22 63 6f 6d 70 6f 6e 65 6e 74 41 22 ... >,
+        <Buffer 4e 2f 41>,
+        <Buffer 31 35 35 32 35 32 31 36 30 30>,
+        <Buffer 34 35 30>,
+        <Buffer 73 75 70 70 6c 69 65 72 41>,
+        <Buffer 44 69 67 69 42 61 6e 6b> ],
+     handler:
+      ChaincodeSupportClient {
+        chaincode: [Object],
+        _options: [Object],
+        _url: 'grpc://peer0.org1.example.com:7052',
+        _endpoint: [Object],
+        _request_timeout: 30000,
+        _client: [Object],
+        _stream: [Object],
+        msgQueueHandler: [Object] },
+     validationParameterMetakey: 'VALIDATION_PARAMETER',
+     proposal: { header: [Object], payload: [Object], extension: [Object] },
+     creator: { mspid: 'Org1MSP', id_bytes: [Object] },
+     txTimestamp: { seconds: [Object], nanos: 973000000 },
+     transientMap:
+      Map {
+        field: [Object],
+        keyElem: [Object],
+        valueElem: [Object],
+        map: {} },
+     signedProposal:
+      { signature: <Buffer 30 45 02 21 00 85 60 e5 57 c5 84 f0 7a 6a 7d 9650 c9 be d1 14 5c a7 4e de 0b 1f 3c 33 7a 5b 1c 3b 14 38 72 ac 02 20 27 a344 e5 72 b8 48 65 e7 b4 7a ... >,
+        proposal: [Object] },
+     binding: 'd116294222efff0c74157a34d13ef1ad8538642ed5b08787d41745f94d9f41ce' },
+  clientIdentity:
+   ClientIdentity {
+     stub:
+      ChaincodeStub {
+        channel_id: 'mychannel',
+        txId: '0e477793b37d6897c214d2f95b50568dff5b1a5f52cc120adf201538ccf285fb',
+        args: [Array],
+        bufferArgs: [Array],
+        handler: [Object],
+        validationParameterMetakey: 'VALIDATION_PARAMETER',
+        proposal: [Object],
+        creator: [Object],
+        txTimestamp: [Object],
+        transientMap: [Object],
+        signedProposal: [Object],
+        binding: 'd116294222efff0c74157a34d13ef1ad8538642ed5b08787d41745f94d9f41ce' },
+     mspId: 'Org1MSP',
+     cert:
+      { version: 2,
+        subject: [Object],
+        issuer: [Object],
+        serial: '51133252CE306DEF4DB08BCF162F9E88A0359CE3',
+        notBefore: 2019-04-19T03:56:00.000Z,
+        notAfter: 2020-04-18T04:01:00.000Z,
+        subjectHash: '5977a29',
+        signatureAlgorithm: 'ecdsa-with-SHA256',
+        fingerPrint: '8F:41:84:3E:00:FA:1B:F5:39:11:3B:B9:A6:22:BD:AE:B5:E2:39:E9',
+        publicKey: [Object],
+        altNames: [],
+        extensions: [Object] },
+     attrs:
+      { 'hf.Affiliation': 'org1.department1',
+        'hf.EnrollmentID': 'User1@org1.example.com',
+        'hf.Type': 'client' },
+     id: 'x509::/OU=client+OU=org1+OU=department1/CN=User1@org1.example.com::/C=US/ST=California/L=San Francisco/O=org1.example.com/CN=ca.org1.example.com' },
+  logging: { setLevel: [Function], getLogger: [Function: getLogger] } }
