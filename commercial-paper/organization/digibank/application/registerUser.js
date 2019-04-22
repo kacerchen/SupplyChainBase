@@ -16,7 +16,7 @@ async function main() {
     try {
 
         // Create a new file system based wallet for managing identities.
-        const wallet = new FileSystemWallet('../../../../fabcar/javascript/wallet');
+        const wallet = new FileSystemWallet('./wallet');
 
         // Check to see if we've already enrolled the user.
         const userExists = await wallet.exists('User1@org1.example.com');
