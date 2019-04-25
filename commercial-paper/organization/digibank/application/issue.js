@@ -24,7 +24,7 @@ const Order = require('../contract/lib/order.js');
 
 // A wallet stores a collection of identities for use
 //const wallet = new FileSystemWallet('../user/isabella/wallet');
-const wallet = new FileSystemWallet('../../../../fabcar/javascript/wallet');
+const wallet = new FileSystemWallet('./wallet');
 
 //Count record
 let productID = 0;
@@ -67,33 +67,33 @@ async function main() {
     console.log('Use org.processnet.processline smart contract.');
 
     // Smart contract name is 'org.processnet.processline' which is set in ProcessLineContract class with super()
-    // const contract = await network.getContract('processcontracts', 'org.processnet.processline');
+    const contract = await network.getContract('processcontracts', 'org.processnet.processline');
     // const contract2 = await network.getContract('processcontracts', 'org.processnet.product');
-    const contract3 = await network.getContract('processcontracts', 'org.processnet.order');
+    // const contract3 = await network.getContract('processcontracts', 'org.processnet.order');
 
     // init process line
     console.log('Submit process line init transaction.');
 
     productID += 1;
 
-    // const issueResponse = await contract.submitTransaction('initProcessLine', '00001', 'componentA', 'CT-123', 'MagnetoCorp', '1552521600', '450', '35', 'drugA');
+    const issueResponse = await contract.submitTransaction('initProcessLine', '00001', 'componentA', 'CT-123', 'MagnetoCorp', '1552521600', '450', '35', 'drugA');
     // const issueResponse2 = await contract2.submitTransaction('initProduct', productID.toString(), 'componentA', '2', '1', 'org.processnet.productlist"supplierA":"componentA":1', 'N/A', '1552521600', '450', 'supplierA', 'DigiBank');
-    const issueResponse3 = await contract3.submitTransaction('initOrder', '1', '1', '1', 'finalA', '450', '1350', 
-                                                             'some specs...', 'need operator get C license', 'follow our SOP', '1 months', 
-                                                             'Beacon st., Boston, MA', 'air express', 'FCA', 'ship in 2 days.',
-                                                             '1350', '500', 'visa', 
-                                                             '1552521600', 'DigiBank', 'supplierA');
+    // const issueResponse3 = await contract3.submitTransaction('initOrder', '1', '1', '1', 'finalA', '450', '1350', 
+    //                                                          'some specs...', 'need operator get C license', 'follow our SOP', '1 months', 
+    //                                                          'Beacon st., Boston, MA', 'air express', 'FCA', 'ship in 2 days.',
+    //                                                          '1350', '500', 'visa', 
+    //                                                          '1552521600', 'DigiBank', 'supplierA');
 
     // process response
     console.log('Process init transaction response.');
 
-    // let processline = ProcessLine.fromBuffer(issueResponse);
+    let processline = ProcessLine.fromBuffer(issueResponse);
     // let product = Product.fromBuffer(issueResponse2);
-    let order = Order.fromBuffer(issueResponse3);
+    // let order = Order.fromBuffer(issueResponse3);
 
-    // console.log(`${processline.manufacturer}- ${processline.expectedProduct} process line : ${processline.lotNumber} successfully inited.`);
+    console.log(`${processline.manufacturer}- ${processline.expectedProduct} process line : ${processline.lotNumber} successfully inited.`);
     // console.log(`${product.owner}- ${product.name} product : ${product.newProductID} successfully inited.`);    
-    console.log(`${order.orderer}- ${order.productObj.productID} order : ${order.newOrderID} successfully inited.`);    
+    // console.log(`${order.orderer}- ${order.productObj.productID} order : ${order.newOrderID} successfully inited.`);    
     console.log('Transaction complete.');
 
   } catch (error) {

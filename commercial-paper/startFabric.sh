@@ -37,7 +37,7 @@ docker ps -a
 docker exec cliDigiBank peer chaincode install -n processcontracts -v 0 -p /opt/gopath/src/github.com/contract -l node
 docker exec cliDigiBank peer chaincode instantiate -n processcontracts -v 0 -l node -c '{"Args":["org.processnet.processline:instantiate"]}' -C mychannel -P "AND ('Org1MSP.member')"
 sleep 10
-# docker exec cliDigiBank peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n processcontracts -c '{"function":"initLedger","Args":[]}'
+# docker exec cliDigiBank peerchaincode invoke -o orderer.example.com:7050 -C mychannel -n processcontracts --peerAddresses peer0.org1.example.com:7051 -c '{"Args":["initProcessLine","00001","componentA","CT-123","MagnetoCorp","1552521600","450","35","drugA"]}'
 
 cat <<EOF
 
