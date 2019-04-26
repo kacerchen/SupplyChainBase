@@ -34,6 +34,7 @@ async function main() {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
+        // const contract = network.getContract('processcontracts');
         const contract = network.getContract('processcontracts', 'org.processnet.processline');
         // const contract2 = network.getContract('processcontracts', 'org.processnet.product');
         // const contract3 = network.getContract('processcontracts', 'org.processnet.order');
@@ -43,6 +44,7 @@ async function main() {
         // Evaluate the specified transaction.
         // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
         // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
+        // const result = await contract.evaluateTransaction('queryAllCars');
         const result = await contract.evaluateTransaction('queryAllProcesses', 'MagnetoCorp', 'drugA', '00001');
         // const result2 = await contract2.evaluateTransaction('queryAllProducts', 'DigiBank', 'componentA', '1');
         // const result3 = await contract3.evaluateTransaction('queryAllOrders', 'DigiBank', '1', '1');
