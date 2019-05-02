@@ -1,0 +1,52 @@
+.bannerColor {
+    background: #2193b0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.bannerSubCol {
+    color: aliceblue;
+    margin-top: 5%;
+}
+
+.bannerSubColBorder {
+    border-right-style: solid;
+    border-width: 2px;
+    margin-bottom: 3%;
+    border-color: #efefef;
+}
+
+.menuIcon {
+    font-size: 80px; 
+    margin-top: 5%;
+    color: aliceblue;
+}
+
+.circle {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+.circleColor1 {
+    background-color: #73605b;
+}
+
+.circleColor2 {
+    background-color: #fa6775;
+}
+
+.circleColor3 {
+    background-color: #d09683;
+}
+
+.circleColor4 {
+    background-color: #f5e356;
+}
+
+.circleColor5 {
+    background-color: #626d71;
+}

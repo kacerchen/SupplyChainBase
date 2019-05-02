@@ -1,0 +1,30 @@
+<button class="btn" [matMenuTriggerFor]="menu">
+  <mat-icon style="font-size:40px;">menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item disabled>
+    <mat-icon>dashboard</mat-icon>
+    <a routerLink="/dashboard">Dashboard</a>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>usb</mat-icon>
+    <a routerLink="/process">Process Management</a>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>widgets</mat-icon>
+    <a routerLink="/product">Product Management</a>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>local_shipping</mat-icon>
+    <a routerLink="/logistics">Logistics Management</a>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>attach_money</mat-icon>
+    <a routerLink="/procurement">Procurement Management</a>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>home</mat-icon>
+    <a routerLink="/home">Home</a>
+  </button>
+</mat-menu>
+  
