@@ -1,3 +1,62 @@
-<p>
-  process-mg works!
-</p>
+<div class="bannerColor">
+  <app-menu></app-menu>
+</div>
+
+<div style="margin: 3%;">
+  <div class="row">
+
+    <div class="col">
+      <div class="row">
+
+        <div class="col">
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="Latest Process Line">
+              <div>
+                <app-latest-process-table></app-latest-process-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="Search Process Line">
+              <div class="col">
+                <app-search-process-table></app-search-process-table>
+              </div>
+              <div class="col">
+                <app-process-history-table></app-process-history-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="All Process Lines">
+              <div>
+                <app-all-processes-table></app-all-processes-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="Add Process Manually">
+              <div>
+                <app-add-process></app-add-process>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <app-update-process></app-update-process>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="col">
+      <div class="row">
+
+        <div class="col">
+          <app-weight-change></app-weight-change>
+        </div>
+
+        <div class="col">
+          <app-temp-change></app-temp-change>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,3 +1,33 @@
-<p>
-  product-mg works!
-</p>
+<div class="bannerColor">
+  <app-menu></app-menu>
+</div>
+
+<div style="margin: 3%;">
+  <div class="row">
+
+    <div class="col">
+      <div class="row">
+
+        <div class="col">
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="All Products">
+              <div>
+                <app-all-products-table></app-all-products-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="Search Product">
+              <div class="col">
+                <app-search-product-table></app-search-product-table>
+              </div>
+              <div class="col">
+                <app-product-history-table></app-product-history-table>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
