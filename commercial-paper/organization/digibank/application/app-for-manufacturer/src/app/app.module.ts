@@ -35,6 +35,8 @@ import { AllProductsTableComponent } from './tables/all-products-table/all-produ
 import { ProcessHistoryTableComponent } from './tables/process-history-table/process-history-table.component';
 import { ProductHistoryTableComponent } from './tables/product-history-table/product-history-table.component';
 import { SearchProductTableComponent } from './tables/search-product-table/search-product-table.component';
+import { AddProductComponent } from './forms/add-product/add-product.component';
+import { UpdateProductComponent } from './forms/update-product/update-product.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { SearchProductTableComponent } from './tables/search-product-table/searc
     AllProductsTableComponent,
     ProcessHistoryTableComponent,
     ProductHistoryTableComponent,
-    SearchProductTableComponent
+    SearchProductTableComponent,
+    AddProductComponent,
+    UpdateProductComponent
   ],
   imports: [
     BrowserModule,

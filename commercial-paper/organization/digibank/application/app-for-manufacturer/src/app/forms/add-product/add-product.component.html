@@ -1,0 +1,48 @@
+<form>
+  <div class="row" style="margin-top: 3%;">
+    <div class="col">
+      <div class="form-group">
+        <label for="productId">Product ID</label>
+        <input type="number" class="form-control" id="productId" aria-describedby="productId" placeholder="Enter Product ID">
+        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      </div>
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input type="text" class="form-control" id="productName" placeholder="Enter New Product Name">
+      </div>
+      <div class="form-group">
+        <label for="type">Type</label>
+        <select class="form-control" [(ngModel)]="type">
+          <option *ngFor="let type of keys(typeOptions)" [value]="typeOptions[type]">{{type}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="from">From</label>
+        <input type="text" class="form-control" id="from" aria-describedby="from" placeholder="Enter Original Product Key">
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <label for="processline">Process Line</label>
+        <input type="text" class="form-control" id="processline" aria-describedby="processline" placeholder="Enter Involved Process Line Key">
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight</label>
+        <input type="number" class="form-control" id="weight" aria-describedby="weight" placeholder="Enter Weight (g)">
+      </div>
+      <div class="form-group">
+        <label for="supplier">Supplier</label>
+        <input type="text" class="form-control" id="supplier" aria-describedby="supplier" placeholder="Enter Supplier Name">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+</form>

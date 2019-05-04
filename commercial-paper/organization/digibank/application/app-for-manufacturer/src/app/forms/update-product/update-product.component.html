@@ -1,0 +1,44 @@
+<form>
+  <div class="row" style="margin-top: 3%;">
+    <div class="col">
+      <div class="form-group">
+        <label for="productId">Product ID</label>
+        <input type="number" class="form-control" id="productId" aria-describedby="productId" placeholder="Enter Existed Product ID">
+        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      </div>
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input type="text" class="form-control" id="productName" placeholder="Enter Existed Product Name">
+      </div>
+      <div class="form-group">
+        <label for="state">Update State</label>
+        <select class="form-control" [(ngModel)]="state">
+          <option *ngFor="let state of keys(stateOptions)" [value]="stateOptions[state]">{{state}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <label for="owner">Owner</label>
+        <input type="text" class="form-control" id="owner" aria-describedby="owner" placeholder="Enter Original Owner Name">
+      </div>
+      <div class="form-group">
+        <label for="newOwner">New Owner</label>
+        <input type="text" class="form-control" id="newOwner" aria-describedby="newOwner" placeholder="Enter New Owner Name">
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="hasNewOwner" [(ngModel)]="hasNewOwner">
+        <label class="form-check-label" for="hasNewOwner">Have new owner?</label>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+</form>
