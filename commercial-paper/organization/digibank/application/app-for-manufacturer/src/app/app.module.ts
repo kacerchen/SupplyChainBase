@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
 
@@ -12,6 +12,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +39,8 @@ import { ProductHistoryTableComponent } from './tables/product-history-table/pro
 import { SearchProductTableComponent } from './tables/search-product-table/search-product-table.component';
 import { AddProductComponent } from './forms/add-product/add-product.component';
 import { UpdateProductComponent } from './forms/update-product/update-product.component';
+import { AllShipmentsTableComponent } from './tables/all-shipments-table/all-shipments-table.component';
+import { ShippingStepperComponent } from './stepper/shipping-stepper/shipping-stepper.component';
 
 @NgModule({
   declarations: [
@@ -62,11 +66,14 @@ import { UpdateProductComponent } from './forms/update-product/update-product.co
     ProductHistoryTableComponent,
     SearchProductTableComponent,
     AddProductComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+    AllShipmentsTableComponent,
+    ShippingStepperComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ChartsModule,
@@ -77,7 +84,9 @@ import { UpdateProductComponent } from './forms/update-product/update-product.co
     MatTableModule,
     MatFormFieldModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatStepperModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

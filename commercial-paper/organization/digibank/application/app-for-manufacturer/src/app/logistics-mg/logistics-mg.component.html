@@ -1,3 +1,42 @@
 <div class="bannerColor">
   <app-menu></app-menu>
 </div>
+
+<div style="margin: 3%;">
+  <div class="row">
+
+    <div class="col">
+      <div class="row">
+
+        <div class="col">
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="All Shipments">
+              <div>
+                <app-all-shipments-table></app-all-shipments-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="Track Shipment">
+              <div class="col">
+                <form>
+                  <div class="form-group" style="margin-top: 3%;">
+                    <label for="trackingNum">
+                      <i class="material-icons">track_changes</i> Tracking ID
+                    </label>
+                    <input type="text" class="form-control" id="trackingNum" placeholder="Enter an order ID to track">
+                  </div>
+                  
+                  <button type="submit" class="btn btn-primary">Track Now</button>
+                </form>
+              </div>
+              <div class="col">
+                <app-shipping-stepper></app-shipping-stepper>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
