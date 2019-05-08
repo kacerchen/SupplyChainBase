@@ -14,6 +14,8 @@ import { MatPaginatorModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +43,9 @@ import { AddProductComponent } from './forms/add-product/add-product.component';
 import { UpdateProductComponent } from './forms/update-product/update-product.component';
 import { AllShipmentsTableComponent } from './tables/all-shipments-table/all-shipments-table.component';
 import { ShippingStepperComponent } from './stepper/shipping-stepper/shipping-stepper.component';
+import { AddOrderComponent } from './forms/add-order/add-order.component';
+import { AllOrdersTableComponent } from './tables/all-orders-table/all-orders-table.component';
+import { ProcessingOrdersTableComponent } from './tables/processing-orders-table/processing-orders-table.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +73,10 @@ import { ShippingStepperComponent } from './stepper/shipping-stepper/shipping-st
     AddProductComponent,
     UpdateProductComponent,
     AllShipmentsTableComponent,
-    ShippingStepperComponent
+    ShippingStepperComponent,
+    AddOrderComponent,
+    AllOrdersTableComponent,
+    ProcessingOrdersTableComponent
   ],
   imports: [
     BrowserModule,
@@ -86,9 +94,13 @@ import { ShippingStepperComponent } from './stepper/shipping-stepper/shipping-st
     MatPaginatorModule,
     MatInputModule,
     MatStepperModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,35 @@
-<p>
-  procurement-mg works!
-</p>
+<div class="bannerColor">
+  <app-menu></app-menu>
+</div>
+
+<div style="margin: 3%;">
+  <div class="row">
+
+    <div class="col">
+      <div class="row">
+
+        <div class="col">
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="Add New Order">
+              <div>
+                <app-add-order></app-add-order>
+              </div>
+            </mat-tab>
+            <mat-tab label="All Orders">
+              <div>
+                <app-all-orders-table></app-all-orders-table>
+              </div>
+            </mat-tab>
+            <mat-tab label="Pending Order List">
+              <div>
+                <app-processing-orders-table></app-processing-orders-table>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

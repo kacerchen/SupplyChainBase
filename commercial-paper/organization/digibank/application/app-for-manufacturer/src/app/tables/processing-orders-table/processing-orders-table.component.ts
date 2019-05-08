@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
-  selector: 'app-all-shipments-table',
-  templateUrl: './all-shipments-table.component.html',
-  styleUrls: ['./all-shipments-table.component.css'],
+  selector: 'app-processing-orders-table',
+  templateUrl: './processing-orders-table.component.html',
+  styleUrls: ['./processing-orders-table.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
@@ -13,7 +13,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
-export class AllShipmentsTableComponent implements OnInit {
+export class ProcessingOrdersTableComponent implements OnInit {
 
   dataSource = ELEMENT_DATA;
   columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
@@ -115,4 +115,3 @@ const ELEMENT_DATA: PeriodicElement[] = [
         two-thirds the density of air.`
   },
 ];
-
