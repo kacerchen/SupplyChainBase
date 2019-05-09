@@ -1,4 +1,19 @@
 mat-form-field {
     margin-right: 12px;
-  }
-  
+}
+
+.borderStyle {
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  margin-top: 3%;
+}
+
+.orderTitle {
+  background-color: #464647;
+  color: lightgrey;
+  border-radius: 5px 5px 0px 0px;
+  height: 70px;
+  padding: 2% 0% 0% 3%;
+  font-size: 20px;
+  font-weight: bold;
+}
