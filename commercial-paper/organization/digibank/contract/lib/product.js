@@ -15,7 +15,9 @@ const cpState = {
     PROCESSING: 4,
     READYTOORDER: 5,
     USED: 6,
-    SOLDOUT:7
+    SOLDOUT:7,
+    PEND_SHIPPING: 8,
+    SHIPOUT: 9
 };
 
 // Enumerate product/ raw material type values
@@ -82,6 +84,14 @@ class Product extends State {
         this.currentState = cpState.SOLDOUT;
     }
 
+    setPendShipping() {
+        this.currentState = cpState.PEND_SHIPPING;
+    }
+
+    setShipOut() {
+        this.currentState = cpState.SHIPOUT;
+    }
+
     isInit() {
         return this.currentState === cpState.INIT;
     }
@@ -108,6 +118,14 @@ class Product extends State {
 
     isSoldOut() {
         return this.currentState === cpState.SOLDOUT;
+    }
+
+    isPendShipping() {
+        return this.currentState === cpState.PEND_SHIPPING;
+    }
+
+    isShipOut() {
+        return this.currentState === cpState.SHIPOUT;
     }
 
     static fromBuffer(buffer) {

@@ -84,6 +84,70 @@ class ProcessLineContract extends Contract {
         console.log('Instantiate the contract');
     }
 
+    async initProcessLineLedger(ctx) {
+        console.info('============= START : Initialize Ledger ===========');
+        const processlines = [
+            {
+                lotNumber: '00001',
+                component: 'componentA',
+                containerID: 'CT-123',
+                manufacturer: 'MagnetoCorp',
+                createdTime: '1552521600',
+                weight: '450',
+                temperature: '35',
+                expectedProduct: 'drugA',
+            },
+            {
+                lotNumber: '00002',
+                component: 'componentB',
+                containerID: 'CT-456',
+                manufacturer: 'MagnetoCorp',
+                createdTime: '1552536600',
+                weight: '630',
+                temperature: '60',
+                expectedProduct: 'drugB',
+            },
+            {
+                lotNumber: '00003',
+                component: 'componentC',
+                containerID: 'CT-678',
+                manufacturer: 'MagnetoCorp',
+                createdTime: '1552621600',
+                weight: '140',
+                temperature: '23',
+                expectedProduct: 'drugC',
+            },
+            {
+                lotNumber: '00004',
+                component: 'componentD',
+                containerID: 'CT-912',
+                manufacturer: 'MagnetoCorp',
+                createdTime: '1552821600',
+                weight: '920',
+                temperature: '40',
+                expectedProduct: 'drugD',
+            },
+            {
+                lotNumber: '00005',
+                component: 'componentE',
+                containerID: 'CT-145',
+                manufacturer: 'MagnetoCorp',
+                createdTime: '1552921600',
+                weight: '324',
+                temperature: '28',
+                expectedProduct: 'drugE',
+            },
+        ];
+
+        for (let i = 0; i < processlines.length; i++) {
+            processlines[i].docType = 'processline';
+            let key = ctx.processLineList.name + '"' + processlines[i].manufacturer + '":"' + processlines[i].expectedProduct + '":"' + processlines[i].lotNumber + '"';
+            await ctx.stub.putState(key, Buffer.from(JSON.stringify(processlines[i])));
+            console.info('Added <--> ', processlines[i]);
+        }
+        console.info('============= END : Initialize Ledger ===========');
+    }
+
     /**
      * Init process line
      *
@@ -207,6 +271,16 @@ class ProcessLineContract extends Contract {
         return this.helper.print(iterator, allResults);
     }
 
+    async queryProcess(ctx, manufacturer, expectedProduct, lotNumber) {
+        let processlineKey = ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
+        console.log('This is processlineKey: ' + processlineKey);
+        const stateKey = ctx.processLineList.name + processlineKey;
+
+        const result = await ctx.stub.getState(stateKey);
+
+        return result;
+    }
+
     async getHistoryByKey(ctx, manufacturer, expectedProduct, lotNumber) {
         const key = ctx.processLineList.name + ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
         const iterator = await ctx.stub.getHistoryForKey(key);
@@ -244,6 +318,80 @@ class ProductContract extends Contract {
         // No implementation required with this example
         // It could be where data migration is performed, if necessary
         console.log('Instantiate the contract');
+    }
+
+    async initProductLedger(ctx) {
+        console.info('============= START : Initialize Ledger ===========');
+        const products = [
+            {
+                productID: '1',
+                name: 'componentA',
+                type: '2',
+                state: '1',
+                from: 'org.processnet.productlist"supplierA":"componentA":"1"',
+                processline: 'N/A',
+                createdTime: '1552521600',
+                weight: '450',
+                supplier: 'supplierA',
+                owner: 'DigiBank',
+            },
+            {
+                productID: '2',
+                name: 'componentB',
+                type: '2',
+                state: '1',
+                from: 'org.processnet.productlist"supplierB":"componentB":"2"',
+                processline: 'N/A',
+                createdTime: '1552525600',
+                weight: '650',
+                supplier: 'supplierB',
+                owner: 'DigiBank',
+            },
+            {
+                productID: '3',
+                name: 'componentC',
+                type: '2',
+                state: '1',
+                from: 'org.processnet.productlist"supplierC":"componentC":"3"',
+                processline: 'N/A',
+                createdTime: '1552528600',
+                weight: '850',
+                supplier: 'supplierC',
+                owner: 'DigiBank',
+            },
+            {
+                productID: '4',
+                name: 'drugA',
+                type: '3',
+                state: '5',
+                from: 'N/A',
+                processline: 'org.processnet.processlinelist"MagnetoCorp":"drugA":"00001"',
+                createdTime: '1553521600',
+                weight: '350',
+                supplier: 'MagnetoCorp',
+                owner: 'MagnetoCorp',
+            },
+            {
+                productID: '5',
+                name: 'componentD',
+                type: '2',
+                state: '1',
+                from: 'org.processnet.productlist"supplierD":"componentD":"5"',
+                processline: 'N/A',
+                createdTime: '1553221600',
+                weight: '780',
+                supplier: 'supplierD',
+                owner: 'DigiBank',
+            },
+        ];
+
+        for (let i = 0; i < products.length; i++) {
+            products[i].docType = 'product';
+            let key = ctx.productList.name + '"' + products[i].owner + '":"' + products[i].name + '":"' + products[i].productID + '"';
+            await ctx.stub.putState(key, Buffer.from(JSON.stringify(products[i])));
+            console.info('Added <--> ', products[i]);
+        }
+        console.info('============= END : Initialize Ledger ===========');
     }
 
     /**
@@ -331,6 +479,12 @@ class ProductContract extends Contract {
                 case 7:
                     product.setSoldOut();
                     break;
+                case 8:
+                    product.setPendShipping();
+                    break;
+                case 9:
+                    product.setShipOut();
+                    break;
             }
 
             product.setUpdateTime(updatedTime);
@@ -353,6 +507,16 @@ class ProductContract extends Contract {
 
         const allResults = [];
         return this.helper.print(iterator, allResults);
+    }
+
+    async queryProduct(ctx, owner, name, productID) {
+        let productKey = Product.makeKey([owner, name, productID]);
+        console.log('This is productKey: ' + productKey);
+        const stateKey = ctx.productList.name + productKey;
+
+        const result = await ctx.stub.getState(stateKey);
+
+        return result;
     }
 
     async getHistoryByKey(ctx, owner, name, productID) {
@@ -391,6 +555,64 @@ class OrderContract extends Contract {
         // No implementation required with this example
         // It could be where data migration is performed, if necessary
         console.log('Instantiate the contract');
+    }
+
+    async initOrderLedger(ctx) {
+        console.info('============= START : Initialize Ledger ===========');
+        const orders = [
+            {
+                orderID: '1',
+                type: '1',
+                productID: '4',
+                name: 'drugA',
+                weight: '350',
+                price: '1350',
+                specs: 'N/A',
+                qualifiedOperator: 'N/A',
+                methods: 'N/A',
+                leadTime: 'N/A',
+                address: '160 Pleasant st., Malden, MA',
+                shipMethod: 'sea express',
+                tradeTerm: 'FCA',
+                dispatchDate: 'ship in 15 days',
+                totalAmount: '1350',
+                initPayment: '500',
+                payMethod: 'mastercard',
+                createdTime: '1553521600',
+                orderer: 'CVS',
+                receiver: 'MagnetoCorp',
+            },
+            {
+                orderID: '2',
+                type: '2',
+                productID: '4',
+                name: 'drugA',
+                weight: '350',
+                price: '1350',
+                specs: 'some specs...',
+                qualifiedOperator: 'need operator get C license',
+                methods: 'follow our SOP',
+                leadTime: '1 months',
+                address: 'Beacon st., Boston, MA',
+                shipMethod: 'air express',
+                tradeTerm: 'FCA',
+                dispatchDate: 'ship in 2 days',
+                totalAmount: '1350',
+                initPayment: '500',
+                payMethod: 'visa',
+                createdTime: '1552521600',
+                orderer: 'CVS',
+                receiver: 'MagnetoCorp',
+            },
+        ];
+
+        for (let i = 0; i < orders.length; i++) {
+            orders[i].docType = 'order';
+            let key = ctx.orderList.name + '"' + orders[i].orderer + '":"' + orders[i].productID + '":"' + orders[i].orderID + '"';
+            await ctx.stub.putState(key, Buffer.from(JSON.stringify(orders[i])));
+            console.info('Added <--> ', orders[i]);
+        }
+        console.info('============= END : Initialize Ledger ===========');
     }
 
     /**
@@ -593,6 +815,16 @@ class OrderContract extends Contract {
 
         const allResults = [];
         this.helper.print(iterator, allResults);
+    }
+
+    async queryOrder(ctx, orderer, productID, orderID) {
+        let orderKey = Order.makeKey([orderer, productID, orderID]);
+        console.log('This is orderKey: ' + orderKey);
+        const stateKey = ctx.orderList.name + orderKey;
+
+        const result = await ctx.stub.getState(stateKey);
+
+        return result;
     }
 
     async getHistoryByKey(ctx, orderer, productID, orderID) {
