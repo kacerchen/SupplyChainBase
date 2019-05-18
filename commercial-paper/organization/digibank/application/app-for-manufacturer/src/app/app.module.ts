@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartsModule } from 'ng2-charts';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
@@ -85,6 +86,7 @@ import { ProcessingOrdersTableComponent } from './tables/processing-orders-table
     AppRoutingModule,
     BrowserAnimationsModule,
     ChartsModule,
+    HttpClientModule,
     MatGridListModule,
     MatMenuModule,
     MatIconModule,

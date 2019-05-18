@@ -88,6 +88,8 @@ class ProcessLineContract extends Contract {
         console.info('============= START : Initialize Ledger ===========');
         const processlines = [
             {
+                class: 'org.processnet.processline',
+                key: '"MagnetoCorp":"drugA":"00001"',
                 lotNumber: '00001',
                 component: 'componentA',
                 containerID: 'CT-123',
@@ -98,6 +100,8 @@ class ProcessLineContract extends Contract {
                 expectedProduct: 'drugA',
             },
             {
+                class: 'org.processnet.processline',
+                key: '"MagnetoCorp":"drugB":"00002"',
                 lotNumber: '00002',
                 component: 'componentB',
                 containerID: 'CT-456',
@@ -108,6 +112,8 @@ class ProcessLineContract extends Contract {
                 expectedProduct: 'drugB',
             },
             {
+                class: 'org.processnet.processline',
+                key: '"MagnetoCorp":"drugC":"00003"',
                 lotNumber: '00003',
                 component: 'componentC',
                 containerID: 'CT-678',
@@ -118,6 +124,8 @@ class ProcessLineContract extends Contract {
                 expectedProduct: 'drugC',
             },
             {
+                class: 'org.processnet.processline',
+                key: '"MagnetoCorp":"drugD":"00004"',
                 lotNumber: '00004',
                 component: 'componentD',
                 containerID: 'CT-912',
@@ -128,6 +136,8 @@ class ProcessLineContract extends Contract {
                 expectedProduct: 'drugD',
             },
             {
+                class: 'org.processnet.processline',
+                key: '"MagnetoCorp":"drugE":"00005"',
                 lotNumber: '00005',
                 component: 'componentE',
                 containerID: 'CT-145',
@@ -198,6 +208,7 @@ class ProcessLineContract extends Contract {
         // Retrieve the current process line using key fields provided
         let processlineKey = ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
         let processline = await ctx.processLineList.getProcessline(processlineKey);
+        console.log(processline);
 
         // Validate current manufacturer
         if (processline.getManufacturer() !== manufacturer) {
@@ -207,13 +218,13 @@ class ProcessLineContract extends Contract {
         // Update state 
         if (processline.isInit()) {
             switch (newState) {
-                case 2:
+                case "2":
                     processline.setFeeding();
                     break;
-                case 3:
+                case "3":
                     processline.setReacting();
                     break;
-                case 4:
+                case "4":
                     processline.setTransit();
                     break;
             }
@@ -327,7 +338,7 @@ class ProductContract extends Contract {
                 productID: '1',
                 name: 'componentA',
                 type: '2',
-                state: '1',
+                currentState: '1',
                 from: 'org.processnet.productlist"supplierA":"componentA":"1"',
                 processline: 'N/A',
                 createdTime: '1552521600',
@@ -339,7 +350,7 @@ class ProductContract extends Contract {
                 productID: '2',
                 name: 'componentB',
                 type: '2',
-                state: '1',
+                currentState: '1',
                 from: 'org.processnet.productlist"supplierB":"componentB":"2"',
                 processline: 'N/A',
                 createdTime: '1552525600',
@@ -351,7 +362,7 @@ class ProductContract extends Contract {
                 productID: '3',
                 name: 'componentC',
                 type: '2',
-                state: '1',
+                currentState: '1',
                 from: 'org.processnet.productlist"supplierC":"componentC":"3"',
                 processline: 'N/A',
                 createdTime: '1552528600',
@@ -363,7 +374,7 @@ class ProductContract extends Contract {
                 productID: '4',
                 name: 'drugA',
                 type: '3',
-                state: '5',
+                currentState: '5',
                 from: 'N/A',
                 processline: 'org.processnet.processlinelist"MagnetoCorp":"drugA":"00001"',
                 createdTime: '1553521600',
@@ -375,7 +386,7 @@ class ProductContract extends Contract {
                 productID: '5',
                 name: 'componentD',
                 type: '2',
-                state: '1',
+                currentState: '1',
                 from: 'org.processnet.productlist"supplierD":"componentD":"5"',
                 processline: 'N/A',
                 createdTime: '1553221600',
@@ -401,7 +412,6 @@ class ProductContract extends Contract {
      * @param {Integer} productID product unique id
      * @param {String} name name of the product
      * @param {Integer} type type of the product
-     * @param {Integer} state status of the product
      * @param {String} from specific attribute for type of original and raw material, product key
      * @param {String} processline specific attribute for type of final product, processline key
      * @param {String} createdTime time of the product created
@@ -409,7 +419,7 @@ class ProductContract extends Contract {
      * @param {String} supplier supplier of the product
      * @param {String} owner owner of the product
     */
-    async initProduct(ctx, productID, name, type, state, from, processline, createdTime, weight, supplier, owner) {
+    async initProduct(ctx, productID, name, type, from, processline, createdTime, weight, supplier, owner) {
 
         // create a new product ID
         console.log(ctx);
@@ -417,7 +427,7 @@ class ProductContract extends Contract {
         console.log(ctx.productList);
 
         // create an instance of the product
-        let product = Product.createInstance(productID, name, type, state, from, processline, createdTime, weight, supplier, owner);
+        let product = Product.createInstance(productID, name, type, from, processline, createdTime, weight, supplier, owner);
 
         // Smart contract, rather than product, moves product into INIT state
         product.setInit();
@@ -454,35 +464,35 @@ class ProductContract extends Contract {
         }
 
         // Change ownership
-        if (hasNewOwner) {
+        if (hasNewOwner == 'true') {
             product.setNewOwner(newOwner);
         }
 
         // Update state 
         if (product.isInit()) {
             switch (newState) {
-                case 2:
+                case "2":
                     product.setRepackaging();
                     break;
-                case 3:
+                case "3":
                     product.setReadyToUse();
                     break;
-                case 4:
+                case "4":
                     product.setProcessing();
                     break;
-                case 5:
+                case "5":
                     product.setReadyToOrder();
                     break;
-                case 6:
+                case "6":
                     product.setUsed();
                     break;
-                case 7:
+                case "7":
                     product.setSoldOut();
                     break;
-                case 8:
+                case "8":
                     product.setPendShipping();
                     break;
-                case 9:
+                case "9":
                     product.setShipOut();
                     break;
             }
@@ -707,11 +717,11 @@ class OrderContract extends Contract {
         }
 
         // Change ownership
-        if (order.currentState != 1 || order.currentState != 4 || order.currentState != 5) {
+        if (order.currentState != "1" || order.currentState != "4" || order.currentState != "5") {
             throw new Error('Order contract ' + orderKey + ' is signed by both orgs. Cannot modified!');
         }
 
-        if(order.type == 2) {
+        if(order.type == "2") {
             order.setAssuranceDetails(newSpecs, newQualifiedOperator, newMethods, newLeadTime);
         }
 
@@ -722,10 +732,10 @@ class OrderContract extends Contract {
         // Update state 
         if (order.isInit()) {
             switch (newState) {
-                case 4:
+                case "4":
                     order.setPendingCreator();
                     break;
-                case 5:
+                case "5":
                     order.setPendingReceiver();
                     break;
             }
@@ -734,7 +744,7 @@ class OrderContract extends Contract {
         }
 
         // Update the order
-        await ctx.orderList.updateProduct(order);
+        await ctx.orderList.updateOrder(order);
         return order.toBuffer();
     }
 
@@ -774,22 +784,22 @@ class OrderContract extends Contract {
 
         // Update state 
         switch (newState) {
-            case 2:
+            case "2":
                 if(order.getOrderer() == modifier) {
                     order.setAccepted();
                     break;
                 }
-            case 3:
+            case "3":
                 if(order,getOrderer() == modifier) {
                     order.setAbandoned();
                     break;
                 }
-            case 6:
+            case "6":
                 if(order.getReceiver() == modifier) {
                     order.setProcessing();
                     break;
                 }
-            case 7:
+            case "7":
                 if(order.getReceiver() == modifier) {
                     order.setShipOut();
                     break;
@@ -799,7 +809,7 @@ class OrderContract extends Contract {
         order.setUpdateTime(updatedTime);
 
         // Update the order
-        await ctx.orderList.updateProduct(order);
+        await ctx.orderList.updateOrder(order);
         return order.toBuffer();
     }
 

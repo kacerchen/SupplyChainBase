@@ -41,8 +41,9 @@ class StateList {
      * into JSON object before being returned.
      */
     async getState(key) {
-        let ledgerKey = this.name + state.getKey();
-        let data = await this.ctx.stub.getState(ledgerKey);
+        // let ledgerKey = this.ctx.stub.createCompositeKey(this.name, key.split(" "));
+        let data = await this.ctx.stub.getState(this.name + key);
+        console.log(data);
         let state = State.deserialize(data, this.supportedClasses);
         return state;
     }
