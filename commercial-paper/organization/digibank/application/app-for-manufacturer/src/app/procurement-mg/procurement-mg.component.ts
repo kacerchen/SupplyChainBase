@@ -101,7 +101,7 @@ export class ProcurementMgComponent implements OnInit {
   constructor(private orderApiService: OrderApiService) { }
 
   ngOnInit() {
-    this.modifyOrder();
+    this.getHistoryByKey();
   }
 
   initOrderLedger(): any {

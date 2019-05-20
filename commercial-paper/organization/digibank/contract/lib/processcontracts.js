@@ -90,6 +90,7 @@ class ProcessLineContract extends Contract {
             {
                 class: 'org.processnet.processline',
                 key: '"MagnetoCorp":"drugA":"00001"',
+                currentState: '1',
                 lotNumber: '00001',
                 component: 'componentA',
                 containerID: 'CT-123',
@@ -102,6 +103,7 @@ class ProcessLineContract extends Contract {
             {
                 class: 'org.processnet.processline',
                 key: '"MagnetoCorp":"drugB":"00002"',
+                currentState: '1',
                 lotNumber: '00002',
                 component: 'componentB',
                 containerID: 'CT-456',
@@ -114,6 +116,7 @@ class ProcessLineContract extends Contract {
             {
                 class: 'org.processnet.processline',
                 key: '"MagnetoCorp":"drugC":"00003"',
+                currentState: '2',
                 lotNumber: '00003',
                 component: 'componentC',
                 containerID: 'CT-678',
@@ -126,6 +129,7 @@ class ProcessLineContract extends Contract {
             {
                 class: 'org.processnet.processline',
                 key: '"MagnetoCorp":"drugD":"00004"',
+                currentState: '3',
                 lotNumber: '00004',
                 component: 'componentD',
                 containerID: 'CT-912',
@@ -138,6 +142,7 @@ class ProcessLineContract extends Contract {
             {
                 class: 'org.processnet.processline',
                 key: '"MagnetoCorp":"drugE":"00005"',
+                currentState: '2',
                 lotNumber: '00005',
                 component: 'componentE',
                 containerID: 'CT-145',
@@ -574,6 +579,7 @@ class OrderContract extends Contract {
                 orderID: '1',
                 type: '1',
                 productID: '4',
+                currentState: "1",
                 name: 'drugA',
                 weight: '350',
                 price: '1350',
@@ -596,6 +602,7 @@ class OrderContract extends Contract {
                 orderID: '2',
                 type: '2',
                 productID: '4',
+                currentState: '2',
                 name: 'drugA',
                 weight: '350',
                 price: '1350',
@@ -709,15 +716,16 @@ class OrderContract extends Contract {
 
         // Retrieve the current order using key fields provided
         let orderKey = Order.makeKey([orderer, productID, orderID]);
-        let order = await ctx.orderList.getProduct(orderKey);
+        console.log(orderKey);
+        let order = await ctx.orderList.getOrder(orderKey);
 
         // Validate current owner
-        if (order.getOrderer() !== modifier || order.getReceiver() !== modifier) {
+        if (order.getOrderer() !== modifier && order.getReceiver() !== modifier) {
             throw new Error('Order ' + orderKey + ' cannot be modified by ' + modifier);
         }
 
         // Change ownership
-        if (order.currentState != "1" || order.currentState != "4" || order.currentState != "5") {
+        if (order.currentState != "1" && order.currentState != "4" && order.currentState != "5") {
             throw new Error('Order contract ' + orderKey + ' is signed by both orgs. Cannot modified!');
         }
 
@@ -775,10 +783,10 @@ class OrderContract extends Contract {
 
         // Retrieve the current order using key fields provided
         let orderKey = Order.makeKey([orderer, productID, orderID]);
-        let order = await ctx.orderList.getProduct(orderKey);
+        let order = await ctx.orderList.getOrder(orderKey);
 
         // Validate current owner
-        if (order.getOrderer() !== modifier || order.getReceiver() !== modifier) {
+        if (order.getOrderer() !== modifier && order.getReceiver() !== modifier) {
             throw new Error('Order ' + orderKey + ' cannot be modified by ' + modifier);
         }
 
@@ -824,7 +832,7 @@ class OrderContract extends Contract {
         const iterator = await ctx.stub.getStateByRange(startKey, endKey);
 
         const allResults = [];
-        this.helper.print(iterator, allResults);
+        return this.helper.print(iterator, allResults);
     }
 
     async queryOrder(ctx, orderer, productID, orderID) {
@@ -842,7 +850,7 @@ class OrderContract extends Contract {
         const iterator = await ctx.stub.getHistoryForKey(key);
 
         const allResults = [];
-        this.helper.print(iterator, allResults);
+        return this.helper.print(iterator, allResults);
     }
 }
 

@@ -12,15 +12,15 @@
           <mat-tab-group dynamicHeight>
             <mat-tab label="Latest Process Line">
               <div>
-                <app-latest-process-table></app-latest-process-table>
+                <app-latest-process-table [allProcesses]="datasource_latest"></app-latest-process-table>
               </div>
             </mat-tab>
             <mat-tab label="Search Process Line">
               <div class="col">
-                <app-search-process-table></app-search-process-table>
+                <app-search-process-table [searchProcesses]="datasource_latest"></app-search-process-table>
               </div>
               <div class="col">
-                <app-process-history-table></app-process-history-table>
+                <app-process-history-table [historyProcesses]="datasource_history"></app-process-history-table>
               </div>
             </mat-tab>
             <mat-tab label="All Process Lines">

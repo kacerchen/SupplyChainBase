@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 export interface UserData {
@@ -22,8 +22,10 @@ const NAMES: string[] = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
 })
 export class SearchProcessTableComponent implements OnInit {
 
+  @Input() searchProcesses: any;
+  newData: Object[];
   displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource = new MatTableDataSource<Object>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -33,12 +35,23 @@ export class SearchProcessTableComponent implements OnInit {
     const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    // this.dataSource = new MatTableDataSource(users);
   }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+
+    if(this.searchProcesses != undefined) {
+      console.log(this.searchProcesses);
+      // this.newData = this.searchProcesses;
+      // console.log(this.newData);
+      // this.dataSource.data = this.newData;
+    }
   }
 
   applyFilter(filterValue: string) {

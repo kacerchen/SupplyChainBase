@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProcesslineApiService } from '../processline-api.service';
 
@@ -75,8 +75,13 @@ export class ProcessMgComponent implements OnInit {
   all_processes: Object;
   query_process: Object;
   all_history_of_process: Object;
+  datasource_all: any;
+  datasource_latest: any;
+  datasource_history: any;
 
   constructor(private http: HttpClient, private processlineApiService: ProcesslineApiService) { 
+    
+    this.queryAllProcesses();
     
     // this.http.post('/api', this.data)
     //   .subscribe((data: any) => {
@@ -99,6 +104,10 @@ export class ProcessMgComponent implements OnInit {
 
   ngOnInit() {
     this.getHistoryByKey();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
   }
 
   initProcessLineLedger(): any {
@@ -138,6 +147,9 @@ export class ProcessMgComponent implements OnInit {
     .subscribe((data: any) => {
       console.log(data);
       this.all_processes = data;
+
+      this.datasource_latest = this.getDataSource(data);
+      console.log(this.datasource_latest);
     })
   }
 
@@ -156,7 +168,33 @@ export class ProcessMgComponent implements OnInit {
     .subscribe((data: any) => {
       console.log(data);
       this.all_history_of_process = data;
+
+      this.datasource_history = this.getDataSource(data);
+      console.log(this.datasource_history);
     })
   }
 
+  getDataSource(obj: Result): any {
+    let records = obj.processline;
+    let tempArr = [];
+    let finalArr = [];
+
+    for(let i of Object.keys(records)){
+      if(i != 'class' && i != 'currentState' && i != 'key') {
+        tempArr.push(records[i]);
+      }
+    }
+
+    for(let j of tempArr){
+      // console.log(j['Record']);
+      finalArr.push(j['Record']);      
+    }
+    return finalArr;
+    // console.log(_to);
+  }
+
+}
+
+export interface Result {
+  processline: Object; 
 }

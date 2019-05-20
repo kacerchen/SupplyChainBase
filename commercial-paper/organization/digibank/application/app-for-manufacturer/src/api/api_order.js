@@ -223,7 +223,7 @@ module.exports = {
             // process response
             console.log('Process query transaction response.');
             console.log(issueResponse);
-            let orders = Order.fromBuffer(issueResponse);
+            let orders = Order.deserializeOrderClass(Buffer.from(JSON.parse(issueResponse)), Order);
     
             console.log('Transaction complete.');
             return orders;
@@ -283,7 +283,7 @@ module.exports = {
             // process response
             console.log('Process query transaction response.');
             console.log(issueResponse);
-            let orderHistory = Order.fromBuffer(issueResponse);
+            let orderHistory = Order.deserializeOrderClass(Buffer.from(JSON.parse(issueResponse)), Order);
     
             console.log('Transaction complete.');
             return orderHistory;

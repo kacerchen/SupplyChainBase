@@ -30,7 +30,12 @@ const Type = {
  */
 class Order extends State {
 
-    constructor(obj) {
+    constructor(obj, constructWay) {
+
+        if(constructWay == 'Get'){
+            return obj;
+        }
+
         super(Order.getClass(), [obj.orderer, obj.productObj.productID, obj.newOrderID]);
         Object.assign(this, obj);
     }
@@ -156,6 +161,12 @@ class Order extends State {
         return State.deserializeClass(data, Order);
     }
 
+    static deserializeOrderClass(data, objClass) {
+        let json = JSON.parse(data.toString());
+        let object = new (objClass)(json, 'Get');
+        return object;
+    }
+
     /**
      * Factory method to create a order object
      */
@@ -175,11 +186,11 @@ class Order extends State {
         if(type == Type.STANDARD) {
 
             console.log('Run type of STANDARD to new Order.');
-            return new Order({ newOrderID, type, productObj, shippingObj, paymentObj, createdTime, orderer, receiver });
+            return new Order({ newOrderID, type, productObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
         } else if(type == Type.CUSTOMIZED) {
 
             console.log('Run type of CUSTOMIZED to new Order.');
-            return new Order({ newOrderID, type, productObj, assuranceObj, shippingObj, paymentObj, createdTime, orderer, receiver });
+            return new Order({ newOrderID, type, productObj, assuranceObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
         }
     }
 

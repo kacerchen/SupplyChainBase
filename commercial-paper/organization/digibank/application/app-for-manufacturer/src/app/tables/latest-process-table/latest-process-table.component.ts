@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatTableDataSource } from '@angular/material/table';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-latest-process-table',
@@ -13,17 +15,61 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     ]),
   ],
 })
+
 export class LatestProcessTableComponent implements OnInit {
 
-  dataSource = ELEMENT_DATA;
-  columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
-  expandedElement: PeriodicElement | null;
+  // @ViewChild(MatTable) myTable: MatTable<any>;
 
-  constructor() { }
+  @Input() allProcesses: any;
+  newData: Object[];
+  dataSource = new MatTableDataSource<Object>();
+  columnsToDisplay = ['lotNumber', 'component', 'containerID', 'expectedProduct'];
+  columnsIcons = ['format_list_numbered', 'bubble_chart', 'style', 'layers'];
+  expandedElement: Object | null;
+
+  constructor() {
+    (window as any).latestProComp = this;
+   }
 
   ngOnInit() {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+    // this.record = JSON.stringify(this.allProcesses);
+    // this.newData = this.getLatestDataSrc(this.allProcesses);
+    // console.log(this.newData);
+    if(this.allProcesses != undefined) {
+      this.newData = this.getLatestDataSrc(this.allProcesses);
+      console.log(this.newData);
+      this.dataSource.data = this.newData;
+    }
+  }
+
+  getLatestDataSrc(arr: []): any {
+    let resultArr = [];
+    resultArr.push(arr.pop());
+    return resultArr;
+  }
+
+  toFormatDate(time: any): string{
+    return formatDate(Number(time *1000), 'medium', 'en-US');
+  }
+
+}
+
+export interface Record {
+  class: string;
+  component: string;
+  containerID: string;
+  createdTime: string;
+  docType: string;
+  expectedProduct: string;
+  key: string;
+  lotNumber: string;
+  manufacturer: string;
+  temperature: string;
+  weight: string; 
 }
 
 export interface PeriodicElement {
