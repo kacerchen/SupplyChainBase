@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { OrderApiService } from '../../order-api.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-all-orders-table',
@@ -15,13 +18,30 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 })
 export class AllOrdersTableComponent implements OnInit {
 
-  dataSource = ELEMENT_DATA;
-  columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
-  expandedElement: PeriodicElement | null;
+  @Input() allOrders: any;
 
-  constructor() { }
+  dataSource = new MatTableDataSource<Object>();
+  columnsToDisplay = ['orderID', 'name', 'price', 'totalAmount', 'currentState', 'type'];
+  expandedElement: Object | null;
+
+  constructor(private orderApiService: OrderApiService) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+
+    if(this.allOrders != undefined) {
+      console.log(this.allOrders);
+      // this.newData = this.searchProcesses;
+      // console.log(this.newData);
+      this.dataSource.data = this.allOrders;
+    }
+  }
+
+  toFormatDate(time: any): string{
+    return formatDate(Number(time *1000), 'medium', 'en-US');
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { formatDate } from '@angular/common';
 
 export interface UserData {
   id: string;
@@ -24,7 +25,7 @@ export class SearchProcessTableComponent implements OnInit {
 
   @Input() searchProcesses: any;
   newData: Object[];
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  displayedColumns: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'manufacturer'];
   dataSource = new MatTableDataSource<Object>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,7 +33,7 @@ export class SearchProcessTableComponent implements OnInit {
 
   constructor() { 
     // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
+    // const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
     // Assign the data to the data source for the table to render
     // this.dataSource = new MatTableDataSource(users);
@@ -50,8 +51,12 @@ export class SearchProcessTableComponent implements OnInit {
       console.log(this.searchProcesses);
       // this.newData = this.searchProcesses;
       // console.log(this.newData);
-      // this.dataSource.data = this.newData;
+      this.dataSource.data = this.searchProcesses;
     }
+  }
+
+  toFormatDate(time: any): string{
+    return formatDate(Number(time *1000), 'medium', 'en-US');
   }
 
   applyFilter(filterValue: string) {

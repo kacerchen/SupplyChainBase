@@ -17,12 +17,12 @@
             </mat-tab>
             <mat-tab label="All Orders">
               <div>
-                <app-all-orders-table></app-all-orders-table>
+                <app-all-orders-table [allOrders]="datasource_all"></app-all-orders-table>
               </div>
             </mat-tab>
             <mat-tab label="Pending Order List">
               <div>
-                <app-processing-orders-table></app-processing-orders-table>
+                <app-processing-orders-table [allOrders]="datasource_pend"></app-processing-orders-table>
               </div>
             </mat-tab>
           </mat-tab-group>

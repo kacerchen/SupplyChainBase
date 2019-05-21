@@ -11,16 +11,29 @@
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="example-element-diagram">
-          <div class="example-element-position"> {{element.position}} </div>
-          <div class="example-element-symbol"> {{element.symbol}} </div>
-          <div class="example-element-name"> {{element.name}} </div>
-          <div class="example-element-weight"> {{element.weight}} </div>
-        </div>
-        <div class="example-element-description">
-          {{element.description}}
-          <span class="example-element-description-attribution"> -- Wikipedia </span>
-        </div>
+          <div class="example-element-diagram">
+            <div class="example-element-productID"> Product ID: {{element.productID}} </div>
+            <div class="example-element-weight"> Weight: {{element.weight}} </div>
+            <div class="example-element-receiver"> Receiver: {{element.receiver}} </div>
+            <div class="example-element-orderer"> Orderer: {{element.orderer}} </div>
+            <div class="example-element-createdTime"> Created At: {{element.createdTime}} </div>
+          </div>
+          <div class="example-element-diagram">
+            <div class="example-element-specs"> Spec Details: {{element.specs}} </div>
+            <div class="example-element-methods"> Specify Methods: {{element.methods}} </div>
+            <div class="example-element-qualifiedOperator"> Specify Operators: {{element.qualifiedOperator}} </div>
+            <div class="example-element-leadTime"> Lead Time: {{element.leadTime}} </div>
+          </div>
+          <div class="example-element-diagram">
+            <div class="example-element-initPayment"> Initial Payment: {{element.initPayment}} </div>
+            <div class="example-element-payMethod"> Payment Method: {{element.payMethod}} </div>
+          </div>
+          <div class="example-element-diagram">
+            <div class="example-element-tradeTerm"> Trade Term: {{element.tradeTerm}} </div>
+            <div class="example-element-shipMethod"> Shipping Method: {{element.shipMethod}} </div>
+            <div class="example-element-address"> Address: {{element.address}} </div>
+            <div class="example-element-dispatchDate"> Dispatch Date: {{element.dispatchDate}} </div>
+          </div>
       </div>
     </td>
   </ng-container>

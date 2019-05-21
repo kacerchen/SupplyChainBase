@@ -76,6 +76,7 @@ export class ProcessMgComponent implements OnInit {
   query_process: Object;
   all_history_of_process: Object;
   datasource_all: any;
+  datasource_search: any;
   datasource_latest: any;
   datasource_history: any;
 
@@ -149,6 +150,8 @@ export class ProcessMgComponent implements OnInit {
       this.all_processes = data;
 
       this.datasource_latest = this.getDataSource(data);
+      this.datasource_search = this.getDataSource(data);
+      this.datasource_all = this.getDataSource(data);
       console.log(this.datasource_latest);
     })
   }

@@ -3,31 +3,31 @@
     <div class="col">
       <div class="form-group">
         <label for="lotNumber">Lot. Number</label>
-        <input type="number" class="form-control" id="lotNumber" aria-describedby="lotNo" placeholder="Enter New Lot. Number">
+        <input type="number" class="form-control" id="lotNumber" [(ngModel)]="lotNumber" [ngModelOptions]="{standalone: true}" aria-describedby="lotNo" placeholder="Enter New Lot. Number">
         <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
       </div>
       <div class="form-group">
-        <label for="componentName">Component Name</label>
-        <input type="text" class="form-control" id="componentName" placeholder="Enter New Component Name">
+        <label for="component">Component Name</label>
+        <input type="text" class="form-control" id="component" [(ngModel)]="component" [ngModelOptions]="{standalone: true}" placeholder="Enter New Component Name">
       </div>
       <div class="form-group">
-        <label for="containerId">Container ID</label>
-        <input type="number" class="form-control" id="containerId" aria-describedby="containerID" placeholder="Enter Container ID">
+        <label for="containerID">Container ID</label>
+        <input type="text" class="form-control" id="containerID" [(ngModel)]="containerID" [ngModelOptions]="{standalone: true}" aria-describedby="containerID" placeholder="Enter Container ID">
       </div>
     </div>
 
     <div class="col">
       <div class="form-group">
         <label for="weight">Weight</label>
-        <input type="number" class="form-control" id="weight" aria-describedby="weight" placeholder="Enter Weight (g)">
+        <input type="number" class="form-control" id="weight" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" aria-describedby="weight" placeholder="Enter Weight (g)">
       </div>
       <div class="form-group">
         <label for="temperature">Temperature</label>
-        <input type="number" class="form-control" id="temperature" aria-describedby="temperature" placeholder="Enter Temperature (C)">
+        <input type="number" class="form-control" id="temperature" [(ngModel)]="temperature" [ngModelOptions]="{standalone: true}" aria-describedby="temperature" placeholder="Enter Temperature (C)">
       </div>
       <div class="form-group">
         <label for="expectedProduct">Expected Final Product</label>
-        <input type="text" class="form-control" id="expectedProduct" aria-describedby="expectedProduct" placeholder="Enter Expected Final Product Name">
+        <input type="text" class="form-control" id="expectedProduct" [(ngModel)]="expectedProduct" [ngModelOptions]="{standalone: true}" aria-describedby="expectedProduct" placeholder="Enter Expected Final Product Name">
       </div>
     </div>
 
@@ -35,7 +35,7 @@
 
   <div class="row">
     <div class="col">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" (click)="addNewProcessline()">Submit</button>
     </div>
   </div>
 

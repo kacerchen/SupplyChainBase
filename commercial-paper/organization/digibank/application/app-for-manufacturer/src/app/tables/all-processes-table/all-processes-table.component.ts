@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-all-processes-table',
@@ -8,8 +9,10 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 })
 export class AllProcessesTableComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  @Input() all: any;
+
+  displayedColumns: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'temperature', 'weight', 'manufacturer', 'createdTime'];
+  dataSource = new MatTableDataSource<Object>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -17,6 +20,21 @@ export class AllProcessesTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+
+    if(this.all != undefined) {
+      console.log(this.all);
+      // this.newData = this.searchProcesses;
+      // console.log(this.newData);
+      this.dataSource.data = this.all;
+    }
+  }
+
+  toFormatDate(time: any): string{
+    return formatDate(Number(time *1000), 'medium', 'en-US');
   }
 
 }

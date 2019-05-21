@@ -2,17 +2,17 @@
   <div class="row" style="margin-top: 3%;">
     <div class="col">
       <div class="form-group">
-        <label for="productId">Product ID</label>
-        <input type="number" class="form-control" id="productId" aria-describedby="productId" placeholder="Enter Existed Product ID">
+        <label for="productID">Product ID</label>
+        <input type="number" class="form-control" id="productID" [(ngModel)]="productID" [ngModelOptions]="{standalone: true}" aria-describedby="productId" placeholder="Enter Existed Product ID">
         <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
       </div>
       <div class="form-group">
-        <label for="productName">Product Name</label>
-        <input type="text" class="form-control" id="productName" placeholder="Enter Existed Product Name">
+        <label for="name">Product Name</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Enter Existed Product Name">
       </div>
       <div class="form-group">
-        <label for="state">Update State</label>
-        <select class="form-control" [(ngModel)]="state" [ngModelOptions]="{standalone: true}">
+        <label for="newState">Update State</label>
+        <select class="form-control" [(ngModel)]="newState" [ngModelOptions]="{standalone: true}">
           <option *ngFor="let state of keys(stateOptions)" [value]="stateOptions[state]">{{state}}</option>
         </select>
       </div>
@@ -20,12 +20,8 @@
 
     <div class="col">
       <div class="form-group">
-        <label for="owner">Owner</label>
-        <input type="text" class="form-control" id="owner" aria-describedby="owner" placeholder="Enter Original Owner Name">
-      </div>
-      <div class="form-group">
         <label for="newOwner">New Owner</label>
-        <input type="text" class="form-control" id="newOwner" aria-describedby="newOwner" placeholder="Enter New Owner Name">
+        <input type="text" class="form-control" id="newOwner" [(ngModel)]="newOwner" [ngModelOptions]="{standalone: true}" aria-describedby="newOwner" placeholder="Enter New Owner Name">
       </div>
       <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="hasNewOwner" [(ngModel)]="hasNewOwner" [ngModelOptions]="{standalone: true}">
@@ -37,7 +33,7 @@
 
   <div class="row">
     <div class="col">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" (click)="updateProduct()">Submit</button>
     </div>
   </div>
 

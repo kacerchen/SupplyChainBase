@@ -17,7 +17,7 @@
             </mat-tab>
             <mat-tab label="Search Process Line">
               <div class="col">
-                <app-search-process-table [searchProcesses]="datasource_latest"></app-search-process-table>
+                <app-search-process-table [searchProcesses]="datasource_search"></app-search-process-table>
               </div>
               <div class="col">
                 <app-process-history-table [historyProcesses]="datasource_history"></app-process-history-table>
@@ -25,7 +25,7 @@
             </mat-tab>
             <mat-tab label="All Process Lines">
               <div>
-                <app-all-processes-table></app-all-processes-table>
+                <app-all-processes-table [all]="datasource_all"></app-all-processes-table>
               </div>
             </mat-tab>
             <mat-tab label="Add Process Manually">

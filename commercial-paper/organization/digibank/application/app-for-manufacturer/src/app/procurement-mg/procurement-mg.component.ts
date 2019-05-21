@@ -72,8 +72,8 @@ export class ProcurementMgComponent implements OnInit {
 
   queryAll: Object = {
     username: 'User1@org1.example.com',
-    orderer: 'DigiBank',
-    productID: '1',
+    orderer: 'CVS',
+    productID: '4',
     orderID: '1',
   }
 
@@ -97,11 +97,13 @@ export class ProcurementMgComponent implements OnInit {
   allOrders: Object;
   query_order: Object;
   all_history_of_order: Object;
+  datasource_all: Object;
+  datasource_pend: Object;
 
   constructor(private orderApiService: OrderApiService) { }
 
   ngOnInit() {
-    this.getHistoryByKey();
+    this.queryAllOrders();
   }
 
   initOrderLedger(): any {
@@ -141,6 +143,9 @@ export class ProcurementMgComponent implements OnInit {
     .subscribe((data: any) => {
       console.log(data);
       this.allOrders = data;
+
+      this.datasource_all = this.getDataSource(data);
+      this.datasource_pend = this.getDataSource(data);
     })
   }
 
@@ -162,4 +167,27 @@ export class ProcurementMgComponent implements OnInit {
     })
   }
 
+  getDataSource(obj: Result): any {
+    let records = obj.orders;
+    let tempArr = [];
+    let finalArr = [];
+
+    for(let i of Object.keys(records)){
+      if(i != 'class' && i != 'currentState' && i != 'key') {
+        tempArr.push(records[i]);
+      }
+    }
+
+    for(let j of tempArr){
+      // console.log(j['Record']);
+      finalArr.push(j['Record']);      
+    }
+    return finalArr;
+    // console.log(_to);
+  }
+
+}
+
+export interface Result {
+  orders: Object; 
 }

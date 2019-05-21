@@ -38,8 +38,8 @@ export class ProductMgComponent implements OnInit {
   queryAll: Object = {
     username: 'User1@org1.example.com',
     owner: 'MagnetoCorp',
-    name: 'componentA',
-    productID: '1',
+    name: 'drugA',
+    productID: '4',
   }
 
   queryOne: Object = {
@@ -52,8 +52,8 @@ export class ProductMgComponent implements OnInit {
   queryHistory: Object = {
     username: 'User1@org1.example.com',
     owner: 'MagnetoCorp',
-    name: 'componentA',
-    productID: '1',
+    name: 'drugA',
+    productID: '4',
   }
 
   newProduct: Object;
@@ -61,11 +61,14 @@ export class ProductMgComponent implements OnInit {
   allProducts: Object;
   query_product: Object;
   all_history_of_product: Object;
+  datasource_all_products: Object;
+  datasource_search: Object;
+  datasource_history: Object;
 
   constructor(private productApiService: ProductApiService) { }
 
   ngOnInit() {
-    this.getHistoryByKey();
+    this.queryAllProducts();
   }
 
   initProductLedger(): any {
@@ -97,6 +100,11 @@ export class ProductMgComponent implements OnInit {
     .subscribe((data: any) => {
       console.log(data);
       this.allProducts = data;
+
+      this.datasource_all_products = this.getDataSource(data);
+      this.datasource_search = this.getDataSource(data);
+      this.datasource_history = this.getDataSource(data);
+      console.log(this.datasource_all_products);
     })
   }
 
@@ -118,4 +126,27 @@ export class ProductMgComponent implements OnInit {
     })
   }
 
+  getDataSource(obj: Result): any {
+    let records = obj.products;
+    let tempArr = [];
+    let finalArr = [];
+
+    for(let i of Object.keys(records)){
+      if(i != 'class' && i != 'currentState' && i != 'key') {
+        tempArr.push(records[i]);
+      }
+    }
+
+    for(let j of tempArr){
+      // console.log(j['Record']);
+      finalArr.push(j['Record']);      
+    }
+    return finalArr;
+    // console.log(_to);
+  }
+
+}
+
+export interface Result {
+  products: Object; 
 }
