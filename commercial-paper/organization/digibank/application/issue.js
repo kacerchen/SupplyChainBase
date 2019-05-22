@@ -69,8 +69,8 @@ async function main() {
     // Smart contract name is 'org.processnet.processline' which is set in ProcessLineContract class with super()
     // const contract = await network.getContract('processcontracts', 'org.processnet.processline');
     // const contract2 = await network.getContract('processcontracts', 'org.processnet.product');
-    // const contract3 = await network.getContract('processcontracts', 'org.processnet.order');
-    const contract4 = await network.getContract('processcontracts', 'FabCar');
+    const contract3 = await network.getContract('processcontracts', 'org.processnet.order');
+    // const contract4 = await network.getContract('processcontracts', 'FabCar');
 
     // init process line
     console.log('Submit process line init transaction.');
@@ -78,28 +78,37 @@ async function main() {
     productID += 1;
 
     // const issueResponse = await contract.submitTransaction('initProcessLine', '00001', 'componentA', 'CT-123', 'MagnetoCorp', '1552521600', '450', '35', 'drugA');
+    // const issueResponse = await contract.submitTransaction('updateProcessLine', '00001', 'componentA', 'CT-123', '2', 'MagnetoCorp', '1552521600', '450', '35', 'drugA');
+    // const issueResponse = await contract.submitTransaction('queryAllProcesses', 'MagnetoCorp', 'drugA', '00001');
+
     // const issueResponse2 = await contract2.submitTransaction('initProduct', productID.toString(), 'componentA', '2', '1', 'org.processnet.productlist"supplierA":"componentA":1', 'N/A', '1552521600', '450', 'supplierA', 'DigiBank');
     // const issueResponse3 = await contract3.submitTransaction('initOrder', '1', '1', '1', 'finalA', '450', '1350', 
     //                                                          'some specs...', 'need operator get C license', 'follow our SOP', '1 months', 
     //                                                          'Beacon st., Boston, MA', 'air express', 'FCA', 'ship in 2 days.',
     //                                                          '1350', '500', 'visa', 
     //                                                          '1552521600', 'DigiBank', 'supplierA');
+    // const issueResponse3 = await contract3.submitTransaction('modifyOrder', '1', '1', '2', 'drugA-2', '455', '1356', 
+    //                                                          'N/A', 'N/A', 'N/A', 'N/A',
+    //                                                          'Apt 810, Beacon st., Boston, MA', 'sea express', 'FAS', 'ship in 5 days',
+    //                                                          '1356', '500', 'mastercard', 
+    //                                                          '1552821600', 'DigiBank', 'supplierA', '5');
+    const issueResponse3 = await contract3.submitTransaction('queryAllOrders', 'DigiBank', '1', '1');
 
     // const issueResponse = await contract.submitTransaction('initProcessLineLedger');
-    const issueResponse = await contract4.submitTransaction('initLedger');
+    // const issueResponse = await contract4.submitTransaction('initLedger');
 
     // process response
     console.log('Process init transaction response.');
-    console.log(issueResponse);
+    console.log(issueResponse3);
 
-    let processline = ProcessLine.fromBuffer(issueResponse);
+    // let processline = ProcessLine.fromBuffer(issueResponse);
     // let product = Product.fromBuffer(issueResponse2);
-    // let order = Order.fromBuffer(issueResponse3);
+    let order = Order.deserializeOrderClass(Buffer.from(JSON.parse(issueResponse3)), Order);
 
     // console.log(`${processline.manufacturer}- ${processline.expectedProduct} process line : ${processline.lotNumber} successfully inited.`);
     // console.log(`${product.owner}- ${product.name} product : ${product.newProductID} successfully inited.`);    
     // console.log(`${order.orderer}- ${order.productObj.productID} order : ${order.newOrderID} successfully inited.`);    
-    console.log(processline);
+    // console.log(processline);
     console.log('Transaction complete.');
 
   } catch (error) {
