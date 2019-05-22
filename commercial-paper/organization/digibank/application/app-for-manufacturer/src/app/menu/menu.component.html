@@ -4,23 +4,23 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item disabled>
     <mat-icon>dashboard</mat-icon>
-    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/dashboard" queryParamsHandling="merge">Dashboard</a>
   </button>
   <button mat-menu-item>
     <mat-icon>usb</mat-icon>
-    <a routerLink="/process">Process Management</a>
+    <a routerLink="/process" queryParamsHandling="merge">Process Management</a>
   </button>
   <button mat-menu-item>
     <mat-icon>widgets</mat-icon>
-    <a routerLink="/product">Product Management</a>
+    <a routerLink="/product" queryParamsHandling="merge">Product Management</a>
   </button>
   <button mat-menu-item>
     <mat-icon>local_shipping</mat-icon>
-    <a routerLink="/logistics">Logistics Management</a>
+    <a routerLink="/logistics" queryParamsHandling="merge">Logistics Management</a>
   </button>
   <button mat-menu-item>
     <mat-icon>attach_money</mat-icon>
-    <a routerLink="/procurement">Procurement Management</a>
+    <a routerLink="/procurement" queryParamsHandling="merge">Procurement Management</a>
   </button>
   <button mat-menu-item>
     <mat-icon>home</mat-icon>

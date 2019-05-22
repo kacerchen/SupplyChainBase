@@ -1,6 +1,8 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProcesslineApiService } from '../processline-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-process-mg',
@@ -67,7 +69,7 @@ export class ProcessMgComponent implements OnInit {
     expectedProduct: 'drugA'
   }
 
-  username: string = 'User1@org1.example.com'
+  username: string;
 
   newProcessline: Object;
   update_processline: Object;
@@ -80,9 +82,9 @@ export class ProcessMgComponent implements OnInit {
   datasource_latest: any;
   datasource_history: any;
 
-  constructor(private http: HttpClient, private processlineApiService: ProcesslineApiService) { 
+  constructor(private route: ActivatedRoute, private processlineApiService: ProcesslineApiService) { 
     
-    this.queryAllProcesses();
+    // this.queryAllProcesses();
     
     // this.http.post('/api', this.data)
     //   .subscribe((data: any) => {
@@ -104,7 +106,15 @@ export class ProcessMgComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getHistoryByKey();
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
+
+    this.queryAllProcesses(this.username);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -142,9 +152,15 @@ export class ProcessMgComponent implements OnInit {
     })
   }
 
-  queryAllProcesses(): any {
+  queryAllProcesses(username: string): any {
+    let queryAll = {
+      username: username,
+      lotNumber: '00001',
+      manufacturer: 'MagnetoCorp',
+      expectedProduct: 'drugA'
+    }
     //query all processes with same expected product, manufacturer but different lotNumber
-    this.processlineApiService.queryAllProcesses(this.queryAll)
+    this.processlineApiService.queryAllProcesses(queryAll)
     .subscribe((data: any) => {
       console.log(data);
       this.all_processes = data;

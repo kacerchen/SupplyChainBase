@@ -4,9 +4,22 @@ var bodyParser = require("body-parser");
 const api_processline = require('./api_processline.js');
 const api_product = require('./api_product.js');
 const api_order = require('./api_order');
+const api_users = require('./api_users');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.get('/api_signup', async (req, res) => {
+  console.log(req.query);
+  const result = await api_users.registerUser(req.query.username, req.query.role, req.query.mspID);
+  return res.json({newUser: result});
+})
+
+app.get('/api_login', async (req, res) => {
+  console.log(req.query);
+  const result = await api_users.userExist(req.query.username);
+  return res.json({userExist: result});
+})
 
 app.get('/api_init_processlineLedger', async (req, res) => {
   console.log(req.query);

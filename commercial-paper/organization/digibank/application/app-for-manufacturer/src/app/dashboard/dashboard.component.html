@@ -8,7 +8,7 @@
         <i class="material-icons" style="font-size: 150px; margin: 15% 0% 10% 0%; color:aliceblue;">account_circle</i>
       </div>
       <div class="col-4 bannerSubCol">
-        <p>Name: Jessy</p>
+        <p>Name: {{username}}</p>
         <p>Title: Process Engineer</p>
 
         <div class="row">
@@ -35,25 +35,25 @@
     <div class="row circleFont" style="margin-top: 5%; padding-bottom: 5%;">
       <div class="col" style="text-align: center;">
         <div class="circle circleColor1">
-          <a routerLink="/process"><i class="material-icons menuIcon">usb</i></a>
+          <a routerLink="/process" queryParamsHandling="merge"><i class="material-icons menuIcon">usb</i></a>
         </div>
         <p style="margin-top: 5%;">Process Management</p>
       </div>
       <div class="col" style="text-align: center;">
         <div class="circle circleColor2">
-          <a routerLink="/product"><i class="material-icons menuIcon">widgets</i></a>
+          <a routerLink="/product" queryParamsHandling="merge"><i class="material-icons menuIcon">widgets</i></a>
         </div>
         <p style="margin-top: 5%;">Product Management</p>
       </div>
       <div class="col" style="text-align: center;">
         <div class="circle circleColor3">
-          <a routerLink="/logistics"><i class="material-icons menuIcon">local_shipping</i></a>
+          <a routerLink="/logistics" queryParamsHandling="merge"><i class="material-icons menuIcon">local_shipping</i></a>
         </div>
         <p style="margin-top: 5%;">Logistics Management</p>
       </div>
       <div class="col" style="text-align: center;">
         <div class="circle circleColor4">
-          <a routerLink="/procurement"><i class="material-icons menuIcon">attach_money</i></a>
+          <a routerLink="/procurement" queryParamsHandling="merge"><i class="material-icons menuIcon">attach_money</i></a>
         </div>
         <p style="margin-top: 5%;">Procurement Management</p>
       </div>
