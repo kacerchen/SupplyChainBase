@@ -1,18 +1,27 @@
 import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-search-product-table',
   templateUrl: './search-product-table.component.html',
-  styleUrls: ['./search-product-table.component.css']
+  styleUrls: ['./search-product-table.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class SearchProductTableComponent implements OnInit {
 
   @Input() search: any;
 
-  displayedColumns: string[] = ['productID', 'name', 'supplier', 'owner', 'weight', 'type'];
+  columnsToDisplay: string[] = ['productID', 'name', 'supplier', 'owner', 'currentState', 'weight', 'type', 'from'];
   dataSource = new MatTableDataSource<Object>();
+  expandedElement: Object | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

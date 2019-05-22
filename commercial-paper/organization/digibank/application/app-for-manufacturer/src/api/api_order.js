@@ -211,14 +211,14 @@ module.exports = {
         }
     },
     
-    queryAllOrders: async function(username, orderer, productID, orderID) {
+    queryAllOrders: async function(username, orderID) {
         
         try {
             const contract = await getContract(username);
     
             // query all orders
             console.log('Submit query request of all orders transaction.');
-            const issueResponse = await contract.submitTransaction('queryAllOrders', orderer, productID, orderID);
+            const issueResponse = await contract.submitTransaction('queryAllOrders', orderID);
     
             // process response
             console.log('Process query transaction response.');
@@ -241,14 +241,14 @@ module.exports = {
         }
     },
     
-    queryOrder: async function(username, orderer, productID, orderID) {
+    queryOrder: async function(username, orderID) {
         
         try {
             const contract = await getContract(username);
     
             // query single order
             console.log('Submit single order query transaction.');
-            const issueResponse = await contract.submitTransaction('queryOrder', orderer, productID, orderID);
+            const issueResponse = await contract.submitTransaction('queryOrder', orderID);
     
             // process response
             console.log('Process query transaction response.');
@@ -271,14 +271,14 @@ module.exports = {
         }
     },
     
-    getHistoryByKey: async function(username, orderer, productID, orderID) {
+    getHistoryByKey: async function(username, orderID) {
         
         try {
             const contract = await getContract(username);
     
             // query order history
             console.log('Submit order history query transaction.');
-            const issueResponse = await contract.submitTransaction('getHistoryByKey', orderer, productID, orderID);
+            const issueResponse = await contract.submitTransaction('getHistoryByKey', orderID);
     
             // process response
             console.log('Process query transaction response.');

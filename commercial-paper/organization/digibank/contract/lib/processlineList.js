@@ -14,6 +14,7 @@ class ProcessLineList extends StateList {
     constructor(ctx) {
         super(ctx, 'org.processnet.processlinelist');
         this.use(ProcessLine);
+        this.ledgerkeys = [];
     }
 
     async addProcessline(processline) {
@@ -26,6 +27,16 @@ class ProcessLineList extends StateList {
 
     async updateProcessline(processline) {
         return this.updateState(processline);
+    }
+
+    setLedgerkeys(key, value) {
+        let obj = {};
+        obj[key] = value;
+        this.ledgerkeys.push(obj);
+    }
+
+    getLedgerkeys() {
+        return this.ledgerkeys;
     }
 }
 

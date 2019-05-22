@@ -34,7 +34,7 @@ const Type = {
 class Product extends State {
 
     constructor(obj) {
-        super(Product.getClass(), [obj.owner, obj.name, obj.newProductID]);
+        super(Product.getClass(), [obj.productID]);
         Object.assign(this, obj);
     }
 
@@ -147,20 +147,20 @@ class Product extends State {
     /**
      * Factory method to create a product object
      */
-    static createInstance(newProductID, name, type, from, processline, createdTime, weight, supplier, owner) {
+    static createInstance(productID, name, type, from, processline, createdTime, weight, supplier, owner) {
 
         if(type == Type.ORIGINAL) {
 
             console.log('Run type of ORIGINAL to new Product.');
-            return new Product({ newProductID, name, type, createdTime, weight, owner });
+            return new Product({ productID, name, type, createdTime, weight, owner });
         } else if(type == Type.RAWMATERIAL) {
 
             console.log('Run type of RAWMATERIAL to new Product.');
-            return new Product({ newProductID, name, type, from, createdTime, weight, supplier, owner });
+            return new Product({ productID, name, type, from, createdTime, weight, supplier, owner });
         } else if(type == Type.FINAL) {
 
             console.log('Run type of FINAL to new Product.');
-            return new Product({ newProductID, name, type, processline, createdTime, weight, supplier, owner });
+            return new Product({ productID, name, type, processline, createdTime, weight, supplier, owner });
         }
     }
 

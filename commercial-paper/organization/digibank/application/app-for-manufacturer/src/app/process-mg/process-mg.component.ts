@@ -1,5 +1,4 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ProcesslineApiService } from '../processline-api.service';
 import { map } from 'rxjs/operators';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
@@ -114,7 +113,7 @@ export class ProcessMgComponent implements OnInit {
         this.username = username
       })
 
-    this.queryAllProcesses(this.username);
+    this.queryAllProcesses();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -129,7 +128,19 @@ export class ProcessMgComponent implements OnInit {
   }
 
   addNewProcessline(): any {
-    this.processlineApiService.initProcessLine(this.data)
+    let data = {
+      username: this.username,
+      lotNumber: '00007',
+      component: 'componentA',
+      containerID: 'CT-123',
+      manufacturer: 'MagnetoCorp',
+      createdTime: '1552521600',
+      weight: '450',
+      temperature: '35',
+      expectedProduct: 'drugA'
+    }
+
+    this.processlineApiService.initProcessLine(data)
     .subscribe((data: any) => {
       console.log(data);
       this.newProcessline = data;
@@ -137,7 +148,20 @@ export class ProcessMgComponent implements OnInit {
   }
 
   updateProcessline(): any {
-    this.processlineApiService.updateProcessLine(this.updateData)
+    let updateData = {
+      username: this.username,
+      lotNumber: '00001',
+      component: 'componentB',
+      containerID: 'CT-456',
+      newState: '3',
+      manufacturer: 'MagnetoCorp',
+      updatedTime: '1552541600',
+      weight: '330',
+      temperature: '67',
+      expectedProduct: 'drugA'
+    }
+
+    this.processlineApiService.updateProcessLine(updateData)
     .subscribe((data: any) => {
       console.log(data);
       this.update_processline = data;
@@ -145,19 +169,29 @@ export class ProcessMgComponent implements OnInit {
   }
 
   endProcessline(): any {
-    this.processlineApiService.endProcessLine(this.finalData)
+    let finalData = {
+      username: this.username,
+      lotNumber: '00001',
+      component: 'drugA',
+      containerID: 'CT-789',
+      manufacturer: 'MagnetoCorp',
+      updatedTime: '1552621600',
+      weight: '600',
+      temperature: '25',
+      expectedProduct: 'drugA'
+    }
+
+    this.processlineApiService.endProcessLine(finalData)
     .subscribe((data: any) => {
       console.log(data);
       this.final_processline = data;
     })
   }
 
-  queryAllProcesses(username: string): any {
+  queryAllProcesses(): any {
     let queryAll = {
-      username: username,
+      username: this.username,
       lotNumber: '00001',
-      manufacturer: 'MagnetoCorp',
-      expectedProduct: 'drugA'
     }
     //query all processes with same expected product, manufacturer but different lotNumber
     this.processlineApiService.queryAllProcesses(queryAll)
@@ -173,8 +207,13 @@ export class ProcessMgComponent implements OnInit {
   }
 
   queryProcess(): any {
+    let queryOne = {
+      username: this.username,
+      lotNumber: '00002',
+    }
+
     //query a specific process by expected product, manufacturer, lotNumber
-    this.processlineApiService.queryProcess(this.queryOne)
+    this.processlineApiService.queryProcess(queryOne)
     .subscribe((data: any) => {
       console.log(data);
       this.query_process = data;
@@ -182,8 +221,13 @@ export class ProcessMgComponent implements OnInit {
   }
 
   getHistoryByKey(): any {
+    let queryHistory = {
+      username: this.username,
+      lotNumber: '00001',
+    }
+
     //query processes with same expected product, manufacturer, lotNumber
-    this.processlineApiService.getHistoryByKey(this.queryHistory)
+    this.processlineApiService.getHistoryByKey(queryHistory)
     .subscribe((data: any) => {
       console.log(data);
       this.all_history_of_process = data;

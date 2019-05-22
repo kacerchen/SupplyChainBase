@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { OrderApiService } from '../order-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-procurement-mg',
@@ -9,7 +10,7 @@ import { OrderApiService } from '../order-api.service';
 })
 export class ProcurementMgComponent implements OnInit {
 
-  username: string = 'User1@org1.example.com';
+  username: string;
 
   data: Object = {
     username: 'User1@org1.example.com',
@@ -72,22 +73,16 @@ export class ProcurementMgComponent implements OnInit {
 
   queryAll: Object = {
     username: 'User1@org1.example.com',
-    orderer: 'CVS',
-    productID: '4',
     orderID: '1',
   }
 
   queryOne: Object = {
     username: 'User1@org1.example.com',
-    orderer: 'DigiBank',
-    productID: '1',
     orderID: '1',
   }
 
   queryHistory: Object = {
     username: 'User1@org1.example.com',
-    orderer: 'DigiBank',
-    productID: '1',
     orderID: '1',
   }
 
@@ -100,9 +95,17 @@ export class ProcurementMgComponent implements OnInit {
   datasource_all: Object;
   datasource_pend: Object;
 
-  constructor(private orderApiService: OrderApiService) { }
+  constructor(private route: ActivatedRoute, private orderApiService: OrderApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
+
     this.queryAllOrders();
   }
 
@@ -114,7 +117,31 @@ export class ProcurementMgComponent implements OnInit {
   }
 
   initOrder(): any {
-    this.orderApiService.initOrder(this.data)
+    let data = {
+      username: this.username,
+      orderID: '4',
+      type: '1',
+      productID: '7',
+      name: 'drugA',
+      weight: '450',
+      price: '1350',
+      specs: 'N/A',
+      qualifiedOperator: 'N/A',
+      methods: 'N/A',
+      leadTime: 'N/A',
+      address: 'Beacon st., Boston, MA',
+      shipMethod: 'air express',
+      tradeTerm: 'FCA',
+      dispatchDate: 'ship in 6 days',
+      totalAmount: '1350',
+      initPayment: '500',
+      payMethod: 'visa',
+      createdTime: '1552521600',
+      orderer: 'DigiBank',
+      receiver: 'supplierA'
+    }
+
+    this.orderApiService.initOrder(data)
     .subscribe((data: any) => {
       console.log(data);
       this.newOrder = data;
@@ -122,7 +149,32 @@ export class ProcurementMgComponent implements OnInit {
   }
 
   modifyOrder(): any {
-    this.orderApiService.modifyOrder(this.modifiedData)
+    let modifiedData = {
+      username: this.username,
+      orderID: '1',
+      productID: '7',
+      newProductID: '6',
+      name: 'drugA-2',
+      weight: '455',
+      price: '1356',
+      specs: 'N/A',
+      qualifiedOperator: 'N/A',
+      methods: 'N/A',
+      leadTime: 'N/A',
+      address: 'Apt 810, Beacon st., Boston, MA',
+      shipMethod: 'sea express',
+      tradeTerm: 'FAS',
+      dispatchDate: 'ship in 5 days',
+      totalAmount: '1356',
+      initPayment: '500',
+      payMethod: 'mastercard',
+      updatedTime: '1552821600',
+      orderer: 'DigiBank',
+      modifier: 'supplierA',
+      newState: '5'
+    }
+
+    this.orderApiService.modifyOrder(modifiedData)
     .subscribe((data: any) => {
       console.log(data);
       this.modifiedOrder = data;
@@ -130,7 +182,17 @@ export class ProcurementMgComponent implements OnInit {
   }
 
   updateOrder(): any {
-    this.orderApiService.updateOrder(this.updatedData)
+    let updatedData = {
+      username: this.username,
+      orderID: '1',
+      productID: '6',
+      updatedTime: '1552821600',
+      orderer: 'DigiBank',
+      modifier: 'supplierA',
+      newState: '6'
+    }
+
+    this.orderApiService.updateOrder(updatedData)
     .subscribe((data: any) => {
       console.log(data);
       this.updatedOrder = data;
@@ -138,8 +200,13 @@ export class ProcurementMgComponent implements OnInit {
   }
 
   queryAllOrders(): any {
+    let queryAll = {
+      username: this.username,
+      orderID: '1',
+    }
+
     //query all orders with same orderer, productID but different orderID
-    this.orderApiService.queryAllOrders(this.queryAll)
+    this.orderApiService.queryAllOrders(queryAll)
     .subscribe((data: any) => {
       console.log(data);
       this.allOrders = data;
@@ -150,8 +217,13 @@ export class ProcurementMgComponent implements OnInit {
   }
 
   queryOrder(): any {
+    let queryOne = {
+      username: this.username,
+      orderID: '1',
+    }
+
     //query a specific order by orderer, productID, orderID
-    this.orderApiService.queryOrder(this.queryOne)
+    this.orderApiService.queryOrder(queryOne)
     .subscribe((data: any) => {
       console.log(data);
       this.query_order = data;
@@ -159,8 +231,13 @@ export class ProcurementMgComponent implements OnInit {
   }
 
   getHistoryByKey(): any {
+    let queryHistory = {
+      username: this.username,
+      orderID: '1',
+    }
+
     //query order with same orderer, productID, orderID
-    this.orderApiService.getHistoryByKey(this.queryHistory)
+    this.orderApiService.getHistoryByKey(queryHistory)
     .subscribe((data: any) => {
       console.log(data);
       this.all_history_of_order = data;

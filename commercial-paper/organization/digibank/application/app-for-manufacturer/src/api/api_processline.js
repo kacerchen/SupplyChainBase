@@ -191,14 +191,14 @@ module.exports = {
         }
     },
     
-    queryAllProcesses: async function(username, manufacturer, expectedProduct, lotNumber) {
+    queryAllProcesses: async function(username, lotNumber) {
         
         try {
             const contract = await getContract(username);
     
             // init process line
             console.log('Submit process line init transaction.');
-            const issueResponse = await contract.submitTransaction('queryAllProcesses', manufacturer, expectedProduct, lotNumber);
+            const issueResponse = await contract.submitTransaction('queryAllProcesses', lotNumber);
     
             // process response
             console.log('Process init transaction response.');
@@ -221,14 +221,14 @@ module.exports = {
         }
     },
     
-    queryProcess: async function(username, manufacturer, expectedProduct, lotNumber) {
+    queryProcess: async function(username, lotNumber) {
         
         try {
             const contract = await getContract(username);
     
             // init process line
             console.log('Submit process line init transaction.');
-            const issueResponse = await contract.submitTransaction('queryProcess', manufacturer, expectedProduct, lotNumber);
+            const issueResponse = await contract.submitTransaction('queryProcess', lotNumber);
     
             // process response
             console.log('Process init transaction response.');
@@ -251,14 +251,14 @@ module.exports = {
         }
     },
     
-    getHistoryByKey: async function(username, manufacturer, expectedProduct, lotNumber) {
+    getHistoryByKey: async function(username, lotNumber) {
         
         try {
             const contract = await getContract(username);
     
             // init process line
             console.log('Submit process line init transaction.');
-            const issueResponse = await contract.submitTransaction('getHistoryByKey', manufacturer, expectedProduct, lotNumber);
+            const issueResponse = await contract.submitTransaction('getHistoryByKey', lotNumber);
     
             // process response
             console.log('Process init transaction response.');

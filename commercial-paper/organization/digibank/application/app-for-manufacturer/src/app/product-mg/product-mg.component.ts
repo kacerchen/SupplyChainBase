@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ProductApiService } from '../product-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-mg',
@@ -9,7 +10,7 @@ import { ProductApiService } from '../product-api.service';
 })
 export class ProductMgComponent implements OnInit {
 
-  username: string = 'User1@org1.example.com';
+  username: string;
 
   data: Object = {
     username: 'User1@org1.example.com',
@@ -37,22 +38,16 @@ export class ProductMgComponent implements OnInit {
 
   queryAll: Object = {
     username: 'User1@org1.example.com',
-    owner: 'MagnetoCorp',
-    name: 'drugA',
     productID: '4',
   }
 
   queryOne: Object = {
     username: 'User1@org1.example.com',
-    owner: 'MagnetoCorp',
-    name: 'componentA',
     productID: '1',
   }
 
   queryHistory: Object = {
     username: 'User1@org1.example.com',
-    owner: 'MagnetoCorp',
-    name: 'drugA',
     productID: '4',
   }
 
@@ -65,9 +60,17 @@ export class ProductMgComponent implements OnInit {
   datasource_search: Object;
   datasource_history: Object;
 
-  constructor(private productApiService: ProductApiService) { }
+  constructor(private route: ActivatedRoute, private productApiService: ProductApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
+
     this.queryAllProducts();
   }
 
@@ -79,7 +82,20 @@ export class ProductMgComponent implements OnInit {
   }
 
   addNewProduct(): any {
-    this.productApiService.initProduct(this.data)
+    let data = {
+      username: this.username,
+      productID: '9',
+      name: 'componentA',
+      type: '2',
+      from: 'supplierA',
+      processline: 'N/A',
+      createdTime: '1552521600',
+      weight: '450',
+      supplier: 'supplierA',
+      owner: 'MagnetoCorp'
+    }
+
+    this.productApiService.initProduct(data)
     .subscribe((data: any) => {
       console.log(data);
       this.newProduct = data;
@@ -87,7 +103,18 @@ export class ProductMgComponent implements OnInit {
   }
 
   updateProduct(): any {
-    this.productApiService.updateProduct(this.updateData)
+    let updateData = {
+      username: this.username,
+      productID: '8',
+      name: 'componentA',
+      newState: '3',
+      updatedTime: '1552721600',
+      owner: 'MagnetoCorp',
+      hasNewOwner: 'false',
+      newOwner: 'N/A',
+    }
+
+    this.productApiService.updateProduct(updateData)
     .subscribe((data: any) => {
       console.log(data);
       this.updatedProduct = data;
@@ -95,8 +122,13 @@ export class ProductMgComponent implements OnInit {
   }
 
   queryAllProducts(): any {
+    let queryAll = {
+      username: this.username,
+      productID: '1',
+    }
+
     //query all products with same product name, owner but different productID
-    this.productApiService.queryAllProducts(this.queryAll)
+    this.productApiService.queryAllProducts(queryAll)
     .subscribe((data: any) => {
       console.log(data);
       this.allProducts = data;
@@ -109,8 +141,13 @@ export class ProductMgComponent implements OnInit {
   }
 
   queryProduct(): any {
+    let queryOne = {
+      username: this.username,
+      productID: '1',
+    }
+
     //query a specific product by product name, owner, productID
-    this.productApiService.queryProduct(this.queryOne)
+    this.productApiService.queryProduct(queryOne)
     .subscribe((data: any) => {
       console.log(data);
       this.query_product = data;
@@ -118,8 +155,13 @@ export class ProductMgComponent implements OnInit {
   }
 
   getHistoryByKey(): any {
+    let queryHistory = {
+      username: this.username,
+      productID: '1',
+    }
+
     //query product with same product name, owner, productID
-    this.productApiService.getHistoryByKey(this.queryHistory)
+    this.productApiService.getHistoryByKey(queryHistory)
     .subscribe((data: any) => {
       console.log(data);
       this.all_history_of_product = data;

@@ -23,7 +23,7 @@ const cpState = {
 class ProcessLine extends State {
 
     constructor(obj) {
-        super(ProcessLine.getClass(), [obj.manufacturer, obj.expectedProduct, obj.lotNumber]);
+        super(ProcessLine.getClass(), [obj.lotNumber]);
         Object.assign(this, obj);
     }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderApiService } from '../order-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-logistics-mg',
@@ -8,24 +10,20 @@ import { OrderApiService } from '../order-api.service';
 })
 export class LogisticsMgComponent implements OnInit {
 
+  username: string;
+
   queryAll: Object = {
     username: 'User1@org1.example.com',
-    orderer: 'CVS',
-    productID: '4',
     orderID: '1',
   }
 
   queryOne: Object = {
     username: 'User1@org1.example.com',
-    orderer: 'DigiBank',
-    productID: '1',
     orderID: '1',
   }
 
   queryHistory: Object = {
     username: 'User1@org1.example.com',
-    orderer: 'DigiBank',
-    productID: '1',
     orderID: '1',
   }
 
@@ -38,15 +36,28 @@ export class LogisticsMgComponent implements OnInit {
   all_history_of_order: Object;
   datasource_all: Object;
 
-  constructor(private orderApiService: OrderApiService) { }
+  constructor(private route: ActivatedRoute, private orderApiService: OrderApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
+
     this.queryAllOrders();
   }
 
   queryAllOrders(): any {
+    let queryAll = {
+      username: this.username,
+      orderID: '1',
+    }
+
     //query all orders with same orderer, productID but different orderID
-    this.orderApiService.queryAllOrders(this.queryAll)
+    this.orderApiService.queryAllOrders(queryAll)
     .subscribe((data: any) => {
       console.log(data);
       this.allOrders = data;
@@ -56,8 +67,13 @@ export class LogisticsMgComponent implements OnInit {
   }
 
   queryOrder(): any {
+    let queryOne = {
+      username: this.username,
+      orderID: '1',
+    }
+
     //query a specific order by orderer, productID, orderID
-    this.orderApiService.queryOrder(this.queryOne)
+    this.orderApiService.queryOrder(queryOne)
     .subscribe((data: any) => {
       console.log(data);
       this.query_order = data;
@@ -65,8 +81,13 @@ export class LogisticsMgComponent implements OnInit {
   }
 
   getHistoryByKey(): any {
+    let queryHistory = {
+      username: this.username,
+      orderID: '1',
+    }
+
     //query order with same orderer, productID, orderID
-    this.orderApiService.getHistoryByKey(this.queryHistory)
+    this.orderApiService.getHistoryByKey(queryHistory)
     .subscribe((data: any) => {
       console.log(data);
       this.all_history_of_order = data;

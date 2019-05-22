@@ -103,4 +103,4 @@ module.exports = {
 }
 
 // module.exports.registerUser('tester11', 'developer');
-module.exports.getUser('dd');
+// module.exports.getUser('dd');

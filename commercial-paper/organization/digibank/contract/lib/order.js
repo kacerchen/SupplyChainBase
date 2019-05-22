@@ -36,7 +36,7 @@ class Order extends State {
             return obj;
         }
 
-        super(Order.getClass(), [obj.orderer, obj.productObj.productID, obj.newOrderID]);
+        super(Order.getClass(), [obj.orderID]);
         Object.assign(this, obj);
     }
 
@@ -170,7 +170,7 @@ class Order extends State {
     /**
      * Factory method to create a order object
      */
-    static createInstance(newOrderID, type,
+    static createInstance(orderID, type,
         productID, name, weight, price, 
         specs, qualifiedOperator, methods, leadTime, 
         address, shipMethod, tradeTerm, dispatchDate, 
@@ -186,11 +186,11 @@ class Order extends State {
         if(type == Type.STANDARD) {
 
             console.log('Run type of STANDARD to new Order.');
-            return new Order({ newOrderID, type, productObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
+            return new Order({ orderID, type, productObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
         } else if(type == Type.CUSTOMIZED) {
 
             console.log('Run type of CUSTOMIZED to new Order.');
-            return new Order({ newOrderID, type, productObj, assuranceObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
+            return new Order({ orderID, type, productObj, assuranceObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
         }
     }
 

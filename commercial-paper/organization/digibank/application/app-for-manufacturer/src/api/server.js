@@ -216,100 +216,82 @@ app.post('/api_end_processline', async (req, res) => {
 app.post('/api_query_all_processes', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let manufacturer = req.body.manufacturer;
-  let expectedProduct = req.body.expectedProduct;
   let lotNumber = req.body.lotNumber;
 
-  const result = await api_processline.queryAllProcesses(username, manufacturer, expectedProduct, lotNumber);
+  const result = await api_processline.queryAllProcesses(username, lotNumber);
   return res.status(201).json({ processline: result });
 })
 
 app.post('/api_query_all_products', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let owner = req.body.owner;
-  let name = req.body.name;
   let productID = req.body.productID;
 
-  const result = await api_product.queryAllProducts(username, owner, name, productID);
+  const result = await api_product.queryAllProducts(username, productID);
   return res.status(201).json({ products: result });
 })
 
 app.post('/api_query_all_orders', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let orderer = req.body.orderer;
-  let productID = req.body.productID;
   let orderID = req.body.orderID;
 
-  const result = await api_order.queryAllOrders(username, orderer, productID, orderID);
+  const result = await api_order.queryAllOrders(username, orderID);
   return res.status(201).json({ orders: result });
 })
 
 app.post('/api_query_process', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let manufacturer = req.body.manufacturer;
-  let expectedProduct = req.body.expectedProduct;
   let lotNumber = req.body.lotNumber;
 
-  const result = await api_processline.queryProcess(username, manufacturer, expectedProduct, lotNumber);
+  const result = await api_processline.queryProcess(username, lotNumber);
   return res.status(201).json({ processline: result });
 })
 
 app.post('/api_query_product', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let owner = req.body.owner;
-  let name = req.body.name;
   let productID = req.body.productID;
 
-  const result = await api_product.queryProduct(username, owner, name, productID);
+  const result = await api_product.queryProduct(username, productID);
   return res.status(201).json({ product: result });
 })
 
 app.post('/api_query_order', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let orderer = req.body.orderer;
-  let productID = req.body.productID;
   let orderID = req.body.orderID;
 
-  const result = await api_order.queryOrder(username, orderer, productID, orderID);
-  return res.status(201).json({ product: result });
+  const result = await api_order.queryOrder(username, orderID);
+  return res.status(201).json({ orders: result });
 })
 
 app.post('/api_query_processline_history', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let manufacturer = req.body.manufacturer;
-  let expectedProduct = req.body.expectedProduct;
   let lotNumber = req.body.lotNumber;
 
-  const result = await api_processline.getHistoryByKey(username, manufacturer, expectedProduct, lotNumber);
+  const result = await api_processline.getHistoryByKey(username, lotNumber);
   return res.status(201).json({ processline: result });
 })
 
 app.post('/api_query_product_history', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let owner = req.body.owner;
-  let name = req.body.name;
   let productID = req.body.productID;
 
-  const result = await api_product.getHistoryByKey(username, owner, name, productID);
-  return res.status(201).json({ productHistory: result });
+  const result = await api_product.getHistoryByKey(username, productID);
+  return res.status(201).json({ products: result });
 })
 
 app.post('/api_query_order_history', async (req, res) => {
   console.log(req.body);
   let username = req.body.username;
-  let orderer = req.body.orderer;
-  let productID = req.body.productID;
   let orderID = req.body.orderID;
 
-  const result = await api_order.getHistoryByKey(username, orderer, productID, orderID);
-  return res.status(201).json({ orderHistory: result });
+  const result = await api_order.getHistoryByKey(username, orderID);
+  return res.status(201).json({ orders: result });
 })
 
 app.listen(3000);

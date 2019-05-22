@@ -1,18 +1,27 @@
 import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-all-products-table',
   templateUrl: './all-products-table.component.html',
-  styleUrls: ['./all-products-table.component.css']
+  styleUrls: ['./all-products-table.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class AllProductsTableComponent implements OnInit {
 
   @Input() all: any;
 
-  displayedColumns: string[] = ['productID', 'name', 'supplier', 'owner', 'currentState', 'weight', 'type', 'from'];
+  columnsToDisplay: string[] = ['productID', 'name', 'supplier', 'owner', 'currentState', 'weight', 'type', 'from'];
   dataSource = new MatTableDataSource<Object>();
+  expandedElement: Object | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

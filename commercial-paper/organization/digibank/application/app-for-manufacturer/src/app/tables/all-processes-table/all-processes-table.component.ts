@@ -1,18 +1,27 @@
 import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-all-processes-table',
   templateUrl: './all-processes-table.component.html',
-  styleUrls: ['./all-processes-table.component.css']
+  styleUrls: ['./all-processes-table.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class AllProcessesTableComponent implements OnInit {
 
   @Input() all: any;
 
-  displayedColumns: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'temperature', 'weight', 'manufacturer', 'createdTime'];
+  columnsToDisplay: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'manufacturer', 'currentState'];
   dataSource = new MatTableDataSource<Object>();
+  expandedElement: Object | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

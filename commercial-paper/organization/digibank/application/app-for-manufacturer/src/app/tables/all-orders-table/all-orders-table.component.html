@@ -1,9 +1,52 @@
 <table mat-table
        [dataSource]="dataSource" multiTemplateDataRows
        class="mat-elevation-z8">
-  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+  <!-- Order ID Column -->
+  <ng-container matColumnDef="orderID">
+    <th mat-header-cell *matHeaderCellDef> Order ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.orderID}} </td>
+  </ng-container>
+
+  <!-- Item Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Item Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name || element.productObj.name}} </td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let element"> {{element.price || element.productObj.price}} </td>
+  </ng-container>
+
+  <!-- Total Amount Column -->
+  <ng-container matColumnDef="totalAmount">
+    <th mat-header-cell *matHeaderCellDef> Total Amount </th>
+    <td mat-cell *matCellDef="let element"> {{element.totalAmount || element.paymentObj.totalAmount}} </td>
+  </ng-container>
+
+  <!-- Current State Column -->
+  <ng-container matColumnDef="currentState">
+    <th mat-header-cell *matHeaderCellDef> Current State </th>
+    <td mat-cell *matCellDef="let element" [ngSwitch]="element.currentState">
+      <div *ngSwitchCase="'1'">Init</div>
+      <div *ngSwitchCase="'2'">Accepted</div>
+      <div *ngSwitchCase="'3'">Abandoned</div>
+      <div *ngSwitchCase="'4'">Pending Receiver</div>
+      <div *ngSwitchCase="'5'">Pending Orderer</div>
+      <div *ngSwitchCase="'6'">Processing</div>
+      <div *ngSwitchCase="'7'">Ship Out</div>
+    </td>
+  </ng-container>
+
+  <!-- Type Column -->
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef> Type </th>
+    <!-- <td mat-cell *matCellDef="let element"> {{element.type}} </td> -->
+    <td mat-cell *matCellDef="let element" [ngSwitch]="element.type">
+      <div *ngSwitchCase="'1'">Standard</div>
+      <div *ngSwitchCase="'2'">Customized</div>
+    </td>
   </ng-container>
 
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -12,11 +55,11 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-diagram">
-          <div class="example-element-productID"> Product ID: {{element.productID}} </div>
-          <div class="example-element-weight"> Weight: {{element.weight}} </div>
+          <div class="example-element-productID"> Product ID: {{element.productID || element.productObj.productID}} </div>
+          <div class="example-element-weight"> Weight: {{element.weight || element.productObj.weight}} </div>
           <div class="example-element-receiver"> Receiver: {{element.receiver}} </div>
           <div class="example-element-orderer"> Orderer: {{element.orderer}} </div>
-          <div class="example-element-createdTime"> Created At: {{element.createdTime}} </div>
+          <div class="example-element-createdTime"> Created At: {{toFormatDate(element.createdTime)}} </div>
         </div>
         <div class="example-element-diagram">
           <div class="example-element-specs"> Spec Details: {{element.specs}} </div>
@@ -25,14 +68,14 @@
           <div class="example-element-leadTime"> Lead Time: {{element.leadTime}} </div>
         </div>
         <div class="example-element-diagram">
-          <div class="example-element-initPayment"> Initial Payment: {{element.initPayment}} </div>
-          <div class="example-element-payMethod"> Payment Method: {{element.payMethod}} </div>
+          <div class="example-element-initPayment"> Initial Payment: {{element.initPayment || element.paymentObj.initPayment}} </div>
+          <div class="example-element-payMethod"> Payment Method: {{element.payMethod || element.paymentObj.payMethod}} </div>
         </div>
         <div class="example-element-diagram">
-          <div class="example-element-tradeTerm"> Trade Term: {{element.tradeTerm}} </div>
-          <div class="example-element-shipMethod"> Shipping Method: {{element.shipMethod}} </div>
-          <div class="example-element-address"> Address: {{element.address}} </div>
-          <div class="example-element-dispatchDate"> Dispatch Date: {{element.dispatchDate}} </div>
+          <div class="example-element-tradeTerm"> Trade Term: {{element.tradeTerm || element.shippingObj.tradeTerm}} </div>
+          <div class="example-element-shipMethod"> Shipping Method: {{element.shipMethod || element.shippingObj.shipMethod}} </div>
+          <div class="example-element-address"> Address: {{element.address || element.shippingObj.address}} </div>
+          <div class="example-element-dispatchDate"> Dispatch Date: {{element.dispatchDate || element.shippingObj.dispatchDate}} </div>
         </div>
       </div>
     </td>

@@ -89,7 +89,7 @@ class ProcessLineContract extends Contract {
         const processlines = [
             {
                 class: 'org.processnet.processline',
-                key: '"MagnetoCorp":"drugA":"00001"',
+                key: '"00001"',
                 currentState: '1',
                 lotNumber: '00001',
                 component: 'componentA',
@@ -102,7 +102,7 @@ class ProcessLineContract extends Contract {
             },
             {
                 class: 'org.processnet.processline',
-                key: '"MagnetoCorp":"drugB":"00002"',
+                key: '"00002"',
                 currentState: '1',
                 lotNumber: '00002',
                 component: 'componentB',
@@ -115,7 +115,7 @@ class ProcessLineContract extends Contract {
             },
             {
                 class: 'org.processnet.processline',
-                key: '"MagnetoCorp":"drugC":"00003"',
+                key: '"00003"',
                 currentState: '2',
                 lotNumber: '00003',
                 component: 'componentC',
@@ -128,7 +128,7 @@ class ProcessLineContract extends Contract {
             },
             {
                 class: 'org.processnet.processline',
-                key: '"MagnetoCorp":"drugD":"00004"',
+                key: '"00004"',
                 currentState: '3',
                 lotNumber: '00004',
                 component: 'componentD',
@@ -141,7 +141,7 @@ class ProcessLineContract extends Contract {
             },
             {
                 class: 'org.processnet.processline',
-                key: '"MagnetoCorp":"drugE":"00005"',
+                key: '"00005"',
                 currentState: '2',
                 lotNumber: '00005',
                 component: 'componentE',
@@ -150,13 +150,65 @@ class ProcessLineContract extends Contract {
                 createdTime: '1552921600',
                 weight: '324',
                 temperature: '28',
-                expectedProduct: 'drugE',
+                expectedProduct: 'drugA',
+            },
+            {
+                class: 'org.processnet.processline',
+                key: '"00006"',
+                currentState: '2',
+                lotNumber: '00006',
+                component: 'componentE',
+                containerID: 'CT-145',
+                manufacturer: 'MagnetoCorp',
+                createdTime: '1552921600',
+                weight: '324',
+                temperature: '28',
+                expectedProduct: 'drugA',
+            },
+            {
+                class: 'org.processnet.processline',
+                key: '"00007"',
+                currentState: '3',
+                lotNumber: '00007',
+                component: 'componentD',
+                containerID: 'CT-912',
+                manufacturer: 'iii',
+                createdTime: '1552821600',
+                weight: '920',
+                temperature: '40',
+                expectedProduct: 'drugD',
+            },
+            {
+                class: 'org.processnet.processline',
+                key: '"00008"',
+                currentState: '2',
+                lotNumber: '00008',
+                component: 'componentE',
+                containerID: 'CT-145',
+                manufacturer: 'iii',
+                createdTime: '1552921600',
+                weight: '324',
+                temperature: '28',
+                expectedProduct: 'drugA',
+            },
+            {
+                class: 'org.processnet.processline',
+                key: '"00009"',
+                currentState: '2',
+                lotNumber: '00009',
+                component: 'componentE',
+                containerID: 'CT-145',
+                manufacturer: 'iii',
+                createdTime: '1552921600',
+                weight: '324',
+                temperature: '28',
+                expectedProduct: 'drugA',
             },
         ];
 
         for (let i = 0; i < processlines.length; i++) {
             processlines[i].docType = 'processline';
-            let key = ctx.processLineList.name + '"' + processlines[i].manufacturer + '":"' + processlines[i].expectedProduct + '":"' + processlines[i].lotNumber + '"';
+            let key = ctx.processLineList.name + '"' + processlines[i].lotNumber + '"';
             await ctx.stub.putState(key, Buffer.from(JSON.stringify(processlines[i])));
             console.info('Added <--> ', processlines[i]);
         }
@@ -190,6 +242,9 @@ class ProcessLineContract extends Contract {
         console.log('This is the return key: ' + key);
         // logger.info('%s infotext', key);
 
+        ctx.processLineList.setLedgerkeys(key, {manufacturer: manufacturer, expectedProduct: expectedProduct, lotNumber: lotNumber});
+        console.log('Key is added to ledgerkeys array.');
+
         // Must return a serialized process line to caller of smart contract
         return processline.toBuffer();
     }
@@ -211,7 +266,7 @@ class ProcessLineContract extends Contract {
     async updateProcessLine(ctx, lotNumber, newComponent, newContainerID, newState, manufacturer, updatedTime, newWeight, newTemperature, expectedProduct) {
 
         // Retrieve the current process line using key fields provided
-        let processlineKey = ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
+        let processlineKey = ProcessLine.makeKey([lotNumber]);
         let processline = await ctx.processLineList.getProcessline(processlineKey);
         console.log(processline);
 
@@ -221,21 +276,20 @@ class ProcessLineContract extends Contract {
         }
 
         // Update state 
-        if (processline.isInit()) {
-            switch (newState) {
-                case "2":
-                    processline.setFeeding();
-                    break;
-                case "3":
-                    processline.setReacting();
-                    break;
-                case "4":
-                    processline.setTransit();
-                    break;
-            }
-
-            processline.setUpdateProcess(newComponent, newContainerID, updatedTime, newWeight, newTemperature);
+        switch (newState) {
+            case "2":
+                processline.setFeeding();
+                break;
+            case "3":
+                processline.setReacting();
+                break;
+            case "4":
+                processline.setTransit();
+                break;
         }
+
+        processline.setUpdateProcess(newComponent, newContainerID, updatedTime, newWeight, newTemperature);
+        console.log(processline);
 
         // Update the process line
         await ctx.processLineList.updateProcessline(processline);
@@ -257,7 +311,7 @@ class ProcessLineContract extends Contract {
     */
     async endProcessLine(ctx, lotNumber, newComponent, newContainerID, manufacturer, updatedTime, newWeight, newTemperature, expectedProduct) {
 
-        let processlineKey = ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
+        let processlineKey = ProcessLine.makeKey([lotNumber]);
 
         let processline = await ctx.processLineList.getProcessline(processlineKey);
 
@@ -273,13 +327,15 @@ class ProcessLineContract extends Contract {
         return processline.toBuffer();
     }
 
-    async queryAllProcesses(ctx, manufacturer, expectedProduct, lotNumber) {
-        let processlineKey = ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
+    async queryAllProcesses(ctx, lotNumber) {
+        let processlineKey = ProcessLine.makeKey([lotNumber]);
         console.log('This is processlineKey: ' + processlineKey);
-        let endLotNumber = lotNumber + 999;
+        let endLotNumber = toString(parseInt(lotNumber) + 999);
 
         const startKey = ctx.processLineList.name + processlineKey;
-        const endKey = ctx.processLineList.name + ProcessLine.makeKey([manufacturer, expectedProduct, endLotNumber]);
+        console.log(startKey);
+        const endKey = ctx.processLineList.name + ProcessLine.makeKey([endLotNumber]);
+        console.log(endKey);
 
         const iterator = await ctx.stub.getStateByRange(startKey, endKey);
 
@@ -287,8 +343,8 @@ class ProcessLineContract extends Contract {
         return this.helper.print(iterator, allResults);
     }
 
-    async queryProcess(ctx, manufacturer, expectedProduct, lotNumber) {
-        let processlineKey = ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
+    async queryProcess(ctx, lotNumber) {
+        let processlineKey = ProcessLine.makeKey([lotNumber]);
         console.log('This is processlineKey: ' + processlineKey);
         const stateKey = ctx.processLineList.name + processlineKey;
 
@@ -297,8 +353,8 @@ class ProcessLineContract extends Contract {
         return result;
     }
 
-    async getHistoryByKey(ctx, manufacturer, expectedProduct, lotNumber) {
-        const key = ctx.processLineList.name + ProcessLine.makeKey([manufacturer, expectedProduct, lotNumber]);
+    async getHistoryByKey(ctx, lotNumber) {
+        const key = ctx.processLineList.name + ProcessLine.makeKey([lotNumber]);
         const iterator = await ctx.stub.getHistoryForKey(key);
 
         const allResults = [];
@@ -344,7 +400,7 @@ class ProductContract extends Contract {
                 name: 'componentA',
                 type: '2',
                 currentState: '1',
-                from: 'org.processnet.productlist"supplierA":"componentA":"1"',
+                from: 'org.processnet.productlist"1"',
                 processline: 'N/A',
                 createdTime: '1552521600',
                 weight: '450',
@@ -356,7 +412,7 @@ class ProductContract extends Contract {
                 name: 'componentB',
                 type: '2',
                 currentState: '1',
-                from: 'org.processnet.productlist"supplierB":"componentB":"2"',
+                from: 'org.processnet.productlist"2"',
                 processline: 'N/A',
                 createdTime: '1552525600',
                 weight: '650',
@@ -368,7 +424,7 @@ class ProductContract extends Contract {
                 name: 'componentC',
                 type: '2',
                 currentState: '1',
-                from: 'org.processnet.productlist"supplierC":"componentC":"3"',
+                from: 'org.processnet.productlist"3"',
                 processline: 'N/A',
                 createdTime: '1552528600',
                 weight: '850',
@@ -377,11 +433,11 @@ class ProductContract extends Contract {
             },
             {
                 productID: '4',
-                name: 'drugA',
+                name: 'drugD',
                 type: '3',
                 currentState: '5',
                 from: 'N/A',
-                processline: 'org.processnet.processlinelist"MagnetoCorp":"drugA":"00001"',
+                processline: 'org.processnet.processlinelist"00007"',
                 createdTime: '1553521600',
                 weight: '350',
                 supplier: 'MagnetoCorp',
@@ -392,18 +448,42 @@ class ProductContract extends Contract {
                 name: 'componentD',
                 type: '2',
                 currentState: '1',
-                from: 'org.processnet.productlist"supplierD":"componentD":"5"',
+                from: 'org.processnet.productlist"5"',
                 processline: 'N/A',
                 createdTime: '1553221600',
                 weight: '780',
                 supplier: 'supplierD',
                 owner: 'DigiBank',
             },
+            {
+                productID: '6',
+                name: 'drugA',
+                type: '3',
+                currentState: '6',
+                from: 'N/A',
+                processline: 'org.processnet.processlinelist"00001"',
+                createdTime: '1553521600',
+                weight: '350',
+                supplier: 'MagnetoCorp',
+                owner: 'MagnetoCorp',
+            },
+            {
+                productID: '7',
+                name: 'drugA',
+                type: '3',
+                currentState: '8',
+                from: 'N/A',
+                processline: 'org.processnet.processlinelist"00005"',
+                createdTime: '1553521600',
+                weight: '350',
+                supplier: 'MagnetoCorp',
+                owner: 'MagnetoCorp',
+            },
         ];
 
         for (let i = 0; i < products.length; i++) {
             products[i].docType = 'product';
-            let key = ctx.productList.name + '"' + products[i].owner + '":"' + products[i].name + '":"' + products[i].productID + '"';
+            let key = ctx.productList.name + '"' + products[i].productID + '"';
             await ctx.stub.putState(key, Buffer.from(JSON.stringify(products[i])));
             console.info('Added <--> ', products[i]);
         }
@@ -460,7 +540,7 @@ class ProductContract extends Contract {
     async updateProduct(ctx, productID, name, newState, updatedTime, owner, hasNewOwner, newOwner) {
 
         // Retrieve the current product using key fields provided
-        let productKey = Product.makeKey([owner, name, productID]);
+        let productKey = Product.makeKey([productID]);
         let product = await ctx.productList.getProduct(productKey);
 
         // Validate current owner
@@ -510,13 +590,13 @@ class ProductContract extends Contract {
         return product.toBuffer();
     }
 
-    async queryAllProducts(ctx, owner, name, productID) {
-        let productKey = Product.makeKey([owner, name, productID]);
+    async queryAllProducts(ctx, productID) {
+        let productKey = Product.makeKey([productID]);
         console.log('This is productKey: ' + productKey);
-        let endProductID = productID + 999;
+        let endProductID = toString(parseInt(productID + 999));
 
         const startKey = ctx.productList.name + productKey;
-        const endKey = ctx.productList.name + Product.makeKey([owner, name, endProductID]);
+        const endKey = ctx.productList.name + Product.makeKey([endProductID]);
 
         const iterator = await ctx.stub.getStateByRange(startKey, endKey);
 
@@ -524,8 +604,8 @@ class ProductContract extends Contract {
         return this.helper.print(iterator, allResults);
     }
 
-    async queryProduct(ctx, owner, name, productID) {
-        let productKey = Product.makeKey([owner, name, productID]);
+    async queryProduct(ctx, productID) {
+        let productKey = Product.makeKey([productID]);
         console.log('This is productKey: ' + productKey);
         const stateKey = ctx.productList.name + productKey;
 
@@ -534,8 +614,8 @@ class ProductContract extends Contract {
         return result;
     }
 
-    async getHistoryByKey(ctx, owner, name, productID) {
-        const key = ctx.productList.name + Product.makeKey([owner, name, productID]);
+    async getHistoryByKey(ctx, productID) {
+        const key = ctx.productList.name + Product.makeKey([productID]);
         const iterator = await ctx.stub.getHistoryForKey(key);
 
         const allResults = [];
@@ -621,11 +701,34 @@ class OrderContract extends Contract {
                 orderer: 'CVS',
                 receiver: 'MagnetoCorp',
             },
+            {
+                orderID: '3',
+                type: '1',
+                productID: '6',
+                currentState: "1",
+                name: 'drugA',
+                weight: '350',
+                price: '1350',
+                specs: 'N/A',
+                qualifiedOperator: 'N/A',
+                methods: 'N/A',
+                leadTime: 'N/A',
+                address: '70 Pleasant st., Boston, MA',
+                shipMethod: 'air express',
+                tradeTerm: 'FCA',
+                dispatchDate: 'ship in 30 days',
+                totalAmount: '1350',
+                initPayment: '500',
+                payMethod: 'mastercard',
+                createdTime: '1553521600',
+                orderer: 'CVS',
+                receiver: 'MagnetoCorp',
+            },
         ];
 
         for (let i = 0; i < orders.length; i++) {
             orders[i].docType = 'order';
-            let key = ctx.orderList.name + '"' + orders[i].orderer + '":"' + orders[i].productID + '":"' + orders[i].orderID + '"';
+            let key = ctx.orderList.name + '"' + orders[i].orderID + '"';
             await ctx.stub.putState(key, Buffer.from(JSON.stringify(orders[i])));
             console.info('Added <--> ', orders[i]);
         }
@@ -715,7 +818,7 @@ class OrderContract extends Contract {
         {
 
         // Retrieve the current order using key fields provided
-        let orderKey = Order.makeKey([orderer, productID, orderID]);
+        let orderKey = Order.makeKey([orderID]);
         console.log(orderKey);
         let order = await ctx.orderList.getOrder(orderKey);
 
@@ -782,7 +885,7 @@ class OrderContract extends Contract {
         {
 
         // Retrieve the current order using key fields provided
-        let orderKey = Order.makeKey([orderer, productID, orderID]);
+        let orderKey = Order.makeKey([orderID]);
         let order = await ctx.orderList.getOrder(orderKey);
 
         // Validate current owner
@@ -821,13 +924,13 @@ class OrderContract extends Contract {
         return order.toBuffer();
     }
 
-    async queryAllOrders(ctx, orderer, productID, orderID) {
-        let orderKey = Order.makeKey([orderer, productID, orderID]);
+    async queryAllOrders(ctx, orderID) {
+        let orderKey = Order.makeKey([orderID]);
         console.log('This is orderKey: ' + orderKey);
-        let endOrderID = orderID + 999;
+        let endOrderID = toString(parseInt(orderID) + 999);
 
         const startKey = ctx.orderList.name + orderKey;
-        const endKey = ctx.orderList.name + Order.makeKey([orderer, productID, endOrderID]);
+        const endKey = ctx.orderList.name + Order.makeKey([endOrderID]);
 
         const iterator = await ctx.stub.getStateByRange(startKey, endKey);
 
@@ -835,8 +938,8 @@ class OrderContract extends Contract {
         return this.helper.print(iterator, allResults);
     }
 
-    async queryOrder(ctx, orderer, productID, orderID) {
-        let orderKey = Order.makeKey([orderer, productID, orderID]);
+    async queryOrder(ctx, orderID) {
+        let orderKey = Order.makeKey([orderID]);
         console.log('This is orderKey: ' + orderKey);
         const stateKey = ctx.orderList.name + orderKey;
 
@@ -845,8 +948,8 @@ class OrderContract extends Contract {
         return result;
     }
 
-    async getHistoryByKey(ctx, orderer, productID, orderID) {
-        const key = ctx.orderList.name + Order.makeKey([orderer, productID, orderID]);
+    async getHistoryByKey(ctx, orderID) {
+        const key = ctx.orderList.name + Order.makeKey([orderID]);
         const iterator = await ctx.stub.getHistoryForKey(key);
 
         const allResults = [];

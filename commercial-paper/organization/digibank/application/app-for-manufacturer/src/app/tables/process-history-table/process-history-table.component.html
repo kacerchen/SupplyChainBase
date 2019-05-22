@@ -3,61 +3,88 @@
   Process Line History Records
 </div>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+<form>
+  <div class="row" style="margin-top: 3%;">
+    <div class="col">
+      <div class="form-group">
+        <label for="lotNumber">Search By Lot. No</label>
+        <input type="text" class="form-control" id="lotNumber" [(ngModel)]="lotNumber" [ngModelOptions]="{standalone: true}" aria-describedby="productId" placeholder="Enter Product ID">
+        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      </div>
+    </div>
 
-    <!-- LotNumber Column -->
-    <ng-container matColumnDef="lotNumber">
-      <th mat-header-cell *matHeaderCellDef> Lot. No </th>
-      <td mat-cell *matCellDef="let element"> {{element.lotNumber}} </td>
-    </ng-container>
+    <div class="col">
+      <button type="submit" class="btn btn-primary" style="margin-top: 6%;" (click)="search()">Search</button>
+    </div>
+  </div>
+</form>
 
-    <!-- Component Column -->
-    <ng-container matColumnDef="component">
-      <th mat-header-cell *matHeaderCellDef> Component </th>
-      <td mat-cell *matCellDef="let element"> {{element.component}} </td>
-    </ng-container>
+<table mat-table 
+      [dataSource]="dataSource" multiTemplateDataRows
+      class="mat-elevation-z8">
+  <!-- Lot. No Column -->
+  <ng-container matColumnDef="lotNumber">
+    <th mat-header-cell *matHeaderCellDef> Lot. No </th>
+    <td mat-cell *matCellDef="let element"> {{element.lotNumber}} </td>
+  </ng-container>
 
-    <!-- Container ID Column -->
-    <ng-container matColumnDef="containerID">
-      <th mat-header-cell *matHeaderCellDef> Container ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.containerID}} </td>
-    </ng-container>
+  <!-- Component Column -->
+  <ng-container matColumnDef="component">
+    <th mat-header-cell *matHeaderCellDef> Component </th>
+    <td mat-cell *matCellDef="let element"> {{element.component}} </td>
+  </ng-container>
 
-    <!-- Expected Product Column -->
-    <ng-container matColumnDef="expectedProduct">
-      <th mat-header-cell *matHeaderCellDef> Expected Product </th>
-      <td mat-cell *matCellDef="let element"> {{element.expectedProduct}} </td>
-    </ng-container>
+  <!-- Container ID Column -->
+  <ng-container matColumnDef="containerID">
+    <th mat-header-cell *matHeaderCellDef> Container ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.containerID}} </td>
+  </ng-container>
 
-    <!-- Temperature Column -->
-    <ng-container matColumnDef="temperature">
-        <th mat-header-cell *matHeaderCellDef> Temperature </th>
-        <td mat-cell *matCellDef="let element"> {{element.temperature}} </td>
-      </ng-container>
-  
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-      </ng-container>
-  
-      <!-- Manufacturer Column -->
-      <ng-container matColumnDef="manufacturer">
-        <th mat-header-cell *matHeaderCellDef> Manufacturer </th>
-        <td mat-cell *matCellDef="let element"> {{element.manufacturer}} </td>
-      </ng-container>
-  
-      <!-- Created Time Column -->
-      <ng-container matColumnDef="createdTime">
-        <th mat-header-cell *matHeaderCellDef> Created Time </th>
-        <td mat-cell *matCellDef="let element"> {{toFormatDate(element.createdTime)}} </td>
-      </ng-container>
+  <!-- Expected Product Column -->
+  <ng-container matColumnDef="expectedProduct">
+    <th mat-header-cell *matHeaderCellDef> Expected Product </th>
+    <td mat-cell *matCellDef="let element"> {{element.expectedProduct}} </td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <!-- Manufacturer Column -->
+  <ng-container matColumnDef="manufacturer">
+    <th mat-header-cell *matHeaderCellDef> Manufacturer </th>
+    <td mat-cell *matCellDef="let element"> {{element.manufacturer}} </td>
+  </ng-container>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-</div>
-  
+  <!-- Current State Column -->
+  <ng-container matColumnDef="currentState">
+    <th mat-header-cell *matHeaderCellDef> Current State </th>
+    <td mat-cell *matCellDef="let element" [ngSwitch]="element.currentState">
+      <div *ngSwitchCase="'1'">Init</div>
+      <div *ngSwitchCase="'2'">Feeding</div>
+      <div *ngSwitchCase="'3'">Reacting</div>
+      <div *ngSwitchCase="'4'">Transit</div>
+      <div *ngSwitchCase="'5'">End</div>
+    </td>
+  </ng-container>
+
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-element-diagram">
+          <div class="example-element-temperature"> Temperature: {{element.temperature}} </div>
+          <div class="example-element-weight"> Weight: {{element.weight}} </div>
+          <div class="example-element-createdTime"> Created At: {{toFormatDate(element.createdTime)}} </div>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+<!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
