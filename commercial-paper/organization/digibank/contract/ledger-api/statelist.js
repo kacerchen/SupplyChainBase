@@ -44,6 +44,8 @@ class StateList {
         // let ledgerKey = this.ctx.stub.createCompositeKey(this.name, key.split(" "));
         let data = await this.ctx.stub.getState(this.name + key);
         console.log(data);
+        console.log('This is supported class: ');
+        // console.log(this.supportedClasses);
         let state = State.deserialize(data, this.supportedClasses);
         return state;
     }

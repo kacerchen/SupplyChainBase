@@ -119,7 +119,7 @@ export class ProcurementMgComponent implements OnInit {
   initOrder(): any {
     let data = {
       username: this.username,
-      orderID: '4',
+      orderID: '5',
       type: '1',
       productID: '7',
       name: 'drugA',
@@ -151,7 +151,7 @@ export class ProcurementMgComponent implements OnInit {
   modifyOrder(): any {
     let modifiedData = {
       username: this.username,
-      orderID: '1',
+      orderID: '4',
       productID: '7',
       newProductID: '6',
       name: 'drugA-2',

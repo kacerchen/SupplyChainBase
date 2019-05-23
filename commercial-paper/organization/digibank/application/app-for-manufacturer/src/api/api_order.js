@@ -27,7 +27,7 @@ const wallet = new FileSystemWallet('../../../wallet');
 // A gateway defines the peers used to access Fabric networks
 const gateway = new Gateway();
 
-async function getContract(username) {
+async function getContract(username, contractName) {
     // Specify userName for network access
     // const userName = 'User1@org1.example.com';
 
@@ -57,7 +57,7 @@ async function getContract(username) {
         console.log('Use org.processnet.order smart contract.');
 
         // Smart contract name is 'org.processnet.product' which is set in ProductContract class with super()
-        const contract = await network.getContract('processcontracts', 'org.processnet.order');
+        const contract = await network.getContract(contractName, 'org.processnet.order');
 
         return contract;
 
@@ -73,7 +73,7 @@ module.exports = {
     init: async function(username) {
 
         try {
-            const contract = await getContract(username);
+            const contract = await getContract(username, 'ordercontract');
     
             // init a new order
             console.log('Submit order init transaction.');
@@ -109,7 +109,7 @@ module.exports = {
         createdTime, orderer, receiver) {
     
         try {
-            const contract = await getContract(username);
+            const contract = await getContract(username, 'ordercontract');
     
             // init a new order
             console.log('Submit order init transaction.');
@@ -149,7 +149,7 @@ module.exports = {
         updatedTime, orderer, modifier, newState) {
     
         try {
-            const contract = await getContract(username);
+            const contract = await getContract(username, 'ordercontract');
     
             // modify order terms
             console.log('Submit order modified transaction.');
@@ -184,7 +184,7 @@ module.exports = {
     updateOrder: async function(username, orderID, productID, updatedTime, orderer, modifier, newState) {
     
         try {
-            const contract = await getContract(username);
+            const contract = await getContract(username, 'ordercontract');
     
             // update order status
             console.log('Submit order status updated transaction.');
@@ -214,7 +214,7 @@ module.exports = {
     queryAllOrders: async function(username, orderID) {
         
         try {
-            const contract = await getContract(username);
+            const contract = await getContract(username, 'ordercontract');
     
             // query all orders
             console.log('Submit query request of all orders transaction.');
@@ -244,7 +244,7 @@ module.exports = {
     queryOrder: async function(username, orderID) {
         
         try {
-            const contract = await getContract(username);
+            const contract = await getContract(username, 'ordercontract');
     
             // query single order
             console.log('Submit single order query transaction.');
@@ -274,7 +274,7 @@ module.exports = {
     getHistoryByKey: async function(username, orderID) {
         
         try {
-            const contract = await getContract(username);
+            const contract = await getContract(username, 'ordercontract');
     
             // query order history
             console.log('Submit order history query transaction.');

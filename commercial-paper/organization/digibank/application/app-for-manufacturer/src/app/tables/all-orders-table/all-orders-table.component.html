@@ -55,27 +55,27 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-diagram">
-          <div class="example-element-productID"> Product ID: {{element.productID || element.productObj.productID}} </div>
-          <div class="example-element-weight"> Weight: {{element.weight || element.productObj.weight}} </div>
+          <div class="example-element-productID"> Product ID: {{element.productObj.productID}} </div>
+          <div class="example-element-weight"> Weight: {{element.productObj.weight}} </div>
           <div class="example-element-receiver"> Receiver: {{element.receiver}} </div>
           <div class="example-element-orderer"> Orderer: {{element.orderer}} </div>
           <div class="example-element-createdTime"> Created At: {{toFormatDate(element.createdTime)}} </div>
         </div>
         <div class="example-element-diagram">
-          <div class="example-element-specs"> Spec Details: {{element.specs}} </div>
-          <div class="example-element-methods"> Specify Methods: {{element.methods}} </div>
-          <div class="example-element-qualifiedOperator"> Specify Operators: {{element.qualifiedOperator}} </div>
-          <div class="example-element-leadTime"> Lead Time: {{element.leadTime}} </div>
+          <div *ngIf="element.assuranceObj" class="example-element-specs"> Spec Details: {{element.assuranceObj.specs}} </div>
+          <div *ngIf="element.assuranceObj" class="example-element-methods"> Specify Methods: {{element.assuranceObj.methods}} </div>
+          <div *ngIf="element.assuranceObj" class="example-element-qualifiedOperator"> Specify Operators: {{element.assuranceObj.qualifiedOperator}} </div>
+          <div *ngIf="element.assuranceObj" class="example-element-leadTime"> Lead Time: {{element.assuranceObj.leadTime}} </div>
         </div>
         <div class="example-element-diagram">
-          <div class="example-element-initPayment"> Initial Payment: {{element.initPayment || element.paymentObj.initPayment}} </div>
-          <div class="example-element-payMethod"> Payment Method: {{element.payMethod || element.paymentObj.payMethod}} </div>
+          <div class="example-element-initPayment"> Initial Payment: {{element.paymentObj.initPayment}} </div>
+          <div class="example-element-payMethod"> Payment Method: {{element.paymentObj.payMethod}} </div>
         </div>
         <div class="example-element-diagram">
-          <div class="example-element-tradeTerm"> Trade Term: {{element.tradeTerm || element.shippingObj.tradeTerm}} </div>
-          <div class="example-element-shipMethod"> Shipping Method: {{element.shipMethod || element.shippingObj.shipMethod}} </div>
-          <div class="example-element-address"> Address: {{element.address || element.shippingObj.address}} </div>
-          <div class="example-element-dispatchDate"> Dispatch Date: {{element.dispatchDate || element.shippingObj.dispatchDate}} </div>
+          <div class="example-element-tradeTerm"> Trade Term: {{element.shippingObj.tradeTerm}} </div>
+          <div class="example-element-shipMethod"> Shipping Method: {{element.shippingObj.shipMethod}} </div>
+          <div class="example-element-address"> Address: {{element.shippingObj.address}} </div>
+          <div class="example-element-dispatchDate"> Dispatch Date: {{element.shippingObj.dispatchDate}} </div>
         </div>
       </div>
     </td>

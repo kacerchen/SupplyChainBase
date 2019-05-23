@@ -186,7 +186,7 @@ class Order extends State {
         if(type == Type.STANDARD) {
 
             console.log('Run type of STANDARD to new Order.');
-            return new Order({ orderID, type, productObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
+            return new Order({ orderID, type, productObj, assuranceObj, shippingObj, paymentObj, createdTime, orderer, receiver }, 'New');
         } else if(type == Type.CUSTOMIZED) {
 
             console.log('Run type of CUSTOMIZED to new Order.');

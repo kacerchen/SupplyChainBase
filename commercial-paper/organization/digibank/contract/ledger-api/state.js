@@ -60,7 +60,9 @@ class State {
      */
     static deserialize(data, supportedClasses) {
         let json = JSON.parse(data.toString());
+        console.log(json);
         let objClass = supportedClasses[json.class];
+        console.log(objClass);
         if (!objClass) {
             throw new Error(`Unknown class of ${json.class}`);
         }
