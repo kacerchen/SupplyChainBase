@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
   username: string;
   mspID: string;
   role: string;
+  org: string = 'org1';
 
   newUser: any;
 
@@ -27,8 +28,16 @@ export class SignupComponent implements OnInit {
     this.usersApiService.register(this.username, this.role, this.mspID)
     .subscribe((data: any) => {
       console.log(data);
-      this.newUser = data;
+      // this.newUser = data;
+      
+      this.usersApiService.setUserContext(this.username, this.role)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.newUser = data;
+      })
     })
+
+    
   }
 
 }

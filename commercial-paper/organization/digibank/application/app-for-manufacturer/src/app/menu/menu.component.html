@@ -6,19 +6,19 @@
     <mat-icon>dashboard</mat-icon>
     <a routerLink="/dashboard" queryParamsHandling="merge">Dashboard</a>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item *ngIf="processView">
     <mat-icon>usb</mat-icon>
     <a routerLink="/process" queryParamsHandling="merge">Process Management</a>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item *ngIf="productView">
     <mat-icon>widgets</mat-icon>
     <a routerLink="/product" queryParamsHandling="merge">Product Management</a>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item *ngIf="logisticsView">
     <mat-icon>local_shipping</mat-icon>
     <a routerLink="/logistics" queryParamsHandling="merge">Logistics Management</a>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item *ngIf="procurementView">
     <mat-icon>attach_money</mat-icon>
     <a routerLink="/procurement" queryParamsHandling="merge">Procurement Management</a>
   </button>

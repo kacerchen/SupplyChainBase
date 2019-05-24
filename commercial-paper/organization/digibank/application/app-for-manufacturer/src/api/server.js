@@ -21,6 +21,18 @@ app.get('/api_login', async (req, res) => {
   return res.json({userExist: result});
 })
 
+app.get('/api_setuser', async (req, res) => {
+  console.log(req.query);
+  const result = await api_users.setUserContext(req.query.username, req.query.role);
+  return res.json({user: result});
+})
+
+app.get('/api_getuser', async (req, res) => {
+  console.log(req.query);
+  const result = await api_users.getUser(req.query.username);
+  return res.json({user: result});
+})
+
 app.get('/api_init_processlineLedger', async (req, res) => {
   console.log(req.query);
   const result = await api_processline.init(req.query.username);

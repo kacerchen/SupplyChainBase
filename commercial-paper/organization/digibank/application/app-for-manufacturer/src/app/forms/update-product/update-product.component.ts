@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductApiService } from '../../product-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 export enum StateOptions {
   REPACKAGING = "2",
@@ -32,15 +34,20 @@ export class UpdateProductComponent implements OnInit {
 
   updatedProduct: Object;
 
-  constructor(private productApiService: ProductApiService) { }
+  constructor(private route: ActivatedRoute, private productApiService: ProductApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
   }
 
   updateProduct(): any {
     this.updatedTime = new Date().getTime().toString();
-    this.username = 'User1@org1.example.com';
-    this.owner = 'MagnetoCorp';
 
     let data = {
       username: this.username,
@@ -48,7 +55,7 @@ export class UpdateProductComponent implements OnInit {
       name: this.name,
       newState: this.newState,
       updatedTime: this.updatedTime,
-      owner: this.owner,
+      owner: this.username,
       hasNewOwner: this.hasNewOwner.toString(),
       newOwner: this.newOwner
     }

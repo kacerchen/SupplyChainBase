@@ -17,4 +17,12 @@ export class UsersApiService {
     return this.http.get('/api_login', {params: {username: username}});
   }
 
+  setUserContext(username: string, role: string): Observable<any>{
+    return this.http.get('/api_setuser', {params: {username: username, role: role}});
+  }
+
+  getUser(username: string): Observable<any>{
+    return this.http.get('/api_getuser', {params: {username: username}});
+  }
+
 }

@@ -1,5 +1,5 @@
 <div class="bannerColor">
-  <app-menu></app-menu>
+  <app-menu [user_name]="username"></app-menu>
 
   <div class="container">
 
@@ -9,7 +9,7 @@
       </div>
       <div class="col-4 bannerSubCol">
         <p>Name: {{username}}</p>
-        <p>Title: Process Engineer</p>
+        <p>Title: {{role}}</p>
 
         <div class="row">
           <div class="col bannerSubColBorder">
@@ -33,25 +33,25 @@
     </div>
 
     <div class="row circleFont" style="margin-top: 5%; padding-bottom: 5%;">
-      <div class="col" style="text-align: center;">
+      <div class="col" style="text-align: center;" *ngIf="processView">
         <div class="circle circleColor1">
           <a routerLink="/process" queryParamsHandling="merge"><i class="material-icons menuIcon">usb</i></a>
         </div>
         <p style="margin-top: 5%;">Process Management</p>
       </div>
-      <div class="col" style="text-align: center;">
+      <div class="col" style="text-align: center;" *ngIf="productView">
         <div class="circle circleColor2">
           <a routerLink="/product" queryParamsHandling="merge"><i class="material-icons menuIcon">widgets</i></a>
         </div>
         <p style="margin-top: 5%;">Product Management</p>
       </div>
-      <div class="col" style="text-align: center;">
+      <div class="col" style="text-align: center;" *ngIf="logisticsView">
         <div class="circle circleColor3">
           <a routerLink="/logistics" queryParamsHandling="merge"><i class="material-icons menuIcon">local_shipping</i></a>
         </div>
         <p style="margin-top: 5%;">Logistics Management</p>
       </div>
-      <div class="col" style="text-align: center;">
+      <div class="col" style="text-align: center;" *ngIf="procurementView">
         <div class="circle circleColor4">
           <a routerLink="/procurement" queryParamsHandling="merge"><i class="material-icons menuIcon">attach_money</i></a>
         </div>

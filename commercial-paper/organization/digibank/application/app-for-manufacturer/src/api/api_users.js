@@ -44,13 +44,15 @@ module.exports = {
             // Register the user, enroll the user, and import the new identity into the wallet.
             const secret = await ca.register({ affiliation: 'org1.department1', enrollmentID: username, role: role }, adminIdentity);
             console.log('This is secret: ' + secret);
+
             const enrollment = await ca.enroll({ enrollmentID: username, enrollmentSecret: secret });
             console.log('This is enrollment: ')
             console.log(enrollment);
+
             const userIdentity = X509WalletMixin.createIdentity(mspID, enrollment.certificate, enrollment.key.toBytes());
-            
             console.log('This is user identity: ')
             console.log(userIdentity);
+
             wallet.import(username, userIdentity);
             console.log('Successfully registered and enrolled admin user ' + username + ' and imported it into the wallet');
 
@@ -70,6 +72,51 @@ module.exports = {
         const userExists = await wallet.exists(username);
         return userExists;
     },
+
+    setUserContext: async function(username, role) {
+        try {
+
+            // Create a new file system based wallet for managing identities.
+            const wallet = new FileSystemWallet('../../../wallet');
+    
+            // Check to see if we've already existed the user.
+            const userExists = await wallet.exists(username);
+            if (!userExists) {
+                console.log('An identity for the user ' + username + ' does not exist in the wallet');
+                return;
+            }
+
+            // Create a new gateway for connecting to our peer node.
+            const gateway = new Gateway();
+            await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false } });
+
+            const client = gateway.getClient();
+    
+            // Get the user object from the gateway for interacting with the CA.
+            const user = gateway.getCurrentIdentity();
+
+            // Set _roles property in user context
+            user._roles = role;
+            let newuser = await client.setUserContext(user);
+            console.log(newuser);
+
+            let result = {
+                user: newuser._name,
+                role: newuser._roles,
+                mspid: newuser._identity._mspId
+            }
+
+            // Get user identity from user object
+            // let userIdentity = newuser.getIdentity();
+            // console.log(userIdentity);
+
+            return result;
+        } catch (error) {
+            console.error(`Failed to set user context of ${username}: ${error}`);
+            process.exit(1);
+        }
+    },
+
     getUser: async function(username) {
         try {
 
@@ -83,24 +130,28 @@ module.exports = {
                 return;
             }
 
-            // const userIdentity = await wallet.export(username);
-            // console.log(userIdentity);
-    
             // Create a new gateway for connecting to our peer node.
             const gateway = new Gateway();
             await gateway.connect(ccp, { wallet, identity: username, discovery: { enabled: false } });
-    
-            // Get the user identity object from the gateway for interacting with the CA.
-            const userIdentity = gateway.getCurrentIdentity();
-            console.log(userIdentity);
 
-            return userIdentity;
+            const client = gateway.getClient();
+            const userContext = await client.getUserContext(username);
+            console.log(userContext);
+
+            let result = {
+                user: userContext._name,
+                role: userContext._roles,
+                mspid: userContext._identity._mspId
+            }
+    
+            return result;
         } catch (error) {
-            console.error(`Failed to get user ${username}: ${error}`);
+            console.error(`Failed to get user context of ${username}: ${error}`);
             process.exit(1);
         }
     }
 }
 
-// module.exports.registerUser('tester11', 'developer');
-// module.exports.getUser('dd');
+// module.exports.registerUser('mf3', 'developer', 'Org1MSP');
+// module.exports.setUserContext('mf3', 'developer');
+// module.exports.getUser('mf3');

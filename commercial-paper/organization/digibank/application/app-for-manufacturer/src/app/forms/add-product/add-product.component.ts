@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductApiService } from '../../product-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 export enum TypeOptions {
   ORIGINAL = "1",
@@ -30,15 +32,20 @@ export class AddProductComponent implements OnInit {
 
   newProduct: Object;
 
-  constructor(private productApiService: ProductApiService) { }
+  constructor(private route: ActivatedRoute, private productApiService: ProductApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
   }
 
   addNewProduct(): any {
     this.createdTime = new Date().getTime().toString();
-    this.username = 'User1@org1.example.com';
-    this.owner = 'User1@org1.example.com';
 
     let data = {
       username: this.username,
@@ -50,7 +57,7 @@ export class AddProductComponent implements OnInit {
       createdTime: this.createdTime,
       weight: this.weight.toString(),
       supplier: this.supplier,
-      owner: this.owner
+      owner: this.username
     }
 
     this.productApiService.initProduct(data)

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcesslineApiService } from '../../processline-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-process',
@@ -20,22 +22,27 @@ export class AddProcessComponent implements OnInit {
 
   newProcessline: Object;
 
-  constructor(private processlineApiService: ProcesslineApiService) { }
+  constructor(private route: ActivatedRoute, private processlineApiService: ProcesslineApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
   }
 
   addNewProcessline(): any {
     this.createdTime = new Date().getTime().toString();
-    this.username = 'User1@org1.example.com';
-    this.manufacturer = 'User1@org1.example.com';
 
     let data = {
       username: this.username,
       lotNumber: this.lotNumber.toString(),
       component: this.component,
       containerID: this.containerID,
-      manufacturer: this.manufacturer,
+      manufacturer: this.username,
       createdTime: this.createdTime,
       weight: this.weight.toString(),
       temperature: this.temperature.toString(),

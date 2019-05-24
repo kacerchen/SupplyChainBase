@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcesslineApiService } from '../../processline-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 export enum StateOptions {
   FEEDING = "2",
@@ -32,23 +34,28 @@ export class UpdateProcessComponent implements OnInit {
 
   update_processline: Object;
 
-  constructor(private processlineApiService: ProcesslineApiService) { }
+  constructor(private route: ActivatedRoute, private processlineApiService: ProcesslineApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
   }
 
   updateProcessline(): any {
     this.updatedTime = new Date().getTime().toString();
-    this.username = 'User1@org1.example.com';
-    this.manufacturer = 'User1@org1.example.com';
 
     let data = {
       username: this.username,
-      lotNumber: this.lotNumber.toString(),
+      lotNumber: this.lotNumber,
       component: this.component,
       containerID: this.containerID,
       newState: this.newState,
-      manufacturer: this.manufacturer,
+      manufacturer: this.username,
       updatedTime: this.updatedTime,
       weight: this.weight.toString(),
       temperature: this.temperature.toString(),

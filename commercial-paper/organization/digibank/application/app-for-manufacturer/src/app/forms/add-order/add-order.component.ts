@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import { OrderApiService } from '../../order-api.service';
+import { map } from 'rxjs/operators';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 
 export enum TypeOptions {
   STANDARD = "1",
@@ -82,15 +84,20 @@ export class AddOrderComponent implements OnInit {
 
   newOrder: Object;
 
-  constructor(private orderApiService: OrderApiService) { }
+  constructor(private route: ActivatedRoute, private orderApiService: OrderApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
   }
 
   initOrder(): any {
     this.createdTime = new Date().getTime().toString();
-    this.username = 'User1@org1.example.com';
-    this.orderer = 'User1@org1.example.com';
     this.address = this.street + ', ' + this.city + ', ' + this.state + ', ' + this.country + ' ' + this.zipcode;
 
     let data = {
@@ -113,7 +120,7 @@ export class AddOrderComponent implements OnInit {
       initPayment: this.initPayment.toString(),
       payMethod: this.payMethod,
       createdTime: this.createdTime,
-      orderer: this.orderer,
+      orderer: this.username,
       receiver: this.receiver
     }
 
