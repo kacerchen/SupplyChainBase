@@ -9,20 +9,20 @@
       </div>
       <div class="col-4 bannerSubCol">
         <p>Name: {{username}}</p>
-        <p>Title: {{role}}</p>
+        <p>Role: {{role}}</p>
 
         <div class="row">
-          <div class="col bannerSubColBorder">
-            <p style="font-size: 30px;">3</p>
-            <p>Conversations</p>
+          <div class="col bannerSubColBorder" *ngIf="total_processes && processView">
+            <p style="font-size: 30px;">{{total_processes}}</p>
+            <p>Total Processes</p>
           </div>
-          <div class="col bannerSubColBorder">
-            <p style="font-size: 30px;">4</p>
-            <p>Following</p>
+          <div class="col bannerSubColBorder" *ngIf="total_products && productView">
+            <p style="font-size: 30px;">{{total_products}}</p>
+            <p>Total Products</p>
           </div>
-          <div class="col">
-            <p style="font-size: 30px;">0</p>
-            <p>Followers</p>
+          <div class="col" *ngIf="total_orders && procurementView">
+            <p style="font-size: 30px;">{{total_orders}}</p>
+            <p>Total Orders</p>
           </div>
         </div>
       </div>

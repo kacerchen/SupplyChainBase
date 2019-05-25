@@ -32,7 +32,7 @@ export class LogisticsMgComponent implements OnInit {
   orderer: string;
 
   allOrders: Object;
-  query_order: Object;
+  query_order: [];
   all_history_of_order: Object;
   datasource_all: Object;
 
@@ -66,10 +66,10 @@ export class LogisticsMgComponent implements OnInit {
     })
   }
 
-  queryOrder(): any {
+  queryOrder(id: string): any {
     let queryOne = {
       username: this.username,
-      orderID: '1',
+      orderID: id,
     }
 
     //query a specific order by orderer, productID, orderID
@@ -92,6 +92,10 @@ export class LogisticsMgComponent implements OnInit {
       console.log(data);
       this.all_history_of_order = data;
     })
+  }
+
+  track(): any {
+    this.queryOrder(this.orderID);
   }
 
   getDataSource(obj: Result): any {

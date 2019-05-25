@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { UsersApiService } from '../users-api.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
   role: string;
   org: string = 'org1';
 
+  enrolled: boolean;
   newUser: any;
 
   constructor(private usersApiService: UsersApiService) { }
@@ -24,20 +25,36 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+  }
+
   signup(): any{
     this.usersApiService.register(this.username, this.role, this.mspID)
     .subscribe((data: any) => {
       console.log(data);
       // this.newUser = data;
-      
-      this.usersApiService.setUserContext(this.username, this.role)
-      .subscribe((data: any) => {
-        console.log(data);
-        this.newUser = data;
-      })
+      console.log(this.isExisted());
     })
+  }
 
-    
+  isExisted(): any{
+    this.usersApiService.login(this.username)
+    .subscribe((data: any) => {
+      console.log(data);
+      this.enrolled = data.userExist;
+      if(this.enrolled) {
+        this.setUser(this.username, this.role);
+      }
+    })
+  }
+
+  setUser(username: string, role: string): any{
+    this.usersApiService.setUserContext(this.username, this.role)
+    .subscribe((data: any) => {
+      console.log(data);
+      this.newUser = data;
+    })
   }
 
 }

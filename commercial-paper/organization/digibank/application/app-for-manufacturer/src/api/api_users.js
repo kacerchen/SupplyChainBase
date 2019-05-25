@@ -153,5 +153,5 @@ module.exports = {
 }
 
 // module.exports.registerUser('mf3', 'developer', 'Org1MSP');
-// module.exports.setUserContext('mf3', 'developer');
+module.exports.setUserContext('r', 'Retailer');
 // module.exports.getUser('mf3');

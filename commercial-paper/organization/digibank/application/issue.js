@@ -87,12 +87,12 @@ async function main() {
     //                                                          'Beacon st., Boston, MA', 'air express', 'FCA', 'ship in 2 days.',
     //                                                          '1350', '500', 'visa', 
     //                                                          '1552521600', 'DigiBank', 'supplierA');
-    // const issueResponse3 = await contract3.submitTransaction('initOrderLedger');
-    const issueResponse3 = await contract3.submitTransaction('modifyOrder', '1', '1', '2', 'drugA-2', '455', '1356', 
-                                                             'N/A', 'N/A', 'N/A', 'N/A',
-                                                             'Apt 810, Beacon st., Boston, MA', 'sea express', 'FAS', 'ship in 5 days',
-                                                             '1356', '500', 'mastercard', 
-                                                             '1552821600', 'CVS', 'MagnetoCorp', '5');
+    const issueResponse3 = await contract3.submitTransaction('initOrderLedger');
+    // const issueResponse3 = await contract3.submitTransaction('modifyOrder', '1', '1', '2', 'drugA-2', '455', '1356', 
+    //                                                          'N/A', 'N/A', 'N/A', 'N/A',
+    //                                                          'Apt 810, Beacon st., Boston, MA', 'sea express', 'FAS', 'ship in 5 days',
+    //                                                          '1356', '500', 'mastercard', 
+    //                                                          '1552821600', 'CVS', 'MagnetoCorp', '5');
     // const issueResponse3 = await contract3.submitTransaction('queryAllOrders', 'DigiBank', '1', '1');
 
     // const issueResponse = await contract.submitTransaction('initProcessLineLedger');

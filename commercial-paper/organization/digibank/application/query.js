@@ -35,9 +35,9 @@ async function main() {
 
         // Get the contract from the network.
         // const contract = network.getContract('processcontracts');
-        const contract = network.getContract('processcontracts', 'org.processnet.processline');
+        // const contract = network.getContract('processcontracts', 'org.processnet.processline');
         // const contract2 = network.getContract('processcontracts', 'org.processnet.product');
-        // const contract3 = network.getContract('processcontracts', 'org.processnet.order');
+        const contract3 = network.getContract('processcontracts', 'org.processnet.order');
 
         // console.log(contract3.network.contracts);
 
@@ -48,14 +48,14 @@ async function main() {
         // const result = await contract.evaluateTransaction('queryAllProcesses', '00001');
         // const result = await contract.evaluateTransaction('queryAll');
         // const result2 = await contract2.evaluateTransaction('queryAllProducts', 'DigiBank', 'componentA', '1');
-        // const result3 = await contract3.evaluateTransaction('queryAllOrders', 'DigiBank', '1', '1');
+        const result3 = await contract3.evaluateTransaction('queryAllOrders', '1');
 
-        const bufferOriginal = await contract.evaluateTransaction('queryProcess', '00001');
-        let result = Buffer.from(JSON.parse(bufferOriginal).data);
+        // const bufferOriginal = await contract.evaluateTransaction('queryProcess', '00001');
+        // let result = Buffer.from(JSON.parse(bufferOriginal).data);
         
-        console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
+        // console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
         // console.log(`Transaction has been evaluated, result is: ${result2.toString()}`);
-        // console.log(`Transaction has been evaluated, result is: ${result3.toString()}`);
+        console.log(`Transaction has been evaluated, result is: ${result3.toString()}`);
 
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);

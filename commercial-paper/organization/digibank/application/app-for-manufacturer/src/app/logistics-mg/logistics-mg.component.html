@@ -1,5 +1,5 @@
 <div class="bannerColor">
-  <app-menu></app-menu>
+  <app-menu [user_name]="username"></app-menu>
 </div>
 
 <div style="margin: 3%;">
@@ -26,25 +26,11 @@
                     <input type="text" class="form-control" id="orderID" [(ngModel)]="orderID" [ngModelOptions]="{standalone: true}" placeholder="Enter an order ID to track">
                   </div>
 
-                  <div class="form-group">
-                    <label for="productID">
-                       Product ID
-                    </label>
-                    <input type="text" class="form-control" id="productID" [(ngModel)]="productID" [ngModelOptions]="{standalone: true}" placeholder="Enter an product ID to track">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="orderer">
-                       Orderer
-                    </label>
-                    <input type="text" class="form-control" id="orderer" [(ngModel)]="orderer" [ngModelOptions]="{standalone: true}" placeholder="Enter an orderer to track">
-                  </div>
-                  
-                  <button type="submit" class="btn btn-primary">Track Now</button>
+                  <button type="submit" class="btn btn-primary" (click)="track()">Track Now</button>
                 </form>
               </div>
               <div class="col">
-                <app-shipping-stepper></app-shipping-stepper>
+                <app-shipping-stepper [trackdata]="query_order"></app-shipping-stepper>
               </div>
             </mat-tab>
           </mat-tab-group>

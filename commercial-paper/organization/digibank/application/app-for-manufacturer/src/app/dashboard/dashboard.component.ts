@@ -22,6 +22,13 @@ export class DashboardComponent implements OnInit {
   logisticsView: boolean;
   procurementView: boolean;
 
+  all_processes: [];
+  all_products: [];
+  all_orders: [];
+  total_processes: string;
+  total_products: string;
+  total_orders: string;
+
   constructor(private route: ActivatedRoute, private router: Router, 
               private processlineApiService: ProcesslineApiService,
               private productApiService: ProductApiService,
@@ -47,6 +54,8 @@ export class DashboardComponent implements OnInit {
     this.processlineApiService.initProcessLineLedger(this.username)
     .subscribe((data: any) => {
       console.log(data);
+
+      this.queryAllProcesses();
     })
   }
 
@@ -54,6 +63,8 @@ export class DashboardComponent implements OnInit {
     this.productApiService.initProductLedger(this.username)
     .subscribe((data: any) => {
       console.log(data);
+
+      this.queryAllProducts();
     })
   }
 
@@ -61,7 +72,73 @@ export class DashboardComponent implements OnInit {
     this.orderApiService.initOrderLedger(this.username)
     .subscribe((data: any) => {
       console.log(data);
+
+      this.queryAllOrders();
     })
+  }
+
+  queryAllProcesses(): any {
+    let queryAll = {
+      username: this.username,
+      lotNumber: '00001',
+    }
+    //query all processes with same expected product, manufacturer but different lotNumber
+    this.processlineApiService.queryAllProcesses(queryAll)
+    .subscribe((data: any) => {
+      console.log(data);
+      this.all_processes = this.getDataSource(data.processline);
+      console.log(this.all_processes);
+      this.total_processes = this.all_processes.length.toString();
+    })
+  }
+
+  queryAllProducts(): any {
+    let queryAll = {
+      username: this.username,
+      productID: '1',
+    }
+
+    //query all products with same product name, owner but different productID
+    this.productApiService.queryAllProducts(queryAll)
+    .subscribe((data: any) => {
+      console.log(data);
+      this.all_products = this.getDataSource(data.products);
+      this.total_products = this.all_products.length.toString();
+    })
+  }
+
+  queryAllOrders(): any {
+    let queryAll = {
+      username: this.username,
+      orderID: '1',
+    }
+
+    //query all orders with same orderer, productID but different orderID
+    this.orderApiService.queryAllOrders(queryAll)
+    .subscribe((data: any) => {
+      console.log(data);
+      this.all_orders = this.getDataSource(data.orders);
+      this.total_orders = this.all_orders.length.toString();
+    })
+  }
+
+  getDataSource(obj: any): any {
+    let records = obj;
+    let tempArr = [];
+    let finalArr = [];
+
+    for(let i of Object.keys(records)){
+      if(i != 'class' && i != 'currentState' && i != 'key') {
+        tempArr.push(records[i]);
+      }
+    }
+
+    for(let j of tempArr){
+      // console.log(j['Record']);
+      finalArr.push(j['Record']);      
+    }
+    return finalArr;
+    // console.log(_to);
   }
 
   getUser(username: string): any{
@@ -120,4 +197,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+}
+
+export interface Result {
+  processline: Object; 
 }

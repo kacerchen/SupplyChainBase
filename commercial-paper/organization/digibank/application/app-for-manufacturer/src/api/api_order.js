@@ -73,7 +73,7 @@ module.exports = {
     init: async function(username) {
 
         try {
-            const contract = await getContract(username, 'ordercontract');
+            const contract = await getContract(username, 'processcontracts');
     
             // init a new order
             console.log('Submit order init transaction.');
@@ -109,7 +109,7 @@ module.exports = {
         createdTime, orderer, receiver) {
     
         try {
-            const contract = await getContract(username, 'ordercontract');
+            const contract = await getContract(username, 'processcontracts');
     
             // init a new order
             console.log('Submit order init transaction.');
@@ -149,7 +149,7 @@ module.exports = {
         updatedTime, orderer, modifier, newState) {
     
         try {
-            const contract = await getContract(username, 'ordercontract');
+            const contract = await getContract(username, 'processcontracts');
     
             // modify order terms
             console.log('Submit order modified transaction.');
@@ -184,7 +184,7 @@ module.exports = {
     updateOrder: async function(username, orderID, productID, updatedTime, orderer, modifier, newState) {
     
         try {
-            const contract = await getContract(username, 'ordercontract');
+            const contract = await getContract(username, 'processcontracts');
     
             // update order status
             console.log('Submit order status updated transaction.');
@@ -214,7 +214,7 @@ module.exports = {
     queryAllOrders: async function(username, orderID) {
         
         try {
-            const contract = await getContract(username, 'ordercontract');
+            const contract = await getContract(username, 'processcontracts');
     
             // query all orders
             console.log('Submit query request of all orders transaction.');
@@ -244,7 +244,7 @@ module.exports = {
     queryOrder: async function(username, orderID) {
         
         try {
-            const contract = await getContract(username, 'ordercontract');
+            const contract = await getContract(username, 'processcontracts');
     
             // query single order
             console.log('Submit single order query transaction.');
@@ -274,7 +274,7 @@ module.exports = {
     getHistoryByKey: async function(username, orderID) {
         
         try {
-            const contract = await getContract(username, 'ordercontract');
+            const contract = await getContract(username, 'processcontracts');
     
             // query order history
             console.log('Submit order history query transaction.');
