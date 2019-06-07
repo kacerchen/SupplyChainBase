@@ -17,6 +17,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -77,7 +79,7 @@ import { ProcessingOrdersTableComponent } from './tables/processing-orders-table
     ShippingStepperComponent,
     AddOrderComponent,
     AllOrdersTableComponent,
-    ProcessingOrdersTableComponent
+    ProcessingOrdersTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,9 @@ import { ProcessingOrdersTableComponent } from './tables/processing-orders-table
     MatStepperModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonToggleModule,
+    MatDialogModule
   ],
   providers: [
     MatDatepickerModule,
