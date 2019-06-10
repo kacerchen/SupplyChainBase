@@ -6,7 +6,7 @@
     <mat-icon>dashboard</mat-icon>
     <a routerLink="/dashboard" queryParamsHandling="merge">Dashboard</a>
   </button>
-  <button mat-menu-item *ngIf="processView">
+  <button mat-menu-item *ngIf="processView" [matMenuTriggerFor]="process">
     <mat-icon>usb</mat-icon>
     <a routerLink="/process" queryParamsHandling="merge">Process Management</a>
   </button>
@@ -32,3 +32,9 @@
   </button>
 </mat-menu>
   
+<mat-menu #process="matMenu">
+  <button mat-menu-item>
+    <mat-icon>clear_all</mat-icon>
+    <a routerLink="/process/all" queryParamsHandling="merge">Processes</a>
+  </button>
+</mat-menu>

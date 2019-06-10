@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ProcesslineApiService } from '../../processline-api.service';
 import { map } from 'rxjs/operators';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
@@ -16,6 +16,8 @@ export enum StateOptions {
 })
 
 export class UpdateProcessComponent implements OnInit {
+
+  @Input() selectedLotNum: any;
 
   keys = Object.keys;
   stateOptions = StateOptions;
@@ -44,6 +46,13 @@ export class UpdateProcessComponent implements OnInit {
         console.log(username);
         this.username = username
       })
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+    if(this.selectedLotNum) {
+      this.lotNumber = this.selectedLotNum;
+    }
   }
 
   updateProcessline(): any {

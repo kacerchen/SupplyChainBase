@@ -80,6 +80,7 @@ export class ProcessMgComponent implements OnInit {
   datasource_search: any;
   datasource_latest: any;
   datasource_history: any;
+  latestProcess: [];
 
   constructor(private route: ActivatedRoute, private processlineApiService: ProcesslineApiService) { 
     
@@ -203,6 +204,7 @@ export class ProcessMgComponent implements OnInit {
       this.datasource_search = this.getDataSource(data);
       this.datasource_all = this.getDataSource(data);
       console.log(this.datasource_latest);
+      this.latestProcess = this.getLatestDataSrc(this.datasource_latest);
     })
   }
 
@@ -254,6 +256,12 @@ export class ProcessMgComponent implements OnInit {
     }
     return finalArr;
     // console.log(_to);
+  }
+
+  getLatestDataSrc(arr: []): any {
+    let resultArr = [];
+    resultArr.push(arr.pop());
+    return resultArr;
   }
 
 }

@@ -19,11 +19,13 @@ export class AllProcessesTableComponent implements OnInit {
 
   @Input() all: any;
 
-  columnsToDisplay: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'manufacturer', 'currentState'];
+  columnsToDisplay: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'manufacturer', 'currentState', 'update'];
   dataSource = new MatTableDataSource<Object>();
   expandedElement: Object | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  selectedLotNum: string;
 
   constructor() { }
 
@@ -44,6 +46,10 @@ export class AllProcessesTableComponent implements OnInit {
 
   toFormatDate(time: any): string{
     return formatDate(Number(time *1000), 'medium', 'en-US');
+  }
+
+  setSelected(lotNumber: string) {
+    this.selectedLotNum = lotNumber;
   }
 
 }

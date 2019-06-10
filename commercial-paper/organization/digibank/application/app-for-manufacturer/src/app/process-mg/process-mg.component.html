@@ -3,8 +3,7 @@
 </div>
 
 <div style="margin: 3%;">
-  <div class="row">
-
+  <!-- <div class="row">
     <div class="col">
       <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
         <button mat-flat-button class="btnAdd" data-toggle="modal" data-target="#addNewModal">
@@ -12,60 +11,74 @@
           Add New Process
         </button>
       </mat-button-toggle-group>
+    </div>
+  </div> -->
 
-      <div class="row">
+  <div style="margin: 3%;">
+    <div class="row" style="margin-bottom:5%;">
+      <div class="col">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+            <mat-card-title class="titleFontStyl">Process</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+          </mat-card-header>
 
-        <div class="col">
-          <mat-tab-group dynamicHeight>
-            <mat-tab label="Latest Process Line">
-              <div>
-                <app-latest-process-table [allProcesses]="datasource_latest"></app-latest-process-table>
+          <hr>
+
+          <mat-card-content style="margin-top: 3%;">
+            <div style="text-align: center;">
+
+              <span class="circle">
+                <i class="material-icons icon-style">tune</i>
+                <i class="material-icons" style="float:right;">add_circle</i>
+              </span>
+
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col-sm-8">
+                    <p class="card-content-style">
+                      You can create a new process detail manually here if you have permission for process creation.
+                      To check your new process details, please go to 'Processes' -> 'All Process Lines'.
+                      To follow history of this process, please search in 'Search Process History'.
+                    </p>
+                  </div>
+                </div>
               </div>
-            </mat-tab>
-            <mat-tab label="Search Process Line">
-              <div class="col">
-                <app-search-process-table [searchProcesses]="datasource_search"></app-search-process-table>
-              </div>
-              <div class="col">
-                <app-process-history-table [historyProcesses]="datasource_history"></app-process-history-table>
-              </div>
-            </mat-tab>
-            <mat-tab label="All Process Lines">
-              <div>
-                <app-all-processes-table [all]="datasource_all"></app-all-processes-table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Add Process Manually">
-              <div>
-                <app-add-process></app-add-process>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </div>
+
+            </div>
+          </mat-card-content>
+          <mat-card-actions style="text-align:center; margin-bottom: 3%;">
+            <button mat-button class="btnAdd2" data-toggle="modal" data-target="#addNewModal">
+              Create new process
+              <i class="material-icons">add_circle</i>
+            </button>
+          </mat-card-actions>
+        </mat-card>            
       </div>
-      <div class="row">
-        <div class="col">
-          <app-update-process></app-update-process>
-        </div>
-      </div>
-      
+    </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <h4 class="titleFontStyl">
+        <i class="material-icons">donut_small</i>
+        Analytics
+      </h4>
+      <hr>
+      <app-weight-change></app-weight-change>
+      <app-temp-change></app-temp-change>
     </div>
 
     <div class="col">
-      <div class="row">
-
-        <div class="col">
-          <app-weight-change></app-weight-change>
-        </div>
-
-        <div class="col">
-          <app-temp-change></app-temp-change>
-        </div>
-        
-      </div>
+      <h4 class="titleFontStyl">
+        <i class="material-icons">autorenew</i>
+        Latest Process
+      </h4>
+      <hr>
+      <app-details-card [process]="latestProcess"></app-details-card>
     </div>
-
   </div>
+        
 </div>
 
 <!-- Modal -->

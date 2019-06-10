@@ -1,0 +1,11 @@
+.titleFontStyl {
+    margin-top: 6%;
+    font-weight:bold;
+    color: dimgray;
+    text-align: left;
+}
+
+.btnAdd {
+    background-color:#2C5364; 
+    color: aliceblue;
+}

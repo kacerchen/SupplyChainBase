@@ -46,3 +46,39 @@ table {
     opacity: 0.5;
   }
   
+  .example-card {
+    max-width: 400px;
+    margin: 2% 1%;
+  }
+  
+  .example-header-image {
+    background-image: url('../../../assets/user-male.png');
+    background-size: cover;
+  }
+  
+  .circle {
+    width: 10px;
+    height: 10px;
+    background: rgb(33, 158, 127);
+    border-radius: 50%;
+    float: left;
+  }
+  .box {
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+      transform-origin: bottom;
+  }
+  .bounce-2 {
+      animation-name: bounce-2;
+      animation-timing-function: ease;
+  }
+  @keyframes bounce-2 {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+  }
+  .detailFontStyl {
+    margin-left: 30%;
+    font-weight:bold;
+    color: dimgray;
+  }

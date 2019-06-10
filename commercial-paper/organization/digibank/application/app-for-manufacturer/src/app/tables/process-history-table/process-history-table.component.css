@@ -1,5 +1,5 @@
 table {
-  width: 100%;
+  width: 95%;
 }
 
 tr.example-detail-row {
@@ -44,4 +44,10 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description-attribution {
   opacity: 0.5;
+}
+
+.btnAdd {
+  background-color:#2C5364; 
+  color: aliceblue;
+  padding: 1% 5% 1% 5%;
 }

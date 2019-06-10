@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +50,8 @@ import { ShippingStepperComponent } from './stepper/shipping-stepper/shipping-st
 import { AddOrderComponent } from './forms/add-order/add-order.component';
 import { AllOrdersTableComponent } from './tables/all-orders-table/all-orders-table.component';
 import { ProcessingOrdersTableComponent } from './tables/processing-orders-table/processing-orders-table.component';
+import { DetailsCardComponent } from './cards/details-card/details-card.component';
+import { ProcessComponent } from './process-mg/process/process.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +83,8 @@ import { ProcessingOrdersTableComponent } from './tables/processing-orders-table
     AddOrderComponent,
     AllOrdersTableComponent,
     ProcessingOrdersTableComponent,
+    DetailsCardComponent,
+    ProcessComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,7 +107,8 @@ import { ProcessingOrdersTableComponent } from './tables/processing-orders-table
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [
     MatDatepickerModule,

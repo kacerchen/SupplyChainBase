@@ -1,0 +1,129 @@
+<mat-card class="example-card" *ngFor="let element of process">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{element.manufacturer}}</mat-card-title>
+    <mat-card-subtitle>Manufacturer</mat-card-subtitle>
+  </mat-card-header>
+  
+  <p class="detailFontStyl" style="float: right;">Container ID: {{element.containerID}}</p>
+  
+  <hr style="margin-top: 10%;">
+
+  <div class="container" style="margin-top: 8%;">
+    <div class="row justify-content-around" style="text-align: center;">
+      <div class="col-sm">
+        <!-- <div [className]="element.currentState == '1'? 'box bounce-2':''">
+          <i class="material-icons" style="font-size: 32px;">hourglass_full</i>
+        </div> -->
+        <img mat-card-image src="../../../assets/hourglass.png" alt="init" [className]="element.currentState == '1'? 'box bounce-2':''" style="width: 32px;">
+        <div>
+          <div [className]="element.currentState == '1'? 'circle':''"></div>
+          <p>Init</p>
+        </div>
+      </div>
+      <div class="col-sm">
+        <img mat-card-image src="../../../assets/workflow.png" alt="feeding" [className]="element.currentState == '2'? 'box bounce-2':''" style="width: 32px;">
+        <div [className]="element.currentState == '2'? 'circle':''"></div>
+        <p>Feeding</p>
+      </div>
+      <div class="col-sm">
+        <img mat-card-image src="../../../assets/chemical.png" alt="reacting" [className]="element.currentState == '3'? 'box bounce-2':''" style="width: 32px;">
+        <div [className]="element.currentState == '3'? 'circle':''"></div>
+        <p>Reacting</p>
+      </div>
+      <div class="col-sm">
+        <img mat-card-image src="../../../assets/pipeline-plumbing.png" alt="transit" [className]="element.currentState == '4'? 'box bounce-2':''" style="width: 32px;">
+        <div [className]="element.currentState == '4'? 'circle':''"></div>
+        <p>Transit</p>
+      </div>
+      <div class="col-sm">
+        <img mat-card-image src="../../../assets/end.png" alt="end" [className]="element.currentState == '5'? 'box bounce-2':''" style="width: 32px;">
+        <div [className]="element.currentState == '5'? 'circle':''"></div>
+        <p>End</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-start" style="margin-top: 15%;">
+      <div class="col-sm">
+          <img mat-card-image src="../../../assets/identification.png" alt="name" style="width: 32px; float: left;">
+          <p class="detailFontStyl">Component Name: {{element.component}}</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-start" style="margin-top: 5%;">
+      <div class="col-sm">
+          <img mat-card-image src="../../../assets/hot.png" alt="temperature" style="width: 32px; float: left;">
+          <p class="detailFontStyl">Temperature: {{element.temperature}}</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-start" style="margin-top: 5%;">
+      <div class="col-sm">
+          <img mat-card-image src="../../../assets/scale.png" alt="weight" style="width: 32px; float: left;">
+          <p class="detailFontStyl">Weight: {{element.weight}}</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-start" style="margin-top: 5%;">
+      <div class="col-sm">
+          <img mat-card-image src="../../../assets/clock.png" alt="weight" style="width: 32px; float: left;">
+          <p class="detailFontStyl">Created Time: {{toFormatDate(element.createdTime)}}</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-start" style="margin-top: 5%;">
+      <div class="col-sm">
+          <img mat-card-image src="../../../assets/key.png" alt="weight" style="width: 32px; float: left;">
+          <p class="detailFontStyl">Ledger Key: {{element.key}}</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-start" style="margin-top: 5%;">
+      <div class="col-sm">
+          <img mat-card-image src="../../../assets/finish-line.png" alt="finalProduct" style="width: 32px; float: left;">
+          <p class="detailFontStyl">Expected Final Product: {{element.expectedProduct}}</p>
+      </div>
+    </div>
+  </div>
+
+  <mat-card-content>
+    <p>
+      You can update click below button.
+    </p>
+  </mat-card-content>
+
+  <hr>
+
+  <mat-card-actions>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <button mat-flat-button class="btnAdd" data-toggle="modal" data-target="#updateModal" (click)="setSelected(element.lotNumber)">
+        <i class="material-icons">publish</i>
+        UPDATE
+      </button>
+    </mat-button-toggle-group>  
+  </mat-card-actions>
+</mat-card>
+
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModal">
+          <i class="material-icons">publish</i>
+          Update Process
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-update-process [selectedLotNum]="selectedLotNum"></app-update-process>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>

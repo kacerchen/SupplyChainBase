@@ -1,0 +1,39 @@
+<div class="bannerColor">
+  <app-menu [user_name]="username"></app-menu>
+</div>
+
+<div style="margin: 0% 1%;">
+  <div class="row">
+    <div class="col">
+      <h4 class="titleFontStyl">
+        <i class="material-icons">view_list</i>
+        Processes
+      </h4>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 2%;">
+  <div class="row">
+    <div class="col">
+      <mat-tab-group dynamicHeight>
+        <mat-tab label="Search Process Line">
+          <div class="col">
+            <app-search-process-table [searchProcesses]="datasource_search"></app-search-process-table>
+          </div>
+        </mat-tab>
+        <mat-tab label="All Process Lines">
+          <div>
+            <app-all-processes-table [all]="datasource_all"></app-all-processes-table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Search Process History">
+          <div>
+            <app-process-history-table [historyProcesses]="datasource_history"></app-process-history-table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

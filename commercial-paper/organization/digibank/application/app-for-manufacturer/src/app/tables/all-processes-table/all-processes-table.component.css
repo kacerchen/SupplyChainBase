@@ -45,3 +45,9 @@ tr.example-element-row:not(.example-expanded-row):active {
 .example-element-description-attribution {
   opacity: 0.5;
 }
+
+.btnAdd {
+  background-color:#2C5364; 
+  color: aliceblue;
+  padding: 0.5% 5% 0.5% 5%;
+}

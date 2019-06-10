@@ -19,12 +19,14 @@ export class SearchProcessTableComponent implements OnInit {
 
   @Input() searchProcesses: any;
   newData: Object[];
-  columnsToDisplay: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'manufacturer', 'currentState'];
+  columnsToDisplay: string[] = ['lotNumber', 'component', 'containerID', 'expectedProduct', 'manufacturer', 'currentState', 'update'];
   dataSource = new MatTableDataSource<Object>();
   expandedElement: Object | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  selectedLotNum: string;
 
   constructor() { 
     // Create 100 users
@@ -60,6 +62,10 @@ export class SearchProcessTableComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  setSelected(lotNumber: string) {
+    this.selectedLotNum = lotNumber;
   }
 
 }

@@ -6,6 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogisticsMgComponent } from './logistics-mg/logistics-mg.component';
 import { ProcessMgComponent } from './process-mg/process-mg.component';
+import { ProcessComponent } from './process-mg/process/process.component';
 import { ProcurementMgComponent } from './procurement-mg/procurement-mg.component';
 import { ProductMgComponent } from './product-mg/product-mg.component';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   // { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'logistics', component: LogisticsMgComponent },
   { path: 'process', component: ProcessMgComponent },
+  { path: 'process/all', component: ProcessComponent },
   { path: 'procurement', component: ProcurementMgComponent },
   { path: 'product', component: ProductMgComponent }
 ];
