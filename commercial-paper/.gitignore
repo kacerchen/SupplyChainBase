@@ -2,6 +2,7 @@ organization/magnetocorp/application/node_modules/
 organization/magnetocorp/contract/node_modules/
 organization/magnetocorp/identity/user/
 organization/digibank/application/node_modules/
+organization/digibank/application/wallet/
 organization/digibank/contract/node_modules/
 organization/digibank/identity/user/
 package-lock.json
