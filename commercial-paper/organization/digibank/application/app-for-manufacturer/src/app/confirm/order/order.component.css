@@ -1,0 +1,62 @@
+.bannerColor {
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btnAdd {
+    background-color:#2C5364; 
+    color: aliceblue;
+    padding: 0.5% 1% 0.5% 1%;
+}
+
+.btnAdd2 {
+    text-align:center; 
+    color: #2C5364;
+    font-size: 18px;
+}
+
+.titleFontStyl {
+    margin-top: 6%;
+    font-weight:bold;
+    color: dimgray;
+    text-align: left;
+}
+
+.headingStyl {
+    margin-top: 6%;
+    font-weight:bold;
+    color: dimgray;
+    text-align: center;
+    font-size: 30px;
+}
+
+.example-card {
+    max-width: 100%;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.icon-style {
+    font-size: 50px;
+    color:#2C5364;
+    margin: 3% 3% 0% 0%;
+}
+
+.circle {
+    height: 75px;
+    width: 75px;
+    padding: 1% 0% 0% 1%;
+    background-color: aliceblue;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.card-content-style {
+    margin: 6% 0% 0% 0%;
+}

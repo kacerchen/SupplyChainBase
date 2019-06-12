@@ -1,0 +1,39 @@
+<div class="bannerColor">
+  <app-menu [user_name]="username"></app-menu>
+</div>
+
+<div style="margin: 0% 1%;">
+  <div class="row">
+    <div class="col">
+      <h4 class="titleFontStyl">
+        <i class="material-icons">view_list</i>
+        Products
+      </h4>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div style="margin: 2%;">
+  <div class="row">
+    <div class="col">
+      <mat-tab-group dynamicHeight>
+        <mat-tab label="Search Product">
+          <div>
+            <app-search-product-table [search]="datasource_search"></app-search-product-table>
+          </div>
+        </mat-tab>
+        <mat-tab label="All Products">
+          <div>
+            <app-all-products-table [all]="datasource_all"></app-all-products-table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Search Product History">
+          <div>
+            <app-product-history-table [history]="datasource_history"></app-product-history-table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

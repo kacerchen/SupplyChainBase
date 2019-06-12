@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { ProductApiService } from '../../product-api.service';
 import { map } from 'rxjs/operators';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
@@ -18,6 +18,8 @@ export enum StateOptions {
   styleUrls: ['./update-product.component.css']
 })
 export class UpdateProductComponent implements OnInit {
+
+  @Input() selectedId: any;
 
   keys = Object.keys;
   stateOptions = StateOptions;
@@ -44,6 +46,13 @@ export class UpdateProductComponent implements OnInit {
         console.log(username);
         this.username = username
       })
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+    if(this.selectedId) {
+      this.productID = this.selectedId;
+    }
   }
 
   updateProduct(): any {

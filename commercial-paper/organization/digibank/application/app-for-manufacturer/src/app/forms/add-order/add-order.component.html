@@ -1,5 +1,15 @@
+<div class="bannerColor">
+  <app-menu [user_name]="username"></app-menu>
+</div>
+
 <div class="borderStyle">
-  <div class="orderTitle">Order Contract</div>
+  <div class="plainOrderTitle">Order Contract</div>
+  <div class="orderSubtitle">
+    <hr>
+    This Contract is between you (the "Provider") and your customer, 
+    a company as owner of item(s) (the "Client").The Contract is dated [the date 
+    both parties sign].
+  </div>
   <form style="margin:3%;">
     <div class="row" style="margin-top: 3%;">
       <div class="col">
@@ -165,8 +175,11 @@
     </div>
   
     <div class="row">
-      <div class="col">
-        <button type="submit" class="btn btn-primary" (click)="initOrder()">Submit</button>
+      <div class="col" style="text-align:center;">
+        <button type="submit" class="btn btnSign" (click)="initOrder()">
+          <i class="material-icons">gesture</i>
+          Sign Contract
+        </button>
       </div>
     </div>
   

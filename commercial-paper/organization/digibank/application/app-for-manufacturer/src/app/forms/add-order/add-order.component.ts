@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { OrderApiService } from '../../order-api.service';
 import { map } from 'rxjs/operators';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 export enum TypeOptions {
   STANDARD = "1",
@@ -84,7 +84,7 @@ export class AddOrderComponent implements OnInit {
 
   newOrder: Object;
 
-  constructor(private route: ActivatedRoute, private orderApiService: OrderApiService) { }
+  constructor(private route: ActivatedRoute, private router: Router,  private orderApiService: OrderApiService) { }
 
   ngOnInit() {
     this.route
@@ -124,10 +124,16 @@ export class AddOrderComponent implements OnInit {
       receiver: this.receiver
     }
 
+    // that contains our global query params and fragment
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'username': this.username },
+    };
+
     this.orderApiService.initOrder(data)
     .subscribe((data: any) => {
       console.log(data);
       this.newOrder = data;
+      this.router.navigate(['/procurement/add_new_order/' + data.order.orderID], navigationExtras);
     })
   }
 

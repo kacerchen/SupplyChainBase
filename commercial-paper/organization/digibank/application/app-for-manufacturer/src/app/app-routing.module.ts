@@ -8,7 +8,11 @@ import { LogisticsMgComponent } from './logistics-mg/logistics-mg.component';
 import { ProcessMgComponent } from './process-mg/process-mg.component';
 import { ProcessComponent } from './process-mg/process/process.component';
 import { ProcurementMgComponent } from './procurement-mg/procurement-mg.component';
+import { ProcurementComponent } from './procurement-mg/procurement/procurement.component';
+import { OrderComponent } from './confirm/order/order.component';
 import { ProductMgComponent } from './product-mg/product-mg.component';
+import { ProductComponent } from './product-mg/product/product.component';
+import { AddOrderComponent } from './forms/add-order/add-order.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -16,12 +20,15 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'dashboard', component: DashboardComponent },
-  // { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'logistics', component: LogisticsMgComponent },
   { path: 'process', component: ProcessMgComponent },
   { path: 'process/all', component: ProcessComponent },
   { path: 'procurement', component: ProcurementMgComponent },
-  { path: 'product', component: ProductMgComponent }
+  { path: 'procurement/all', component: ProcurementComponent },
+  { path: 'procurement/add_new_order', component: AddOrderComponent },
+  { path: 'procurement/add_new_order/:id', component: OrderComponent },
+  { path: 'product', component: ProductMgComponent },
+  { path: 'product/all', component: ProductComponent }
 ];
 
 @NgModule({

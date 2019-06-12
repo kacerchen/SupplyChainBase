@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -52,6 +53,15 @@ import { AllOrdersTableComponent } from './tables/all-orders-table/all-orders-ta
 import { ProcessingOrdersTableComponent } from './tables/processing-orders-table/processing-orders-table.component';
 import { DetailsCardComponent } from './cards/details-card/details-card.component';
 import { ProcessComponent } from './process-mg/process/process.component';
+import { ProductComponent } from './product-mg/product/product.component';
+import { TypeStatComponent } from './charts/type-stat/type-stat.component';
+import { FinalProductListComponent } from './lists/final-product-list/final-product-list.component';
+import { ShipmentProductDetailComponent } from './cards/shipment-product-detail/shipment-product-detail.component';
+import { ShipmentSpecDetailComponent } from './cards/shipment-spec-detail/shipment-spec-detail.component';
+import { ShipmentPayDetailComponent } from './cards/shipment-pay-detail/shipment-pay-detail.component';
+import { ShipmentShipDetailComponent } from './cards/shipment-ship-detail/shipment-ship-detail.component';
+import { ProcurementComponent } from './procurement-mg/procurement/procurement.component';
+import { OrderComponent } from './confirm/order/order.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +95,15 @@ import { ProcessComponent } from './process-mg/process/process.component';
     ProcessingOrdersTableComponent,
     DetailsCardComponent,
     ProcessComponent,
+    ProductComponent,
+    TypeStatComponent,
+    FinalProductListComponent,
+    ShipmentProductDetailComponent,
+    ShipmentSpecDetailComponent,
+    ShipmentPayDetailComponent,
+    ShipmentShipDetailComponent,
+    ProcurementComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,7 +127,8 @@ import { ProcessComponent } from './process-mg/process/process.component';
     MatNativeDateModule,
     MatButtonToggleModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatListModule
   ],
   providers: [
     MatDatepickerModule,

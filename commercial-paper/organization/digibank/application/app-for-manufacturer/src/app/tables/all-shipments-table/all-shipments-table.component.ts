@@ -21,7 +21,7 @@ export class AllShipmentsTableComponent implements OnInit {
   @Input() allOrders: any;
 
   dataSource = new MatTableDataSource<Object>();
-  columnsToDisplay = ['orderID', 'name', 'price', 'totalAmount', 'currentState', 'type'];
+  columnsToDisplay = ['orderID', 'name', 'price', 'totalAmount', 'currentState', 'type', 'update'];
   expandedElement: Object | null;
 
   constructor(private orderApiService: OrderApiService) { }
@@ -48,6 +48,10 @@ export class AllShipmentsTableComponent implements OnInit {
     let result = arr.filter(ele => ele.currentState == '2');
     console.log(result);
     return result;
+  }
+
+  changeStatus(id: any): any{
+
   }
 
 }

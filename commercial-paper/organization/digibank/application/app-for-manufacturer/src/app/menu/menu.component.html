@@ -10,7 +10,7 @@
     <mat-icon>usb</mat-icon>
     <a routerLink="/process" queryParamsHandling="merge">Process Management</a>
   </button>
-  <button mat-menu-item *ngIf="productView">
+  <button mat-menu-item *ngIf="productView" [matMenuTriggerFor]="product">
     <mat-icon>widgets</mat-icon>
     <a routerLink="/product" queryParamsHandling="merge">Product Management</a>
   </button>
@@ -18,7 +18,7 @@
     <mat-icon>local_shipping</mat-icon>
     <a routerLink="/logistics" queryParamsHandling="merge">Logistics Management</a>
   </button>
-  <button mat-menu-item *ngIf="procurementView">
+  <button mat-menu-item *ngIf="procurementView" [matMenuTriggerFor]="procurement">
     <mat-icon>attach_money</mat-icon>
     <a routerLink="/procurement" queryParamsHandling="merge">Procurement Management</a>
   </button>
@@ -36,5 +36,19 @@
   <button mat-menu-item>
     <mat-icon>clear_all</mat-icon>
     <a routerLink="/process/all" queryParamsHandling="merge">Processes</a>
+  </button>
+</mat-menu>
+
+<mat-menu #product="matMenu">
+  <button mat-menu-item>
+    <mat-icon>layers</mat-icon>
+    <a routerLink="/product/all" queryParamsHandling="merge">Products</a>
+  </button>
+</mat-menu>
+
+<mat-menu #procurement="matMenu">
+  <button mat-menu-item>
+    <mat-icon>receipt</mat-icon>
+    <a routerLink="/procurement/all" queryParamsHandling="merge">Orders</a>
   </button>
 </mat-menu>

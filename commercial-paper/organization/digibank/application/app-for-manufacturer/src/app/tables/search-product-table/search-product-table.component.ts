@@ -19,12 +19,14 @@ export class SearchProductTableComponent implements OnInit {
 
   @Input() search: any;
 
-  columnsToDisplay: string[] = ['productID', 'name', 'supplier', 'owner', 'currentState', 'weight', 'type', 'from'];
+  columnsToDisplay: string[] = ['productID', 'name', 'supplier', 'owner', 'currentState', 'weight', 'type', 'update'];
   dataSource = new MatTableDataSource<Object>();
   expandedElement: Object | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+
+  selectedId: string;
 
   constructor() { 
   }
@@ -55,6 +57,10 @@ export class SearchProductTableComponent implements OnInit {
 
   toFormatDate(time: any): string{
     return formatDate(Number(time *1000), 'medium', 'en-US');
+  }
+
+  setSelected(id: string) {
+    this.selectedId = id;
   }
 
 }

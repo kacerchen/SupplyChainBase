@@ -3,41 +3,91 @@
 </div>
 
 <div style="margin: 3%;">
-  <div class="row">
-
+  <div class="row" style="margin-bottom:5%;">
     <div class="col">
-      <div class="row">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <mat-card-title class="titleFontStyl">Product</mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-header>
 
-        <div class="col">
-          <mat-tab-group dynamicHeight>
-            <mat-tab label="All Products">
-              <div>
-                <app-all-products-table [all]="datasource_all_products"></app-all-products-table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Search Product">
-              <div class="col">
-                <app-search-product-table [search]="datasource_search"></app-search-product-table>
-              </div>
-              <div class="col">
-                <app-product-history-table [history]="datasource_history"></app-product-history-table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Add Product Manually">
-              <div>
-                <app-add-product></app-add-product>
-              </div>
-            </mat-tab>
-            <mat-tab label="Update Product Manually (For Testing)">
-              <div>
-                <app-update-product></app-update-product>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </div>
-      </div>
+        <hr>
 
+        <mat-card-content style="margin-top: 3%;">
+          <div style="text-align: center;">
+
+            <span class="circle">
+              <i class="material-icons icon-style">widgets</i>
+              <i class="material-icons" style="float:right;">add_circle</i>
+            </span>
+
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-sm-8">
+                  <p class="card-content-style">
+                    You can add a new product manually here if you have permission for product creation.
+                    To check your new product details, please go to 'Products' -> 'All Products'.
+                    To follow history of specific product, please search in 'Search Product History'.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </mat-card-content>
+        <mat-card-actions style="text-align:center; margin-bottom: 3%;">
+          <button mat-button class="btnAdd2" data-toggle="modal" data-target="#addNewModal">
+            Add new product
+            <i class="material-icons">add_circle</i>
+          </button>
+        </mat-card-actions>
+      </mat-card>            
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm">
+      <h4 class="titleFontStyl">
+        <i class="material-icons">donut_small</i>
+        Analytics
+      </h4>
+      <hr>
+      <app-weight-change></app-weight-change>
+      <app-type-stat></app-type-stat>
     </div>
 
+    <div class="col">
+      <h4 class="titleFontStyl">
+        <i class="material-icons">beenhere</i>
+        Available Final Product
+      </h4>
+      <hr>
+      <app-final-product-list [all_products]="datasource_all_products"></app-final-product-list>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNewModalLabel">
+          <i class="material-icons">playlist_add</i>
+          Add New Product
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-product></app-add-product>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
   </div>
 </div>

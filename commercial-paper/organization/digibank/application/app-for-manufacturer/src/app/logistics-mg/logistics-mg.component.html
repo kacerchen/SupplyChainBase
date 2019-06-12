@@ -2,42 +2,46 @@
   <app-menu [user_name]="username"></app-menu>
 </div>
 
-<div style="margin: 3%;">
+<div style="margin: 0% 1%;">
   <div class="row">
-
     <div class="col">
-      <div class="row">
-
-        <div class="col">
-          <mat-tab-group dynamicHeight>
-            <mat-tab label="All Shipments">
-              <div>
-                <app-all-shipments-table [allOrders]="datasource_all"></app-all-shipments-table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Track Shipment">
-              <div class="col">
-                <form>
-                  <div class="form-group" style="margin-top: 3%;">
-                    <h4><i class="material-icons">track_changes</i> Tracking</h4>
-                    <label for="orderID">
-                       Order ID
-                    </label>
-                    <input type="text" class="form-control" id="orderID" [(ngModel)]="orderID" [ngModelOptions]="{standalone: true}" placeholder="Enter an order ID to track">
-                  </div>
-
-                  <button type="submit" class="btn btn-primary" (click)="track()">Track Now</button>
-                </form>
-              </div>
-              <div class="col">
-                <app-shipping-stepper [trackdata]="query_order"></app-shipping-stepper>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </div>
-      </div>
-
+      <h4 class="titleFontStyl">
+        <i class="material-icons">view_list</i>
+        Shipments
+      </h4>
+      <hr>
     </div>
+  </div>
+</div>
 
+<div style="margin: 2%;">
+  <div class="row">
+    <div class="col">
+      <mat-tab-group dynamicHeight>
+        <mat-tab label="All Shipments">
+          <div>
+            <app-all-shipments-table [allOrders]="datasource_all"></app-all-shipments-table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Track Shipment">
+          <div class="col">
+            <form>
+              <div class="form-group" style="margin-top: 3%;">
+                <h4><i class="material-icons">track_changes</i> Tracking</h4>
+                <label for="orderID">
+                    Order ID
+                </label>
+                <input type="text" class="form-control" id="orderID" [(ngModel)]="orderID" [ngModelOptions]="{standalone: true}" placeholder="Enter an order ID to track">
+              </div>
+
+              <button type="submit" class="btn btn-primary" (click)="track()">Track Now</button>
+            </form>
+          </div>
+          <div class="col">
+            <app-shipping-stepper [trackdata]="query_order"></app-shipping-stepper>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
 </div>

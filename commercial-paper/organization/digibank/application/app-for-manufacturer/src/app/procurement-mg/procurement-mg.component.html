@@ -3,33 +3,46 @@
 </div>
 
 <div style="margin: 3%;">
-  <div class="row">
-
+  <div class="row" style="margin-bottom:5%;">
     <div class="col">
-      <div class="row">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <mat-card-title class="titleFontStyl">Order</mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-header>
 
-        <div class="col">
-          <mat-tab-group dynamicHeight>
-            <mat-tab label="Add New Order">
-              <div>
-                <app-add-order></app-add-order>
-              </div>
-            </mat-tab>
-            <mat-tab label="All Orders">
-              <div>
-                <app-all-orders-table [allOrders]="datasource_all"></app-all-orders-table>
-              </div>
-            </mat-tab>
-            <mat-tab label="Pending Order List">
-              <div>
-                <app-processing-orders-table [allOrders]="datasource_pend"></app-processing-orders-table>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </div>
-      </div>
+        <hr>
 
+        <mat-card-content style="margin-top: 3%;">
+          <div style="text-align: center;">
+
+            <span class="circle">
+              <i class="material-icons icon-style">receipt</i>
+              <i class="material-icons" style="float:right;">add_circle</i>
+            </span>
+
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-sm-8">
+                  <p class="card-content-style">
+                    You can add a new order manually here if you have permission for order creation.
+                    To check your new order details, please go to 'Orders' -> 'All Orders'.
+                    To view your pending order, please go to 'Pending Orders'.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </mat-card-content>
+        <mat-card-actions style="text-align:center; margin-bottom: 3%;">
+          <button mat-button class="btnAdd2" routerLink="/procurement/add_new_order" queryParamsHandling="merge">
+            Create new order
+            <i class="material-icons">add_circle</i>
+          </button>
+        </mat-card-actions>
+      </mat-card>            
     </div>
-
   </div>
 </div>
