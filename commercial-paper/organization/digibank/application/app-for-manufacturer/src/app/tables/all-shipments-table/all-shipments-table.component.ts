@@ -3,6 +3,13 @@ import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { OrderApiService } from '../../order-api.service';
 import { formatDate } from '@angular/common';
+import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+
+export enum StateOptions {
+  PROCESSING = "6",
+  SHIPOUT = "7",
+}
 
 @Component({
   selector: 'app-all-shipments-table',
@@ -20,13 +27,26 @@ export class AllShipmentsTableComponent implements OnInit {
 
   @Input() allOrders: any;
 
+  username: string;
+
+  keys = Object.keys;
+  stateOptions = StateOptions;
+  state: string;
+
   dataSource = new MatTableDataSource<Object>();
-  columnsToDisplay = ['orderID', 'name', 'price', 'totalAmount', 'currentState', 'type', 'update'];
+  columnsToDisplay = ['orderID', 'name', 'price', 'totalAmount', 'currentState', 'type'];
   expandedElement: Object | null;
 
-  constructor(private orderApiService: OrderApiService) { }
+  constructor(private route: ActivatedRoute, private orderApiService: OrderApiService) { }
 
   ngOnInit() {
+    this.route
+      .queryParamMap
+      .pipe(map(params => params.get('username') || 'None'))
+      .subscribe(username => {
+        console.log(username);
+        this.username = username
+      })
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -50,8 +70,22 @@ export class AllShipmentsTableComponent implements OnInit {
     return result;
   }
 
-  changeStatus(id: any): any{
+  changeStatus(orderId: string, productId: string, orderer: string): any{
 
+    let updateData = {
+      username: this.username,
+      orderID: orderId,
+      productID: productId,
+      updatedTime: new Date().getTime().toString(),
+      orderer: orderer,
+      modifier: this.username,
+      newState: this.state
+    }
+
+    this.orderApiService.updateOrder(updateData)
+      .subscribe((data: any) => {
+        console.log(data);
+      })
   }
 
 }

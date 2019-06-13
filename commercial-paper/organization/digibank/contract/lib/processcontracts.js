@@ -871,25 +871,22 @@ class OrderContract extends Contract {
         // Update state 
         switch (newState) {
             case "2":
-                if(order.getOrderer() == modifier) {
+                if(order.getReceiver() == modifier){
                     order.setAccepted();
                     break;
                 }
+
             case "3":
-                if(order,getOrderer() == modifier) {
-                    order.setAbandoned();
-                    break;
-                }
+                order.setAbandoned();
+                break;
+
             case "6":
-                if(order.getReceiver() == modifier) {
-                    order.setProcessing();
-                    break;
-                }
+                order.setProcessing();
+                break;
+
             case "7":
-                if(order.getReceiver() == modifier) {
-                    order.setShipOut();
-                    break;
-                }
+                order.setShipOut();
+                break;
         }
 
         order.setUpdateTime(updatedTime);

@@ -1,6 +1,6 @@
 <table mat-table
        [dataSource]="dataSource" multiTemplateDataRows
-       class="mat-elevation-z8">
+       class="mat-elevation-z8" style="margin: 3% 0% 0% 2%;">
   <!-- Order ID Column -->
   <ng-container matColumnDef="orderID">
     <th mat-header-cell *matHeaderCellDef> Order ID </th>
@@ -49,34 +49,90 @@
     </td>
   </ng-container>
 
+  <!-- Update Btn Column -->
+  <!-- <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef> Update Status </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="row">
+        <div class="col-sm-4">
+          <select class="form-control" [(ngModel)]="state" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let s of keys(stateOptions)">{{s}}</option>
+          </select>
+        </div>
+        <div class="col-sm-4">
+          <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+            <button mat-flat-button class="btnAdd" (click)="changeStatus(element.orderID, element.productObj.productID, element.orderer)">
+              <i class="material-icons">publish</i>
+              Update
+            </button>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </td>
+  </ng-container> -->
+
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="example-element-diagram">
-          <div class="example-element-productID"> Product ID: {{element.productObj.productID}} </div>
-          <div class="example-element-weight"> Weight: {{element.productObj.weight}} </div>
-          <div class="example-element-receiver"> Receiver: {{element.receiver}} </div>
-          <div class="example-element-orderer"> Orderer: {{element.orderer}} </div>
-          <div class="example-element-createdTime"> Created At: {{toFormatDate(element.createdTime)}} </div>
-        </div>
-        <div class="example-element-diagram">
-          <div *ngIf="element.assuranceObj" class="example-element-specs"> Spec Details: {{element.assuranceObj.specs}} </div>
-          <div *ngIf="element.assuranceObj" class="example-element-methods"> Specify Methods: {{element.assuranceObj.methods}} </div>
-          <div *ngIf="element.assuranceObj" class="example-element-qualifiedOperator"> Specify Operators: {{element.assuranceObj.qualifiedOperator}} </div>
-          <div *ngIf="element.assuranceObj" class="example-element-leadTime"> Lead Time: {{element.assuranceObj.leadTime}} </div>
-        </div>
-        <div class="example-element-diagram">
-          <div class="example-element-initPayment"> Initial Payment: {{element.paymentObj.initPayment}} </div>
-          <div class="example-element-payMethod"> Payment Method: {{element.paymentObj.payMethod}} </div>
-        </div>
-        <div class="example-element-diagram">
-          <div class="example-element-tradeTerm"> Trade Term: {{element.shippingObj.tradeTerm}} </div>
-          <div class="example-element-shipMethod"> Shipping Method: {{element.shippingObj.shipMethod}} </div>
-          <div class="example-element-address"> Address: {{element.shippingObj.address}} </div>
-          <div class="example-element-dispatchDate"> Dispatch Date: {{element.shippingObj.dispatchDate}} </div>
-        </div>
+          
+          <div class="container">
+            <div class="row" style="margin-bottom: 1%;">
+              <div class="col-sm-3">
+                <select class="form-control" [(ngModel)]="state" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let s of keys(stateOptions)" [value]="stateOptions[s]">{{s}}</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                  <button mat-flat-button class="btnAdd" (click)="changeStatus(element.orderID, element.productObj.productID, element.orderer)">
+                    <i class="material-icons">publish</i>
+                    Update
+                  </button>
+                </mat-button-toggle-group>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col">
+                  <app-shipment-product-detail 
+                    [productId]="element.productObj.productID"
+                    [weight]="element.productObj.weight"
+                    [receiver]="element.receiver"
+                    [orderer]="element.orderer"
+                    [createdAt]="element.createdTime">
+                  </app-shipment-product-detail>
+              </div>
+  
+              <div class="col">
+                <app-shipment-spec-detail 
+                  [detail]="element.assuranceObj.specs"
+                  [method]="element.assuranceObj.methods"
+                  [operator]="element.assuranceObj.qualifiedOperator"
+                  [leadtime]="element.assuranceObj.leadTime">
+                </app-shipment-spec-detail>
+              </div>
+
+              <div class="col">
+                <app-shipment-pay-detail 
+                  [initPay]="element.paymentObj.initPayment"
+                  [method]="element.paymentObj.payMethod">
+                </app-shipment-pay-detail>
+              </div>
+
+              <div class="col">
+                <app-shipment-ship-detail 
+                  [tradeTerm]="element.shippingObj.tradeTerm"
+                  [method]="element.shippingObj.shipMethod"
+                  [address]="element.shippingObj.address"
+                  [dispatchDate]="element.shippingObj.dispatchDate">
+                </app-shipment-ship-detail>
+              </div>
+            </div>
+          </div>
+          
+
       </div>
     </td>
   </ng-container>
