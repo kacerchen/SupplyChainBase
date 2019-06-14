@@ -11,26 +11,26 @@
 
       <mat-card-content style="margin-top: 3%;">
         <mat-list>
-          <h3 mat-subheader>Below are products available for your customers.</h3>
-          <mat-list-item *ngFor="let product of availFinalProducts">
-            <mat-icon mat-list-icon style="color: #2C5364;">layers</mat-icon>
+          <h3 mat-subheader>Below are raw materials available to be used.</h3>
+          <mat-list-item *ngFor="let product of availRawMaterials">
+            <mat-icon mat-list-icon style="color: #2C5364;">bubble_chart</mat-icon>
             <h4 mat-line>{{product.name}}, owned by {{product.owner}}</h4>
             <p mat-line> {{toFormatDate(product.createdTime)}} </p>
             <div>
               <span mat-line> 
-                <button mat-button class="btnAdd" data-toggle="modal" data-target="#viewModal" (click)="setSelectedProduct(product)"> View </button>
+                <button mat-button class="btnAdd" data-toggle="modal" data-target="#viewModal2" (click)="setSelectedProduct(product)"> View </button>
               </span>
             </div>
           </mat-list-item>
           <mat-divider></mat-divider>
-          <h3 mat-subheader>Below are products already sold.</h3>
-          <mat-list-item *ngFor="let product of soldFinalProducts">
-            <mat-icon mat-list-icon style="color: #2C5364;">monetization_on</mat-icon>
+          <h3 mat-subheader>Below are raw materials already used.</h3>
+          <mat-list-item *ngFor="let product of usedRawMaterials">
+            <mat-icon mat-list-icon style="color: #2C5364;">bubble_chart</mat-icon>
             <h4 mat-line>{{product.name}}</h4>
             <p mat-line> {{toFormatDate(product.createdTime)}} </p>
             <div>
               <span mat-line> 
-                <button mat-button class="btnAdd" data-toggle="modal" data-target="#viewModal" (click)="setSelectedProduct(product)"> View </button>
+                <button mat-button class="btnAdd" data-toggle="modal" data-target="#viewModal2" (click)="setSelectedProduct(product)"> View </button>
               </span>
             </div>
           </mat-list-item>
@@ -47,11 +47,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewModal2" tabindex="-1" role="dialog" aria-labelledby="viewModal2Label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="viewModalLabel">
+        <h5 class="modal-title" id="viewModal2Label">
           <i class="material-icons">class</i>
           View Details
         </h5>
@@ -60,7 +60,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-product-details [product]="selectedProduct" [username]="username"></app-product-details>
+        <app-raw-material-details [product]="selectedRawMaterial" [username]="username"></app-raw-material-details>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

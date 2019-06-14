@@ -62,6 +62,9 @@ import { ShipmentPayDetailComponent } from './cards/shipment-pay-detail/shipment
 import { ShipmentShipDetailComponent } from './cards/shipment-ship-detail/shipment-ship-detail.component';
 import { ProcurementComponent } from './procurement-mg/procurement/procurement.component';
 import { OrderComponent } from './confirm/order/order.component';
+import { ProductDetailsComponent } from './forms/product-details/product-details.component';
+import { RawMaterialDetailsComponent } from './forms/raw-material-details/raw-material-details.component';
+import { RawMaterialListsComponent } from './lists/raw-material-lists/raw-material-lists.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +107,9 @@ import { OrderComponent } from './confirm/order/order.component';
     ShipmentShipDetailComponent,
     ProcurementComponent,
     OrderComponent,
+    ProductDetailsComponent,
+    RawMaterialDetailsComponent,
+    RawMaterialListsComponent,
   ],
   imports: [
     BrowserModule,

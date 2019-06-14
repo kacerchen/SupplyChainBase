@@ -14,6 +14,12 @@ export interface Section {
 export class FinalProductListComponent implements OnInit {
 
   @Input() all_products: any;
+  @Input() username: string;
+
+  finalProducts: any;
+  availFinalProducts: any;
+  soldFinalProducts: any;
+  selectedProduct: any;
 
   folders: Section[] = [
     {
@@ -46,6 +52,32 @@ export class FinalProductListComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if(this.all_products) {
+      this.finalProducts = this.filterFinal(this.all_products);
+      this.availFinalProducts = this.finalProducts[0];
+      this.soldFinalProducts = this.finalProducts[1];
+    }
+  }
+
+  filterFinal(arr: any): any {
+    let tempArr = [];
+    let tempArr2 = [];
+
+    for(let obj of arr) {
+      if(obj['currentState'] == '5'){
+        tempArr.push(obj);
+      } else if(obj['currentState'] == '7' || obj['currentState'] == '8' || obj['currentState'] == '9'){
+        tempArr2.push(obj);
+      }
+    }
+
+    // console.log(tempArr);
+
+    return [tempArr, tempArr2];
+  }
+
+  setSelectedProduct(product: any): void {
+    this.selectedProduct = product;
   }
 
   toFormatDate(time: any): string{

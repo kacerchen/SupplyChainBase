@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+  <div class="col-3">
+    <img src="../../../assets/protein.png" alt="id" style="text-align:center;" width="100%;">
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Product ID: {{productId}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Raw Material: {{name}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Weight: {{weight}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Supplier: {{supplier}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    From: {{from == productId ? 'N/A' : 'org.processnet.productlist ' + from}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Current State: {{state}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Created At: {{time}}
+  </div>
+</div>
+
+<!-- <mat-list>
+  <mat-divider></mat-divider>
+  <h3 mat-subheader>Below are components details.</h3>
+  <mat-list-item *ngFor="let processline of all_history_of_process">
+    <mat-icon mat-list-icon style="color: #2C5364;">scatter_plot</mat-icon>
+    <h4 mat-line>{{processline.weight}}g {{processline.component}} in {{processline.containerID}} @{{processline.temperature}} &#8451;</h4>
+    <p mat-line> {{toFormatDate(processline.createdTime)}} </p>
+  </mat-list-item>
+</mat-list> -->

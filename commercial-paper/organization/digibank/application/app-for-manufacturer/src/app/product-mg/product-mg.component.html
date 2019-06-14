@@ -58,12 +58,29 @@
     </div>
 
     <div class="col">
-      <h4 class="titleFontStyl">
-        <i class="material-icons">beenhere</i>
-        Available Final Product
-      </h4>
-      <hr>
-      <app-final-product-list [all_products]="datasource_all_products"></app-final-product-list>
+
+      <div class="row">
+        <div class="col">
+          <h4 class="titleFontStyl">
+            <i class="material-icons">beenhere</i>
+            Available Final Product
+          </h4>
+          <hr>
+          <app-final-product-list [all_products]="datasource_all_products" [username]="username"></app-final-product-list>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h4 class="titleFontStyl">
+            <i class="material-icons">scatter_plot</i>
+            Raw Materials
+          </h4>
+          <hr>
+          <app-raw-material-lists [all_products]="datasource_all_products" [username]="username"></app-raw-material-lists>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
