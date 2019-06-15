@@ -45,4 +45,14 @@
       </mat-card>            
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-6">
+      <app-pending-order-list [all_orders]="datasource_all"></app-pending-order-list>
+    </div>
+
+    <div class="col-6">
+      <app-processing-order-list [all_orders]="datasource_all"></app-processing-order-list>
+    </div>
+  </div>
 </div>

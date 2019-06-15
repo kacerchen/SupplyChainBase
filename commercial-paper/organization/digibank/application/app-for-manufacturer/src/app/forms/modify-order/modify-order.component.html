@@ -1,0 +1,188 @@
+<div class="bannerColor">
+  <app-menu [user_name]="username"></app-menu>
+</div>
+
+<div class="borderStyle">
+  <div class="plainOrderTitle">Order Contract</div>
+  <div class="orderSubtitle">
+    <hr>
+    This Contract is between you (the "Provider") and your customer, 
+    a company as owner of item(s) (the "Client").The Contract is dated [the date 
+    both parties sign].
+  </div>
+  <form style="margin:3%;">
+    <div class="row" style="margin-top: 3%;">
+      <div class="col">
+        <div class="form-group">
+          <label for="orderID">Order ID</label>
+          <input type="text" class="form-control" id="orderID" [(ngModel)]="orderID" [ngModelOptions]="{standalone: true}" aria-describedby="orderID" placeholder="Enter New Order ID">
+          <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select class="form-control" [(ngModel)]="type" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let type of keys(typeOptions)" [value]="typeOptions[type]">{{type}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="productID">Product ID</label>
+          <select class="form-control" [(ngModel)]="productID" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let id of availProductId" [value]="id">{{id}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="name">Item Name</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" aria-describedby="name" placeholder="Enter Item Name">
+        </div>
+        <div class="form-group">
+          <label for="weight">Weight</label>
+          <input type="number" class="form-control" id="weight" [(ngModel)]="weight" [ngModelOptions]="{standalone: true}" aria-describedby="weight" placeholder="Enter Item Weight (g)">
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" id="price" [(ngModel)]="price" [ngModelOptions]="{standalone: true}" aria-describedby="price" placeholder="Enter Price (USD)">
+        </div>
+      </div>
+  
+      <div class="col">
+        <div class="form-group">
+          <label for="specs">Spec Details</label>
+          <textarea class="form-control" id="specs" rows="5" [(ngModel)]='specs' [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="qualifiedOperator">Specify Operators</label>
+          <textarea class="form-control" id="qualifiedOperator" rows="5" [(ngModel)]='qualifiedOperator' [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="methods">Specify Methods</label>
+          <textarea class="form-control" id="methods" rows="5" [(ngModel)]='methods' [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+        <mat-form-field>
+          <input matInput [matDatepicker]="leadTimePicker" placeholder="Select Lead Time"
+                  [formControl]="leadTime">
+          <mat-datepicker-toggle matSuffix [for]="leadTimePicker"></mat-datepicker-toggle>
+          <mat-datepicker #leadTimePicker></mat-datepicker>
+        </mat-form-field>      
+      </div>
+  
+    </div>
+  
+    <div class="row">
+      <div class="col">
+  
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" id="street" [(ngModel)]='street' [ngModelOptions]="{standalone: true}" placeholder="Enter Street Name For Delivery" required>
+            <div class="invalid-feedback">
+              Please provide a valid street name.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" [(ngModel)]='city' [ngModelOptions]="{standalone: true}" placeholder="Enter City Name" required>
+            <div class="invalid-feedback">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="state">State</label>
+            <input type="text" class="form-control" id="state" [(ngModel)]='state' [ngModelOptions]="{standalone: true}" placeholder="Enter State Name" required>
+            <div class="invalid-feedback">
+              Please provide a valid state.
+            </div>
+          </div>
+          
+        </div>
+  
+        <div class="form-row">
+          <div class="col-md-3 mb-3">
+            <label for="country">Country</label>
+            <input type="text" class="form-control" id="country" [(ngModel)]='country' [ngModelOptions]="{standalone: true}" placeholder="Enter Country Name" required>
+            <div class="invalid-feedback">
+              Please provide a valid country name.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="zipcode">Zip</label>
+            <input type="text" class="form-control" id="zipcode" [(ngModel)]='zipcode' [ngModelOptions]="{standalone: true}" placeholder="Enter Zip Code" required>
+            <div class="invalid-feedback">
+              Please provide a valid zip.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="shipMethod">Shipping Method</label>
+            <select class="form-control" [(ngModel)]="shipMethod" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let option of values(shipOptions)" [value]="option">{{option}}</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3" style="margin-top: 2%;">
+            <mat-form-field>
+              <input matInput [matDatepicker]="dispatchTimePicker" placeholder="Select Dispatch Time"
+                      [formControl]="dispatchDate">
+              <mat-datepicker-toggle matSuffix [for]="dispatchTimePicker"></mat-datepicker-toggle>
+              <mat-datepicker #dispatchTimePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="form-row">
+          <div class="col-md-3 mb-3">
+            <label for="tradeTerm">Trade Term</label>
+            <select class="form-control" [(ngModel)]="tradeTerm" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let option of values(tradeOptions)" [value]="option">{{option}}</option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="totalAmount">Total Amount</label>
+            <input type="number" class="form-control" id="totalAmount" [(ngModel)]="totalAmount" [ngModelOptions]="{standalone: true}" placeholder="Enter Total Price" required>
+            <div class="invalid-feedback">
+              Please provide a valid total amount.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="initPayment">Initial Payment</label>
+            <input type="number" class="form-control" id="initPayment" [(ngModel)]="initPayment" [ngModelOptions]="{standalone: true}" placeholder="Enter Initial Pay Amount" required>
+            <div class="invalid-feedback">
+              Please provide a initial pay.
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="payMethod">Payment Method</label>
+            <select class="form-control" [(ngModel)]="payMethod" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let option of values(payOptions)" [value]="option">{{option}}</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field style="width: 100%;">
+              <input matInput placeholder="Customer Name" value="Kimber" [(ngModel)]="receiver" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field style="width: 100%;">
+              <input matInput placeholder="Case Officer" value="Jason" [(ngModel)]="modifier" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col" style="text-align:center;">
+        <button type="submit" class="btn btnSign" (click)="modifyOrder()">
+          <i class="material-icons">gesture</i>
+          Sign Contract
+        </button>
+      </div>
+    </div>
+  
+  </form>
+</div>
+  

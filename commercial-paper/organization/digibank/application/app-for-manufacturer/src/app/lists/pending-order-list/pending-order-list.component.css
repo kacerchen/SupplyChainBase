@@ -1,0 +1,29 @@
+.mat-list-icon {
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.btnAdd {
+    background-color:#2C5364; 
+    color: aliceblue;
+    padding: 0.5% 1% 0.5% 1%;
+}
+
+.titleFontStyl {
+    margin-top: 6%;
+    font-weight:bold;
+    color: dimgray;
+    text-align: left;
+}
+
+.example-card {
+    max-width: 100%;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.card-content-style {
+    margin: 6% 0% 0% 0%;
+}

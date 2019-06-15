@@ -1,0 +1,68 @@
+<div class="row" style="margin-top:1%;">
+  <div class="col">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+        <mat-card-title class="titleFontStyl">Pending Orders</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+
+      <!-- <hr> -->
+
+      <mat-card-content style="margin-top: 3%;">
+        <mat-list>
+          <h3 mat-subheader>Below are orders pending for your confirmation.</h3>
+          <mat-list-item *ngFor="let order of all_orders">
+            <mat-icon mat-list-icon style="color: #2C5364;">more</mat-icon>
+            <h4 mat-line> Order.{{order.orderID}}, created by {{order.orderer}}</h4>
+            <p mat-line> {{toFormatDate(order.createdTime)}} </p>
+            <div>
+              <span mat-line> 
+                <button mat-button class="btnAdd" data-toggle="modal" data-target="#viewModal3" (click)="setSelectedOrder(order)"> View </button>
+                <button mat-button class="btnAdd" style="margin: 0% 5% 0% 1%;" [routerLink]="['/procurement/modify_order']" [queryParams]="{orderID:order.orderID}" queryParamsHandling="merge"> Update </button>
+              </span>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <h3 mat-subheader>Below are orders pending for your customer's confirmation.</h3>
+          <mat-list-item *ngFor="let order of all_orders">
+            <mat-icon mat-list-icon style="color: #2C5364;">more</mat-icon>
+            <h4 mat-line> Order.{{order.orderID}}</h4>
+            <p mat-line> {{toFormatDate(order.createdTime)}} </p>
+            <div>
+              <span mat-line> 
+                <button mat-button class="btnAdd" data-toggle="modal" data-target="#viewModal3" (click)="setSelectedOrder(order)"> View </button>
+              </span>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions style="text-align:center; margin-bottom: 3%;">
+
+      </mat-card-actions>
+    </mat-card>            
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="viewModal3" tabindex="-1" role="dialog" aria-labelledby="viewModal3Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewModal3Label">
+          <i class="material-icons">class</i>
+          View Details
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-order-details [order]="selectedOrder" [username]="username"></app-order-details>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

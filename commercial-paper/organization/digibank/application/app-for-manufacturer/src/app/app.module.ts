@@ -21,6 +21,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -65,6 +66,10 @@ import { OrderComponent } from './confirm/order/order.component';
 import { ProductDetailsComponent } from './forms/product-details/product-details.component';
 import { RawMaterialDetailsComponent } from './forms/raw-material-details/raw-material-details.component';
 import { RawMaterialListsComponent } from './lists/raw-material-lists/raw-material-lists.component';
+import { PendingOrderListComponent } from './lists/pending-order-list/pending-order-list.component';
+import { OrderDetailsComponent } from './forms/order-details/order-details.component';
+import { ProcessingOrderListComponent } from './lists/processing-order-list/processing-order-list.component';
+import { ModifyOrderComponent } from './forms/modify-order/modify-order.component';
 
 @NgModule({
   declarations: [
@@ -110,6 +115,10 @@ import { RawMaterialListsComponent } from './lists/raw-material-lists/raw-materi
     ProductDetailsComponent,
     RawMaterialDetailsComponent,
     RawMaterialListsComponent,
+    PendingOrderListComponent,
+    OrderDetailsComponent,
+    ProcessingOrderListComponent,
+    ModifyOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,7 +143,8 @@ import { RawMaterialListsComponent } from './lists/raw-material-lists/raw-materi
     MatButtonToggleModule,
     MatDialogModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [
     MatDatepickerModule,

@@ -13,6 +13,7 @@ import { OrderComponent } from './confirm/order/order.component';
 import { ProductMgComponent } from './product-mg/product-mg.component';
 import { ProductComponent } from './product-mg/product/product.component';
 import { AddOrderComponent } from './forms/add-order/add-order.component';
+import { ModifyOrderComponent } from './forms/modify-order/modify-order.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -27,6 +28,8 @@ const routes: Routes = [
   { path: 'procurement/all', component: ProcurementComponent },
   { path: 'procurement/add_new_order', component: AddOrderComponent },
   { path: 'procurement/add_new_order/:id', component: OrderComponent },
+  { path: 'procurement/modify_order', component: ModifyOrderComponent },
+  { path: 'procurement/modify_order/:id', component: OrderComponent },
   { path: 'product', component: ProductMgComponent },
   { path: 'product/all', component: ProductComponent }
 ];

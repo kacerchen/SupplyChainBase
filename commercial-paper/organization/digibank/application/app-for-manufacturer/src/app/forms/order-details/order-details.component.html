@@ -1,0 +1,129 @@
+<div class="row justify-content-center">
+  <div class="col-3">
+    <img src="../../../assets/contract.png" alt="id" style="text-align:center;" width="100%;">
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Order ID: {{orderId}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Client: {{client}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Contract Type: {{type}}
+  </div>
+</div>
+
+<div class="row titleFontStyl">
+  <div class="col">
+    Created At: {{time}}
+  </div>
+</div>
+
+<div style="margin-top: 5%;">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <i class="material-icons">widgets</i>
+           Product data
+        </mat-panel-title>
+        <mat-panel-description>
+          Indicate product information
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-divider></mat-divider>
+      <div *ngIf="productObj" style="margin-top: 3%;">
+        <p>Product ID: {{productObj.productID}}</p>
+        <p>Product Name: {{productObj.name}}</p>
+        <p>Price: {{productObj.price}}</p>
+        <p>Weight: {{productObj.weight}}</p>
+      </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <i class="material-icons">verified_user</i>
+            Assurance
+        </mat-panel-title>
+        <mat-panel-description>
+          Here describes some assurance
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-divider></mat-divider>
+      <div *ngIf="assuranceObj" style="margin-top: 3%;">
+        <p>Specs: {{assuranceObj.specs}}</p>
+        <p>Specified Operators: {{assuranceObj.qualifiedOperator}}</p>
+        <p>Specified Methods: {{assuranceObj.methods}}</p>
+        <p>Lead Time: {{assuranceObj.leadTime}}</p>
+      </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <i class="material-icons">payment</i>
+            Payment
+        </mat-panel-title>
+        <mat-panel-description>
+          Here describes payment info.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-divider></mat-divider>
+      <div *ngIf="paymentObj" style="margin-top: 3%;">
+        <p>Initial Payment: $ {{paymentObj.initPayment}}</p>
+        <p>Payment Method: {{paymentObj.payMethod}}</p>
+        <p>Total Amount: {{paymentObj.totalAmount}}</p>
+      </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <i class="material-icons">local_shipping</i>
+            Shipment
+        </mat-panel-title>
+        <mat-panel-description>
+          Here describes shipping info.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-divider></mat-divider>
+      <div *ngIf="shippingObj" style="margin-top: 3%;">
+        <p>Shipping Address: {{shippingObj.address}}</p>
+        <p>Dispatch Date: {{shippingObj.dispatchDate}}</p>
+        <p>Shipping Method: {{shippingObj.shipMethod}}</p>
+        <p>Trade Term: {{shippingObj.tradeTerm}}</p>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<!-- <mat-list>
+  <mat-divider></mat-divider>
+  <h3 mat-subheader>Below are components involved in production.</h3>
+  <mat-list-item *ngFor="let processline of all_history_of_process">
+    <mat-icon mat-list-icon style="color: #2C5364;">scatter_plot</mat-icon>
+    <h4 mat-line>{{processline.weight}}g {{processline.component}} in {{processline.containerID}} @{{processline.temperature}} &#8451;</h4>
+    <p mat-line> {{toFormatDate(processline.createdTime)}} </p>
+  </mat-list-item>
+</mat-list> -->
