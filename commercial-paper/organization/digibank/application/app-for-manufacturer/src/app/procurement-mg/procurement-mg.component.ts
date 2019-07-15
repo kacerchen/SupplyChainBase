@@ -211,8 +211,8 @@ export class ProcurementMgComponent implements OnInit {
       console.log(data);
       this.allOrders = data;
 
-      this.datasource_all = this.getDataSource(data);
-      this.datasource_pend = this.getDataSource(data);
+      this.datasource_all = this.filterOwner(this.getDataSource(data));
+      this.datasource_pend = this.filterOwner(this.getDataSource(data));
     })
   }
 
@@ -256,11 +256,20 @@ export class ProcurementMgComponent implements OnInit {
     }
 
     for(let j of tempArr){
-      // console.log(j['Record']);
       finalArr.push(j['Record']);      
     }
     return finalArr;
-    // console.log(_to);
+  }
+
+  filterOwner(arr: any): any[] {
+    let result = [];
+
+    for(let obj of arr){
+      if(obj['orderer'] == this.username) {
+        result.push(obj);
+      }
+    }
+    return result;
   }
 
 }

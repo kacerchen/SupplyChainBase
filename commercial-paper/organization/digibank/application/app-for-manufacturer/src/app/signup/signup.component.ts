@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
       console.log(data);
       // this.newUser = data;
       console.log(this.isExisted());
+      this.setUser(this.username, this.role);
     })
   }
 

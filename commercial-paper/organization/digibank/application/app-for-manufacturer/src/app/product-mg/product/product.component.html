@@ -20,12 +20,12 @@
       <mat-tab-group dynamicHeight>
         <mat-tab label="Search Product">
           <div>
-            <app-search-product-table [search]="datasource_search"></app-search-product-table>
+            <app-search-product-table [search]="datasource_search" [username]="username"></app-search-product-table>
           </div>
         </mat-tab>
         <mat-tab label="All Products">
           <div>
-            <app-all-products-table [all]="datasource_all"></app-all-products-table>
+            <app-all-products-table [all]="datasource_all" [username]="username"></app-all-products-table>
           </div>
         </mat-tab>
         <mat-tab label="Search Product History">

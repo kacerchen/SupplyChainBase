@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit {
     this.processlineApiService.queryAllProcesses(queryAll)
     .subscribe((data: any) => {
       console.log(data);
-      this.all_processes = this.getDataSource(data.processline);
+      this.all_processes = this.getDataSource(data.processline, 'process');
       console.log(this.all_processes);
       this.total_processes = this.all_processes.length.toString();
     })
@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit {
     this.productApiService.queryAllProducts(queryAll)
     .subscribe((data: any) => {
       console.log(data);
-      this.all_products = this.getDataSource(data.products);
+      this.all_products = this.getDataSource(data.products, 'product');
       this.total_products = this.all_products.length.toString();
     })
   }
@@ -117,12 +117,12 @@ export class DashboardComponent implements OnInit {
     this.orderApiService.queryAllOrders(queryAll)
     .subscribe((data: any) => {
       console.log(data);
-      this.all_orders = this.getDataSource(data.orders);
+      this.all_orders = this.getDataSource(data.orders, 'order');
       this.total_orders = this.all_orders.length.toString();
     })
   }
 
-  getDataSource(obj: any): any {
+  getDataSource(obj: any, type: string): any {
     let records = obj;
     let tempArr = [];
     let finalArr = [];
@@ -135,7 +135,15 @@ export class DashboardComponent implements OnInit {
 
     for(let j of tempArr){
       // console.log(j['Record']);
-      finalArr.push(j['Record']);      
+      if(type == 'product' && j['Record']['owner'] == this.username) {
+        finalArr.push(j['Record']);      
+      } else if(type == 'process') {
+        finalArr.push(j['Record']); 
+      } else if(type == 'order' && j['Record']['orderer'] == this.username) {
+        finalArr.push(j['Record']); 
+      } else if(type == 'order' && j['Record']['receiver'] == this.username) {
+        finalArr.push(j['Record']); 
+      }
     }
     return finalArr;
     // console.log(_to);

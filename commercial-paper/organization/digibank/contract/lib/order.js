@@ -66,7 +66,7 @@ class Order extends State {
         this.assuranceObj.specs = newSpecs;
         this.assuranceObj.qualifiedOperator = newQualifiedOperator;
         this.assuranceObj.methods = newMethods;
-        this.assuranceObj,leadTime = newLeadTime;
+        this.assuranceObj.leadTime = newLeadTime;
     }
 
     setShippingDetails(newAddress, newMethod, newTradeTerm, newTime) {

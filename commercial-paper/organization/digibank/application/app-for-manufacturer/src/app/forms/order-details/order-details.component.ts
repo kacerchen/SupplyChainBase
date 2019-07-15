@@ -63,7 +63,11 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   toFormatDate(time: any): string{
-    return formatDate(Number(time *1000), 'medium', 'en-US');
+    if(time.length == 10) {
+      return formatDate(Number(time *1000), 'medium', 'en-US');
+    } else if(time.length == 13) {
+      return formatDate(Number(time), 'medium', 'en-US');      
+    }
   }
 
 }

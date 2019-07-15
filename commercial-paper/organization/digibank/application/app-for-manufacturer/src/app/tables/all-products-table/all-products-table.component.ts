@@ -18,6 +18,7 @@ import { formatDate } from '@angular/common';
 export class AllProductsTableComponent implements OnInit {
 
   @Input() all: any;
+  @Input() username: any;
 
   columnsToDisplay: string[] = ['productID', 'name', 'supplier', 'owner', 'currentState', 'weight', 'type', 'from'];
   dataSource = new MatTableDataSource<Object>();
@@ -38,12 +39,23 @@ export class AllProductsTableComponent implements OnInit {
       console.log(this.all);
       // this.newData = this.searchProcesses;
       // console.log(this.newData);
-      this.dataSource.data = this.all;
+      this.dataSource.data = this.filterUser(this.all);
     }
   }
 
   toFormatDate(time: any): string{
     return formatDate(Number(time *1000), 'medium', 'en-US');
+  }
+
+  filterUser(datasource: any) {
+    let arr = [];
+
+    for(let obj of datasource) {
+      if(obj.owner == this.username) {
+        arr.push(obj);
+      }
+    }
+    return arr;
   }
 
 }

@@ -133,10 +133,10 @@ export class ProductMgComponent implements OnInit {
       console.log(data);
       this.allProducts = data;
 
-      this.datasource_all_products = this.getDataSource(data);
-      this.datasource_search = this.getDataSource(data);
-      this.datasource_history = this.getDataSource(data);
-      console.log(this.datasource_all_products);
+      this.datasource_all_products = this.filterOwner(this.getDataSource(data));
+      this.datasource_search = this.filterOwner(this.getDataSource(data));
+      this.datasource_history = this.filterOwner(this.getDataSource(data));
+      console.log(this.filterOwner(this.datasource_all_products));
     })
   }
 
@@ -180,11 +180,20 @@ export class ProductMgComponent implements OnInit {
     }
 
     for(let j of tempArr){
-      // console.log(j['Record']);
       finalArr.push(j['Record']);      
     }
     return finalArr;
-    // console.log(_to);
+  }
+
+  filterOwner(arr: any): any[] {
+    let result = [];
+
+    for(let obj of arr){
+      if(obj['owner'] == this.username) {
+        result.push(obj);
+      }
+    }
+    return result;
   }
 
 }

@@ -18,6 +18,7 @@ import { formatDate } from '@angular/common';
 export class SearchProductTableComponent implements OnInit {
 
   @Input() search: any;
+  @Input() username: string;
 
   columnsToDisplay: string[] = ['productID', 'name', 'supplier', 'owner', 'currentState', 'weight', 'type', 'update'];
   dataSource = new MatTableDataSource<Object>();
@@ -43,7 +44,7 @@ export class SearchProductTableComponent implements OnInit {
       console.log(this.search);
       // this.newData = this.searchProcesses;
       // console.log(this.newData);
-      this.dataSource.data = this.search;
+      this.dataSource.data = this.filterUser(this.search);
     }
   }
 
@@ -61,6 +62,17 @@ export class SearchProductTableComponent implements OnInit {
 
   setSelected(id: string) {
     this.selectedId = id;
+  }
+
+  filterUser(datasource: any) {
+    let arr = [];
+
+    for(let obj of datasource) {
+      if(obj.owner == this.username) {
+        arr.push(obj);
+      }
+    }
+    return arr;
   }
 
 }

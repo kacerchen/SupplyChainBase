@@ -64,12 +64,12 @@ export class ModifyOrderComponent implements OnInit {
   values = Object.values;
   shipOptions = ShipOptions;
   shipMethod: string;
+  address: string;
   street: string;
   city: string;
   state: string;
   country: string;
   zipcode: string;
-  address: string;
 
   tradeOptions = TradeOptions;
   tradeTerm: string;
@@ -122,10 +122,15 @@ export class ModifyOrderComponent implements OnInit {
       this.specs = data.orders.assuranceObj.specs;
       this.qualifiedOperator = data.orders.assuranceObj.qualifiedOperator;
       this.methods = data.orders.assuranceObj.methods;
-      // this.leadTime = data.orders.assuranceObj.leadTime;
+      this.leadTime = new FormControl(new Date(data.orders.assuranceObj.leadTime));
 
       this.address = data.orders.shippingObj.address;
-      // this.dispatchDate = data.orders.shippingObj.dispatchDate;
+      this.street = this.address.split(", ")[0];
+      this.city = this.address.split(", ")[1];
+      this.state = this.address.split(", ")[2];
+      this.country = this.address.split(", ")[3];
+      this.zipcode = this.address.split(", ")[4];
+      this.dispatchDate = new FormControl(new Date(data.orders.shippingObj.dispatchDate));
       this.shipMethod = data.orders.shippingObj.shipMethod;
       this.tradeTerm = data.orders.shippingObj.tradeTerm;
 
@@ -134,6 +139,7 @@ export class ModifyOrderComponent implements OnInit {
       this.totalAmount = data.orders.paymentObj.totalAmount;
 
       this.receiver = data.orders.receiver;
+      this.orderer = data.orders.orderer;
     })
   }
 
@@ -142,8 +148,10 @@ export class ModifyOrderComponent implements OnInit {
     this.address = this.street + ', ' + this.city + ', ' + this.state + ', ' + this.country + ' ' + this.zipcode;
     if(this.username == this.orderer) {
       this.newState = '5';
+      console.log("New state is " + this.newState);
     } else if(this.username == this.receiver) {
       this.newState = '4';
+      console.log("New state is " + this.newState);
     }
 
     let data = {
@@ -158,11 +166,11 @@ export class ModifyOrderComponent implements OnInit {
       specs: this.specs,
       qualifiedOperator: this.qualifiedOperator,
       methods: this.methods,
-      leadTime: this.leadTime.value,
+      leadTime: this.leadTime.value.toString(),
       address: this.address,
       shipMethod: this.shipMethod,
       tradeTerm: this.tradeTerm,
-      dispatchDate: this.dispatchDate.value,
+      dispatchDate: this.dispatchDate.value.toString(),
       totalAmount: this.totalAmount.toString(),
       initPayment: this.initPayment.toString(),
       payMethod: this.payMethod,
@@ -171,6 +179,8 @@ export class ModifyOrderComponent implements OnInit {
       modifier: this.username,
       newState: this.newState
     }
+
+    console.log(typeof(data.leadTime.toString()));
 
     // that contains our global query params and fragment
     let navigationExtras: NavigationExtras = {

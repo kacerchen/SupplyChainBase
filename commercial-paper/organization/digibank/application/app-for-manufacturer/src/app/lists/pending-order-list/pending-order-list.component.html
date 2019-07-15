@@ -11,8 +11,8 @@
 
       <mat-card-content style="margin-top: 3%;">
         <mat-list>
-          <h3 mat-subheader>Below are orders pending for your confirmation.</h3>
-          <mat-list-item *ngFor="let order of all_orders">
+          <h3 mat-subheader>Below are orders pending for orderer's confirmation.</h3>
+          <mat-list-item *ngFor="let order of pendingCreator">
             <mat-icon mat-list-icon style="color: #2C5364;">more</mat-icon>
             <h4 mat-line> Order.{{order.orderID}}, created by {{order.orderer}}</h4>
             <p mat-line> {{toFormatDate(order.createdTime)}} </p>
@@ -24,14 +24,15 @@
             </div>
           </mat-list-item>
           <mat-divider></mat-divider>
-          <h3 mat-subheader>Below are orders pending for your customer's confirmation.</h3>
-          <mat-list-item *ngFor="let order of all_orders">
+          <h3 mat-subheader>Below are orders pending for receiver's confirmation.</h3>
+          <mat-list-item *ngFor="let order of pendingReceier">
             <mat-icon mat-list-icon style="color: #2C5364;">more</mat-icon>
             <h4 mat-line> Order.{{order.orderID}}</h4>
             <p mat-line> {{toFormatDate(order.createdTime)}} </p>
             <div>
               <span mat-line> 
                 <button mat-button class="btnAdd" data-toggle="modal" data-target="#viewModal3" (click)="setSelectedOrder(order)"> View </button>
+                <button mat-button class="btnAdd" style="margin: 0% 5% 0% 1%;" [routerLink]="['/procurement/modify_order']" [queryParams]="{orderID:order.orderID}" queryParamsHandling="merge"> Update </button>
               </span>
             </div>
           </mat-list-item>

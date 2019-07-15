@@ -98,7 +98,7 @@ export class AddOrderComponent implements OnInit {
 
   initOrder(): any {
     this.createdTime = new Date().getTime().toString();
-    this.address = this.street + ', ' + this.city + ', ' + this.state + ', ' + this.country + ' ' + this.zipcode;
+    this.address = this.street + ', ' + this.city + ', ' + this.state + ', ' + this.country + ', ' + this.zipcode;
 
     let data = {
       username: this.username,

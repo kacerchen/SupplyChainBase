@@ -32,6 +32,7 @@ export class PendingOrderListComponent implements OnInit {
   filterFinal(arr: any): any {
     let tempArr = [];
     let tempArr2 = [];
+    console.log(arr);
 
     for(let obj of arr) {
       if(obj['currentState'] == '4'){
@@ -41,7 +42,8 @@ export class PendingOrderListComponent implements OnInit {
       }
     }
 
-    // console.log(tempArr);
+    console.log(tempArr);
+    console.log(tempArr2);
 
     return [tempArr, tempArr2];
   }
@@ -51,7 +53,11 @@ export class PendingOrderListComponent implements OnInit {
   }
 
   toFormatDate(time: any): string{
-    return formatDate(Number(time *1000), 'medium', 'en-US');
+    if(time.length == 10) {
+      return formatDate(Number(time *1000), 'medium', 'en-US');
+    } else if(time.length == 13) {
+      return formatDate(Number(time), 'medium', 'en-US');      
+    }
   }
 
 }
